@@ -93,6 +93,8 @@ export default function TreemapChart({ tree, isScanning, onNavigate }) {
     if (looseSize > 0) {
       items.push({ name: '📄 Files', size: looseSize })
     }
+    // Sort descending by size — produces a much more balanced treemap layout
+    items.sort((a, b) => b.size - a.size)
     return items
   }, [tree])
 

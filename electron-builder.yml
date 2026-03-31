@@ -1,10 +1,15 @@
 appId: com.diskscanner.app
-productName: Disk Scanner
+productName: Check Space
 directories:
   buildResources: resources
   output: build
 win:
-  target: nsis
+  target:
+    - nsis
+    - portable
 nsis:
   oneClick: true
   perMachine: false
+  shortcutName: Check Space
+portable:
+  artifactName: "CheckSpace-Portable.exe"

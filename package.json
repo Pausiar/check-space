@@ -7,7 +7,7 @@
     "dev": "electron-vite dev",
     "build": "electron-vite build",
     "preview": "electron-vite preview",
-    "package": "electron-vite build && electron-builder --win --config"
+    "package": "electron-vite build && electron-builder --win --config -c.win.signAndEditExecutable=false"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",
