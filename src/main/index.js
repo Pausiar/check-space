@@ -63,10 +63,11 @@ class DiskScanner {
     this.cancelled = true
   }
 
-  async scan() {
+  async scan(onBeforeDuplicates) {
     await this._scanDir(this.rootPath, this.tree, 0)
     if (!this.cancelled && this.onComplete) {
-      // Find duplicates: groups of files with same size, then verify by partial hash
+      // Notify that main scan is done, now detecting duplicates
+      if (onBeforeDuplicates) onBeforeDuplicates()
       const duplicates = await this._findDuplicates()
       this.onComplete(this.tree, { ...this.stats }, {
         largestFiles: this.largestFiles.sort((a, b) => b.size - a.size).slice(0, 50),
@@ -101,9 +102,14 @@ class DiskScanner {
 
   async _findDuplicates() {
     const duplicates = []
-    for (const [, files] of this.fileHashes) {
+    // Sort groups by file size descending so we check largest potential duplicates first
+    const groups = [...this.fileHashes.values()]
+      .filter(files => files.length >= 2)
+      .sort((a, b) => b[0].size - a[0].size)
+      .slice(0, 200) // cap to avoid long post-scan freeze
+
+    for (const files of groups) {
       if (this.cancelled) break
-      if (files.length < 2) continue
       // Group by partial hash (first 4KB)
       const hashGroups = new Map()
       for (const file of files) {
@@ -189,8 +195,8 @@ class DiskScanner {
             }
           }
 
-          // Track potential duplicates (by size, only for files > 1KB)
-          if (size > 1024) {
+          // Track potential duplicates (by size, only for files > 10KB)
+          if (size > 10240) {
             const sizeKey = size.toString()
             if (!this.fileHashes.has(sizeKey)) this.fileHashes.set(sizeKey, [])
             const group = this.fileHashes.get(sizeKey)
@@ -387,7 +393,14 @@ ipcMain.handle('scan:start', async (_event, drivePath) => {
   }
 
   try {
-    await activeScanner.scan()
+    await activeScanner.scan(() => {
+      // notify renderer that directory scan is done, now detecting duplicates
+      mainWindow?.webContents.send('scan:progress', {
+        tree: activeScanner._getTreeSnapshot(activeScanner.tree, 2),
+        stats: { ...activeScanner.stats },
+        progress: 0.99
+      })
+    })
   } catch (err) {
     mainWindow?.webContents.send('scan:error', { message: err.message })
     activeScanner = null

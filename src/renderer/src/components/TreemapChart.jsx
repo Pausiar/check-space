@@ -7,7 +7,7 @@ import { COLORS } from '../utils/colors'
 function CustomCell(props) {
   const {
     x, y, width, height, depth, index, name,
-    folderNames, onCellClick, onCellHover, onCellContext
+    folderNames, onCellHover, onCellContext
   } = props
 
   if (!name || width < 2 || height < 2) return null
@@ -42,9 +42,6 @@ function CustomCell(props) {
         onMouseLeave={(e) => {
           e.target.setAttribute('fill-opacity', '0.85')
           if (onCellHover) onCellHover(null)
-        }}
-        onClick={() => {
-          if (name && onCellClick) onCellClick(name)
         }}
         onContextMenu={(e) => {
           e.preventDefault()
@@ -200,12 +197,14 @@ export default function TreemapChart({ tree, isScanning, onNavigate }) {
           dataKey="size"
           stroke="none"
           isAnimationActive={false}
+          onClick={(nodeData) => {
+            if (nodeData && nodeData.name) handleCellClick(nodeData.name)
+          }}
           content={
             <CustomCell
               folderNames={folderNames}
               onCellHover={handleHover}
               onCellContext={handleContext}
-              onCellClick={handleCellClick}
             />
           }
         />
