@@ -1,0 +1,10 @@
+appId: com.diskscanner.app
+productName: Disk Scanner
+directories:
+  buildResources: resources
+  output: build
+win:
+  target: nsis
+nsis:
+  oneClick: true
+  perMachine: false
