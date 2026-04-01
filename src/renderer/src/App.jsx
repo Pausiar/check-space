@@ -63,6 +63,7 @@ export default function App() {
 
   return (
     <>
+      <div className="theme-toggle-float">{themeToggle}</div>
       <ScanView
         drive={selectedDrive}
         status={status}
@@ -74,7 +75,6 @@ export default function App() {
         onCancel={cancelScan}
         onRescan={handleRescan}
         onBack={handleBack}
-        themeToggle={themeToggle}
       />
     </>
   )
