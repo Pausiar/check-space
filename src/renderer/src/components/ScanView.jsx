@@ -17,7 +17,7 @@ const TABS = [
   { id: 'duplicates', label: 'Duplicates', icon: Copy }
 ]
 
-export default function ScanView({ drive, status, tree, stats, extras, progress, onCancel, onRescan, onBack }) {
+export default function ScanView({ drive, status, tree, stats, extras, progress, onCancel, onRescan, onBack, themeToggle }) {
   const [navPath, setNavPath] = useState([])
   const [activeTab, setActiveTab] = useState('treemap')
 
@@ -100,6 +100,7 @@ export default function ScanView({ drive, status, tree, stats, extras, progress,
               Rescan
             </button>
           )}
+          {themeToggle}
         </div>
       </div>
 
