@@ -62,20 +62,18 @@ export default function App() {
   }
 
   return (
-    <>
-      <div className="theme-toggle-float">{themeToggle}</div>
-      <ScanView
-        drive={selectedDrive}
-        status={status}
-        tree={tree}
-        stats={stats}
-        extras={extras}
-        progress={progress}
-        error={error}
-        onCancel={cancelScan}
-        onRescan={handleRescan}
-        onBack={handleBack}
-      />
-    </>
+    <ScanView
+      drive={selectedDrive}
+      status={status}
+      tree={tree}
+      stats={stats}
+      extras={extras}
+      progress={progress}
+      error={error}
+      onCancel={cancelScan}
+      onRescan={handleRescan}
+      onBack={handleBack}
+      themeToggle={themeToggle}
+    />
   )
 }
