@@ -1,0 +1,57 @@
+export default {
+  // Cuadro de confirmación de borrado
+  confirmTitle_one: 'Eliminar {count} elemento',
+  confirmTitle_other: 'Eliminar {count} elementos',
+  totalSize: 'Tamaño total: {size}',
+  andMore_one: 'y {count} elemento más',
+  andMore_other: 'y {count} elementos más',
+  chooseMethod: 'Cómo quieres eliminarlo',
+  optTrash: 'Mover a la papelera',
+  optTrashHint: 'Se puede recuperar desde la papelera de reciclaje.',
+  optPermanent: 'Eliminar permanentemente',
+  optPermanentHint: 'Se borra del disco sin pasar por la papelera.',
+  trashNote: 'Mover a la papelera no libera espacio en el disco hasta que la vacíes.',
+  permanentWarning: 'Esta acción no se puede deshacer. Los archivos se borrarán definitivamente y no podrás recuperarlos.',
+  permanentWarningFolders: 'Las carpetas se borrarán con todo su contenido.',
+  confirmTrash: 'Mover a la papelera',
+  confirmPermanent: 'Eliminar permanentemente',
+  working: 'Eliminando…',
+  cancel: 'Cancelar',
+
+  // Menú contextual
+  copyPath: 'Copiar ruta',
+  trashSelected_one: 'Mover a la papelera ({count} elemento)',
+  trashSelected_other: 'Mover a la papelera ({count} elementos)',
+  deleteSelected_one: 'Eliminar permanentemente ({count} elemento)',
+  deleteSelected_other: 'Eliminar permanentemente ({count} elementos)',
+
+  // Barra de selección
+  selectedCount_one: '{count} seleccionado',
+  selectedCount_other: '{count} seleccionados',
+  clearSelection: 'Quitar selección',
+  trashHint: 'Supr',
+  deleteHint: 'Mayús+Supr',
+
+  // Avisos
+  toastDeleted_one: '{count} elemento eliminado, {size} liberados',
+  toastDeleted_other: '{count} elementos eliminados, {size} liberados',
+  toastTrashed_one: '{count} elemento movido a la papelera ({size}). El espacio se liberará al vaciarla.',
+  toastTrashed_other: '{count} elementos movidos a la papelera ({size}). El espacio se liberará al vaciarla.',
+  toastPartial: 'Se han procesado {ok} de {total} elementos',
+  toastFailed_one: 'No se ha podido eliminar el elemento',
+  toastFailed_other: 'No se han podido eliminar los elementos',
+  failedItem: '{name}: {reason}',
+  failedMore_one: 'y {count} error más',
+  failedMore_other: 'y {count} errores más',
+  errProtected: 'ubicación crítica del sistema, está protegida',
+  errNotInScan: 'ya no figura en el análisis; vuelve a analizar',
+  errBusy: 'está en uso por otro programa',
+  errPerm: 'sin permisos suficientes (prueba a ejecutar como administrador)',
+  errNotFound: 'ya no existe',
+  errOther: 'error: {error}',
+  errGeneric: 'No se ha podido completar la operación: {error}',
+  copied: 'Ruta copiada al portapapeles',
+  copyFailed: 'No se ha podido copiar la ruta',
+  openFailed: 'No se ha podido abrir esa ubicación',
+  dismiss: 'Cerrar aviso'
+}

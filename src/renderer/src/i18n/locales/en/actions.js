@@ -1,0 +1,57 @@
+export default {
+  // Delete confirmation dialog
+  confirmTitle_one: 'Delete {count} item',
+  confirmTitle_other: 'Delete {count} items',
+  totalSize: 'Total size: {size}',
+  andMore_one: 'and {count} more item',
+  andMore_other: 'and {count} more items',
+  chooseMethod: 'How do you want to delete it',
+  optTrash: 'Move to Recycle Bin',
+  optTrashHint: 'You can restore it from the Recycle Bin.',
+  optPermanent: 'Delete permanently',
+  optPermanentHint: 'Removed from the disk without going through the Recycle Bin.',
+  trashNote: 'Moving to the Recycle Bin does not free disk space until you empty it.',
+  permanentWarning: 'This cannot be undone. The files will be deleted for good and you will not be able to recover them.',
+  permanentWarningFolders: 'Folders will be deleted together with all their contents.',
+  confirmTrash: 'Move to Recycle Bin',
+  confirmPermanent: 'Delete permanently',
+  working: 'Deleting…',
+  cancel: 'Cancel',
+
+  // Context menu
+  copyPath: 'Copy path',
+  trashSelected_one: 'Move to Recycle Bin ({count} item)',
+  trashSelected_other: 'Move to Recycle Bin ({count} items)',
+  deleteSelected_one: 'Delete permanently ({count} item)',
+  deleteSelected_other: 'Delete permanently ({count} items)',
+
+  // Selection bar
+  selectedCount_one: '{count} selected',
+  selectedCount_other: '{count} selected',
+  clearSelection: 'Clear selection',
+  trashHint: 'Del',
+  deleteHint: 'Shift+Del',
+
+  // Toasts
+  toastDeleted_one: '{count} item deleted, {size} freed',
+  toastDeleted_other: '{count} items deleted, {size} freed',
+  toastTrashed_one: '{count} item moved to the Recycle Bin ({size}). Space is freed once you empty it.',
+  toastTrashed_other: '{count} items moved to the Recycle Bin ({size}). Space is freed once you empty it.',
+  toastPartial: '{ok} of {total} items processed',
+  toastFailed_one: 'The item could not be deleted',
+  toastFailed_other: 'The items could not be deleted',
+  failedItem: '{name}: {reason}',
+  failedMore_one: 'and {count} more error',
+  failedMore_other: 'and {count} more errors',
+  errProtected: 'critical system location, it is protected',
+  errNotInScan: 'no longer in the scan; scan again',
+  errBusy: 'in use by another program',
+  errPerm: 'not enough permissions (try running as administrator)',
+  errNotFound: 'no longer exists',
+  errOther: 'error: {error}',
+  errGeneric: 'The operation could not be completed: {error}',
+  copied: 'Path copied to the clipboard',
+  copyFailed: 'The path could not be copied',
+  openFailed: 'That location could not be opened',
+  dismiss: 'Dismiss'
+}
