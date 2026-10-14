@@ -22,8 +22,12 @@ export function isReal(entry) {
  * their own size (e.g. the live view, which has no files) get a "filler" leaf with
  * the remainder so areas stay proportional.
  */
+// Leaves smaller than total/N are merged (keeps layout and rendering cheap)
+const MIN_FRACTION_DIVISOR = 8000
+
 export function buildHierarchy(view, metric, maxDepth = Infinity) {
   if (!view) return null
+  const minValue = entryValue(view, metric) / MIN_FRACTION_DIVISOR
   const prep = (entry, depth) => {
     const v = entryValue(entry, metric)
     if (entry.type !== 'dir' || !entry.children || entry.children.length === 0 || depth >= maxDepth) {
@@ -31,12 +35,30 @@ export function buildHierarchy(view, metric, maxDepth = Infinity) {
     }
     const children = []
     let sum = 0
+    let other = null
     for (const c of entry.children) {
+      // Entries too small to ever be visible are merged into this folder's "other" entry
+      const cv = entryValue(c, metric)
+      if ((cv < minValue && depth > 0) || c.type === 'other') {
+        if (cv <= 0) continue
+        if (!other) {
+          other = { entry: { type: 'other', path: entry.path + '\u0000other', count: 0, size: 0, alloc: 0 }, v: 0 }
+        }
+        other.entry.count += c.type === 'other' ? c.count : 1
+        other.entry.size += c.size || 0
+        other.entry.alloc += c.alloc || 0
+        other.v += cv
+        continue
+      }
       const n = prep(c, depth + 1)
       if (n.v > 0 || n.children) {
         children.push(n)
         sum += n.v
       }
+    }
+    if (other) {
+      children.push(other)
+      sum += other.v
     }
     const rest = v - sum
     if (rest > v * 0.001 && rest > 0) {

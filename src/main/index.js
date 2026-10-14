@@ -1,7 +1,7 @@
 // More libuv threads: the scanner keeps many lstat/readdir calls in flight.
 process.env.UV_THREADPOOL_SIZE = process.env.UV_THREADPOOL_SIZE || '16'
 
-import { app, BrowserWindow, ipcMain, shell, dialog, nativeTheme } from 'electron'
+import { app, BrowserWindow, ipcMain, shell, dialog, nativeTheme, Menu } from 'electron'
 import { join } from 'path'
 import path from 'path'
 import fs from 'fs'
@@ -538,6 +538,8 @@ handle('app:relaunchAsAdmin', async () => {
 })
 
 app.whenReady().then(() => {
+  // No application menu: its accelerators (Ctrl+R reload...) would steal the app's shortcuts
+  Menu.setApplicationMenu(null)
   initCache(app.getPath('userData'))
   createWindow()
 })

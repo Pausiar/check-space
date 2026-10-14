@@ -44,7 +44,7 @@ export default function ConfirmDialog({
     const onKey = (e) => {
       if (e.key === 'Escape') {
         e.preventDefault()
-        e.stopPropagation()
+        e.stopImmediatePropagation()
         if (!busyRef.current) handlers.current.onCancel()
       }
     }

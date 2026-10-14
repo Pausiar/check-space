@@ -29,7 +29,7 @@ export default function ContextMenu({ x, y, items, onClose }) {
     const onKey = (e) => {
       if (e.key === 'Escape') {
         e.preventDefault()
-        e.stopPropagation()
+        e.stopImmediatePropagation()
         onClose()
       }
     }
