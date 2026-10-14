@@ -1,0 +1,215 @@
+/* Shared styles for LargestFiles, OldFiles and FileTypes.
+   Generic rows, badges and the header badge come from App.css. */
+
+.file-list-panel {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.file-list-panel .file-list-header .header-badge {
+  text-align: right;
+}
+
+.file-list-panel .file-list-header .panel-empty,
+.file-list-panel > .panel-empty {
+  padding: 32px 20px;
+}
+
+/* Rows are selectable: no text selection on click, selected state */
+.file-row-item {
+  cursor: default;
+  user-select: none;
+}
+
+.file-row-item.selected,
+.file-list-panel .file-row-item.selected {
+  background: var(--accent-light);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.file-row-item.selected:hover,
+.file-list-panel .file-row-item.selected:hover {
+  background: var(--accent-light);
+}
+
+.file-name-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.file-name-line .file-name {
+  min-width: 0;
+  flex: 0 1 auto;
+}
+
+.file-row-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 10px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.file-row-item .file-age {
+  text-align: right;
+}
+
+/* ---------- File types ---------- */
+
+.file-type-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 10px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.file-type-category {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+  min-width: 0;
+}
+
+.file-type-category-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  min-width: 0;
+}
+
+.file-type-category-head > span:nth-child(2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.file-type-category-pct {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-tertiary);
+}
+
+.file-type-category-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.file-type-category .file-type-bar-track {
+  flex: none;
+  height: 6px;
+}
+
+.file-types-panel .file-types-legend {
+  align-items: center;
+}
+
+.file-types-panel .file-type-legend-item {
+  font-variant-numeric: tabular-nums;
+}
+
+.file-types-table .file-type-head,
+.file-types-table .file-type-row {
+  display: grid;
+  grid-template-columns: 4px minmax(90px, 1.2fr) minmax(90px, 1fr) 90px minmax(80px, 2fr) 56px 100px;
+  gap: 12px;
+  align-items: center;
+}
+
+.file-types-table .file-type-head {
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.file-types-table .file-type-row {
+  padding: 9px 20px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
+}
+
+.file-types-table .file-type-row:last-child {
+  border-bottom: none;
+}
+
+.file-types-table .file-type-row:hover {
+  background: var(--bg-hover);
+}
+
+.file-types-table .file-type-head > *,
+.file-types-table .file-type-row > * {
+  min-width: 0;
+}
+
+.file-types-table .file-type-row .file-type-indicator {
+  height: 20px;
+}
+
+/* Cells shared by the header and the rows */
+.file-type-ext {
+  font-size: 13px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-type-cat,
+.file-type-count,
+.file-type-share {
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.file-type-count,
+.file-type-share {
+  text-align: right;
+}
+
+.file-types-table .file-type-row .file-type-bar-cell .file-type-bar-track {
+  flex: none;
+  height: 10px;
+}
+
+.file-types-table .file-type-row .file-size {
+  min-width: 0;
+}
+
+@media (max-width: 760px) {
+  .file-types-table .file-type-head,
+  .file-types-table .file-type-row {
+    grid-template-columns: 4px minmax(0, 1fr) 100px;
+  }
+
+  .file-types-table .file-type-cat,
+  .file-types-table .file-type-count,
+  .file-types-table .file-type-share,
+  .file-types-table .file-type-bar-cell {
+    display: none;
+  }
+}

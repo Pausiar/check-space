@@ -1,0 +1,224 @@
+.dupes {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dupes-intro-body {
+  padding: 16px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dupes-intro-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.dupes-intro-body p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  max-width: 78ch;
+}
+
+.dupes-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.dupes-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.dupes-field select {
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 13px;
+}
+
+.dupes-field select option {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.dupes-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dupes-progress-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.dupes-progress-bar {
+  position: relative;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--bg-secondary);
+  overflow: hidden;
+}
+
+.dupes-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+  transition: width 0.2s ease;
+}
+
+.dupes-progress-indeterminate {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 35%;
+  background: var(--accent);
+  border-radius: 3px;
+  animation: dupes-slide 1.2s ease-in-out infinite;
+}
+
+@keyframes dupes-slide {
+  0% { left: -35%; }
+  100% { left: 100%; }
+}
+
+.dupes-notice {
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+.dupes-notice.danger {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.dupes-stale {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--warning-bg);
+  font-size: 13px;
+}
+
+.dupes-stale span {
+  flex: 1;
+}
+
+.dupes-stale .btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dupes-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.dupes-summary-text {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-size: 14px;
+}
+
+.dupes-wasted {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.dupes-summary-min {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.dupes-truncated {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.dupes-empty-hint {
+  margin-top: 6px;
+  font-size: 12px;
+}
+
+.dupes-group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 12px 20px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.dupes-group-title {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+
+.dupes-group-head .btn-link {
+  font-size: 12px;
+}
+
+.dupes-file {
+  padding-left: 20px;
+}
+
+.dupes-file.selected {
+  background: var(--accent-light);
+}
+
+.dupes-file input[type='checkbox'] {
+  accent-color: var(--accent);
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.dupes-file .file-actions:focus-within {
+  opacity: 1;
+}
+
+.dupes-badge {
+  margin-left: 8px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--accent-light);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.dupes-file.selected .dupes-badge {
+  background: var(--bg-primary);
+}
