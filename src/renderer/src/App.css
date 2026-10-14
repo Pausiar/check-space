@@ -16,6 +16,7 @@
   --border: #E5E4DF;
   --danger: #EF4444;
   --danger-bg: #FEF2F2;
+  --warning-bg: #FEF6E4;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
@@ -26,6 +27,7 @@
 }
 
 [data-theme="dark"] {
+  color-scheme: dark;
   --bg-primary: #1E1E1E;
   --bg-secondary: #2A2A2A;
   --bg-hover: #333333;
@@ -38,6 +40,7 @@
   --border: #333333;
   --danger: #F87171;
   --danger-bg: #2D1A1A;
+  --warning-bg: #33290F;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
@@ -64,29 +67,260 @@ body {
 }
 
 /* ============================================
-   Title bar drag region
+   App shell + title bar
    ============================================ */
-.drive-selector,
-.scan-view {
-  padding-top: 40px;
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The ONLY draggable region of the window. Keep the right side clear of the
+   native window buttons drawn by titleBarOverlay (~140px). */
+.titlebar {
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 148px 0 16px;
+  background: var(--bg-app);
+  color: var(--text-secondary);
+  font-size: 12px;
+  user-select: none;
+  -webkit-app-region: drag;
+}
+
+.titlebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.titlebar-brand svg {
+  color: var(--accent);
+}
+
+.titlebar-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  -webkit-app-region: no-drag;
+}
+
+.titlebar-controls * {
+  -webkit-app-region: no-drag;
+}
+
+.lang-select {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+  height: 28px;
+  border-radius: var(--radius-xs);
+  color: var(--text-secondary);
+}
+
+.lang-select:hover {
+  background: var(--bg-hover);
+}
+
+.lang-select select {
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  outline: none;
+}
+
+.lang-select select option {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.theme-switch {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+}
+
+.theme-switch-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 24px;
+  border: none;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.theme-switch-btn:hover {
+  color: var(--text-primary);
+}
+
+.theme-switch-btn.active {
+  background: var(--bg-primary);
+  color: var(--accent);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ============================================
-   Theme Toggle
+   Shared controls
    ============================================ */
-.theme-toggle-float {
-  position: fixed;
-  top: 44px;
-  right: 16px;
-  z-index: 100;
-  -webkit-app-region: no-drag;
+.segmented {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+}
+
+.segmented button {
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.segmented button:hover {
+  color: var(--text-primary);
+}
+
+.segmented button.active {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-link {
+  border: none;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.btn-danger-solid {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid var(--danger);
+  background: var(--danger);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-danger-solid:hover {
+  filter: brightness(1.08);
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 24px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+}
+
+.banner > span {
+  flex: 1;
+}
+
+.banner-info {
+  background: var(--accent-light);
+  color: var(--text-primary);
+}
+
+.banner-warning {
+  background: var(--warning-bg);
+  color: var(--text-primary);
+}
+
+.banner-danger {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.fatal-error {
+  padding: 40px;
+  font-family: monospace;
+  color: var(--danger);
+  overflow: auto;
+}
+
+.fatal-error pre {
+  white-space: pre-wrap;
+  font-size: 13px;
+  margin: 16px 0;
 }
 
 /* ============================================
    Drive Selector Screen
    ============================================ */
 .drive-selector {
-  height: 100vh;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -94,7 +328,6 @@ body {
   gap: 48px;
   padding-left: 48px;
   padding-right: 48px;
-  -webkit-app-region: drag;
 }
 
 .drive-selector-header {
@@ -132,7 +365,6 @@ body {
   gap: 16px;
   flex-wrap: wrap;
   justify-content: center;
-  -webkit-app-region: no-drag;
 }
 
 .drive-card {
@@ -210,7 +442,8 @@ body {
    Scan View
    ============================================ */
 .scan-view {
-  height: 100vh;
+  flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -223,16 +456,10 @@ body {
   padding: 12px 24px;
   border-bottom: 1px solid var(--border);
   background: var(--bg-primary);
-  -webkit-app-region: drag;
-}
-
-.scan-header > * {
-  -webkit-app-region: no-drag;
 }
 
 .scan-header-title {
   flex: 1;
-  -webkit-app-region: drag;
 }
 
 .scan-header-title h2 {

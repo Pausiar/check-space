@@ -1,289 +1,360 @@
-const { app, BrowserWindow, ipcMain, shell } = require('electron')
-const { join } = require('path')
-const { execSync } = require('child_process')
-const fs = require('fs')
-const path = require('path')
-const crypto = require('crypto')
+// More libuv threads: the scanner keeps many lstat/readdir calls in flight.
+process.env.UV_THREADPOOL_SIZE = process.env.UV_THREADPOOL_SIZE || '16'
+
+import { app, BrowserWindow, ipcMain, shell, dialog, nativeTheme } from 'electron'
+import { join } from 'path'
+import path from 'path'
+import fs from 'fs'
+import { Scanner } from './scanner'
+import { buildView, lookup, removeDir, removeFile, replaceContents, summarize, search } from './tree'
+import { getDrives, diskUsage, isDriveRoot, isAdmin, relaunchAsAdmin, emptyRecycleBin } from './platform'
+import { initCache, saveCache, loadCache, hasCache } from './cache'
+import { findDuplicates } from './duplicates'
+import { getSuggestions, findSuggestion } from './cleanup'
+import { writeCsv, writeJson } from './report'
+
+let mainWindow = null
 
 // ============================================
-// Drive Detection
+// Current scan state (single active root)
 // ============================================
 
-function getDrives() {
-  const cmd = `powershell -NoProfile -Command "Get-CimInstance Win32_LogicalDisk | Where-Object { $_.DriveType -eq 3 } | Select-Object DeviceID, VolumeName, Size, FreeSpace, FileSystem | ConvertTo-Json"`
-  const output = execSync(cmd, { encoding: 'utf8' })
-  const disks = JSON.parse(output)
-  const diskArray = Array.isArray(disks) ? disks : [disks]
+const state = {
+  scanId: 0,
+  scanner: null,
+  root: null,
+  meta: null, // see makeMeta()
+  version: 0, // bumped on every mutation of the tree
+  summaryCache: null,
+  dupes: null // { ctl }
+}
 
-  return diskArray.map(disk => ({
-    letter: disk.DeviceID.replace(':', ''),
-    path: disk.DeviceID + '\\',
-    label: disk.VolumeName || '',
-    totalSize: disk.Size,
-    freeSpace: disk.FreeSpace,
-    usedSpace: disk.Size - disk.FreeSpace,
-    fileSystem: disk.FileSystem
-  }))
+function send(channel, payload) {
+  if (mainWindow && !mainWindow.isDestroyed()) mainWindow.webContents.send(channel, payload)
+}
+
+function makeMeta(root, extra) {
+  const drive = extra.drive || null
+  let unaccounted = 0
+  if (extra.isDrive && drive && extra.complete) {
+    // Space used on the volume that no readable file explains: NTFS metadata,
+    // shadow copies, protected folders...
+    unaccounted = Math.max(0, drive.used - root.alloc)
+  }
+  return {
+    rootPath: root.path,
+    rootName: root.name,
+    isDrive: extra.isDrive,
+    complete: extra.complete,
+    cancelled: !!extra.cancelled,
+    fromCache: !!extra.fromCache,
+    savedAt: extra.savedAt || Date.now(),
+    drive,
+    unaccounted,
+    stats: {
+      files: root.fileCount,
+      dirs: root.dirCount,
+      size: root.size,
+      alloc: root.alloc,
+      links: extra.links || 0,
+      locked: extra.locked || 0
+    },
+    version: state.version
+  }
+}
+
+function refreshMeta() {
+  if (!state.root || !state.meta) return null
+  state.version++
+  state.summaryCache = null
+  state.meta = makeMeta(state.root, { ...state.meta, links: state.meta.stats.links, locked: state.meta.stats.locked })
+  return state.meta
+}
+
+function systemEntry(meta) {
+  if (!meta || meta.unaccounted <= 0) return null
+  return {
+    type: 'system',
+    name: '',
+    path: meta.rootPath + '\u0000system',
+    size: meta.unaccounted,
+    alloc: meta.unaccounted
+  }
+}
+
+let cacheSaveTimer = null
+function scheduleCacheSave() {
+  if (!state.root || !state.meta?.complete) return
+  clearTimeout(cacheSaveTimer)
+  const root = state.root
+  cacheSaveTimer = setTimeout(() => {
+    if (state.root === root) saveCache(root, state.meta).catch(() => {})
+  }, 1500)
 }
 
 // ============================================
-// Disk Scanner
+// Scanning
 // ============================================
 
-class DiskScanner {
-  constructor(rootPath, options = {}) {
-    this.rootPath = rootPath
-    this.maxDepth = options.maxDepth ?? 8
-    this.cancelled = false
-    this.stats = {
-      foldersScanned: 0,
-      filesFound: 0,
-      totalSize: 0,
-      currentFolder: ''
+async function startScan(rootPath) {
+  if (state.scanner) state.scanner.cancel()
+  cancelDuplicates()
+
+  const scanId = ++state.scanId
+  const resolved = path.resolve(rootPath)
+  const isDrive = isDriveRoot(resolved)
+
+  let drive = null
+  try {
+    const usage = await diskUsage(resolved)
+    drive = { total: usage.total, free: usage.free, used: usage.used, clusterSize: usage.clusterSize }
+  } catch {
+    // unknown volume info: progress becomes indeterminate
+  }
+
+  const rootName = isDrive ? resolved.replace(/[\\/]+$/, '') || resolved : path.basename(resolved)
+  const scanner = new Scanner(resolved, { clusterSize: drive?.clusterSize, rootName })
+  state.scanner = scanner
+  state.root = scanner.root
+  state.meta = null
+  state.version++
+  state.summaryCache = null
+
+  const isCurrent = () => state.scanner === scanner && state.scanId === scanId
+
+  const progress = () => {
+    if (!isCurrent()) return
+    const stats = scanner.stats
+    let fraction = null
+    if (isDrive && drive && drive.used > 0) fraction = Math.min(0.99, stats.alloc / drive.used)
+    send('scan:progress', {
+      scanId,
+      phase: scanner.phase,
+      stats,
+      progress: scanner.phase === 'finalizing' ? 0.99 : fraction,
+      view: buildView(scanner.root, { depth: 2, maxChildren: 40, includeFiles: false })
+    })
+  }
+  const timer = setInterval(progress, 300)
+  progress()
+
+  try {
+    await scanner.run()
+  } catch (err) {
+    clearInterval(timer)
+    if (isCurrent()) {
+      state.scanner = null
+      send('scan:error', { scanId, message: err.message })
     }
-    this.tree = {
-      name: path.basename(rootPath) || rootPath,
-      path: rootPath,
-      size: 0,
-      children: []
-    }
-    this.largestFiles = [] // top 50 largest files
-    this.fileTypes = {}    // extension -> { count, totalSize }
-    this.oldFiles = []     // files not modified in 1+ year
-    this.fileHashes = new Map() // size -> [{path, name, size}] for duplicate detection
-    this.onProgress = null
-    this.onComplete = null
-    this.lastUpdateTime = 0
-    this.UPDATE_INTERVAL_MS = 250
-    this.FILE_STAT_BATCH_SIZE = 50
-    this.ONE_YEAR_AGO = Date.now() - (365 * 24 * 60 * 60 * 1000)
+    return { scanId }
   }
+  clearInterval(timer)
+  if (!isCurrent()) return { scanId }
 
-  cancel() {
-    this.cancelled = true
-  }
-
-  async scan(onBeforeDuplicates) {
-    await this._scanDir(this.rootPath, this.tree, 0)
-    if (!this.cancelled && this.onComplete) {
-      // Notify that main scan is done, now detecting duplicates
-      if (onBeforeDuplicates) onBeforeDuplicates()
-      const duplicates = await this._findDuplicates()
-      this.onComplete(this.tree, { ...this.stats }, {
-        largestFiles: this.largestFiles.sort((a, b) => b.size - a.size).slice(0, 50),
-        fileTypes: this._getTopFileTypes(),
-        oldFiles: this.oldFiles.sort((a, b) => a.modifiedAt - b.modifiedAt).slice(0, 50),
-        duplicates
-      })
-    }
-  }
-
-  _insertLargestFile(fileInfo) {
-    this.largestFiles.push(fileInfo)
-    if (this.largestFiles.length > 60) {
-      this.largestFiles.sort((a, b) => b.size - a.size)
-      this.largestFiles.length = 50
-    }
-  }
-
-  _trackFileType(ext, size) {
-    if (!this.fileTypes[ext]) {
-      this.fileTypes[ext] = { ext, count: 0, totalSize: 0 }
-    }
-    this.fileTypes[ext].count++
-    this.fileTypes[ext].totalSize += size
-  }
-
-  _getTopFileTypes() {
-    return Object.values(this.fileTypes)
-      .sort((a, b) => b.totalSize - a.totalSize)
-      .slice(0, 20)
-  }
-
-  async _findDuplicates() {
-    const duplicates = []
-    // Sort groups by file size descending so we check largest potential duplicates first
-    const groups = [...this.fileHashes.values()]
-      .filter(files => files.length >= 2)
-      .sort((a, b) => b[0].size - a[0].size)
-      .slice(0, 200) // cap to avoid long post-scan freeze
-
-    for (const files of groups) {
-      if (this.cancelled) break
-      // Group by partial hash (first 4KB)
-      const hashGroups = new Map()
-      for (const file of files) {
-        try {
-          const fd = await fs.promises.open(file.path, 'r')
-          const buf = Buffer.alloc(4096)
-          await fd.read(buf, 0, 4096, 0)
-          await fd.close()
-          const hash = crypto.createHash('md5').update(buf).digest('hex')
-          if (!hashGroups.has(hash)) hashGroups.set(hash, [])
-          hashGroups.get(hash).push(file)
-        } catch {
-          // skip unreadable
-        }
-      }
-      for (const [, group] of hashGroups) {
-        if (group.length >= 2) {
-          duplicates.push({
-            size: group[0].size,
-            count: group.length,
-            wastedSpace: group[0].size * (group.length - 1),
-            files: group.map(f => ({ path: f.path, name: f.name }))
-          })
-        }
-      }
-    }
-    return duplicates.sort((a, b) => b.wastedSpace - a.wastedSpace).slice(0, 30)
-  }
-
-  async _scanDir(dirPath, node, depth) {
-    if (this.cancelled) return 0
-
-    this.stats.foldersScanned++
-    this.stats.currentFolder = dirPath
-
-    let entries
+  state.scanner = null
+  const complete = !scanner.cancelled
+  if (complete && drive) {
+    // Refresh usage: the disk may have changed during a long scan
     try {
-      entries = await fs.promises.readdir(dirPath, { withFileTypes: true })
-    } catch {
-      return 0
-    }
-
-    const files = []
-    const dirs = []
-    for (const entry of entries) {
-      if (entry.isFile()) {
-        files.push(entry.name)
-      } else if (entry.isDirectory() && !entry.isSymbolicLink()) {
-        dirs.push(entry.name)
-      }
-    }
-
-    let fileSize = 0
-    for (let i = 0; i < files.length; i += this.FILE_STAT_BATCH_SIZE) {
-      if (this.cancelled) break
-      const batch = files.slice(i, i + this.FILE_STAT_BATCH_SIZE)
-      const results = await Promise.allSettled(
-        batch.map(name => fs.promises.stat(path.join(dirPath, name)).then(s => ({ name, stat: s })))
-      )
-      for (const result of results) {
-        if (result.status === 'fulfilled') {
-          const { name, stat } = result.value
-          const size = stat.size
-          fileSize += size
-          this.stats.filesFound++
-          this.stats.totalSize += size
-
-          const filePath = path.join(dirPath, name)
-          const ext = path.extname(name).toLowerCase() || '(no ext)'
-
-          // Track largest files
-          this._insertLargestFile({ name, path: filePath, size, modifiedAt: stat.mtimeMs })
-
-          // Track file types
-          this._trackFileType(ext, size)
-
-          // Track old files
-          if (stat.mtimeMs < this.ONE_YEAR_AGO) {
-            this.oldFiles.push({ name, path: filePath, size, modifiedAt: stat.mtimeMs })
-            if (this.oldFiles.length > 60) {
-              this.oldFiles.sort((a, b) => a.modifiedAt - b.modifiedAt)
-              this.oldFiles.length = 50
-            }
-          }
-
-          // Track potential duplicates (by size, only for files > 10KB)
-          if (size > 10240) {
-            const sizeKey = size.toString()
-            if (!this.fileHashes.has(sizeKey)) this.fileHashes.set(sizeKey, [])
-            const group = this.fileHashes.get(sizeKey)
-            if (group.length < 10) { // limit per size group
-              group.push({ name, path: filePath, size })
-            }
-          }
-        }
-      }
-    }
-
-    let dirSize = fileSize
-
-    for (const dirName of dirs) {
-      if (this.cancelled) break
-
-      const fullPath = path.join(dirPath, dirName)
-      let childNode = null
-
-      if (depth < this.maxDepth) {
-        childNode = { name: dirName, path: fullPath, size: 0, children: [] }
-        node.children.push(childNode)
-      }
-
-      const childSize = await this._scanDir(
-        fullPath,
-        childNode || { name: dirName, path: fullPath, size: 0, children: [] },
-        depth + 1
-      )
-
-      dirSize += childSize
-      if (childNode) {
-        childNode.size = childSize
-      }
-
-      this._maybeSendProgress()
-    }
-
-    node.size = dirSize
-    return dirSize
+      const u = await diskUsage(resolved)
+      drive = { total: u.total, free: u.free, used: u.used, clusterSize: u.clusterSize }
+    } catch {}
   }
+  state.meta = makeMeta(scanner.root, {
+    isDrive,
+    drive,
+    complete,
+    cancelled: scanner.cancelled,
+    links: scanner.links,
+    locked: scanner.locked.length
+  })
+  state.version++
+  send('scan:complete', { scanId, meta: state.meta })
+  // Only complete scans are cached, so a cancelled scan never masquerades as a full one
+  if (complete) saveCache(scanner.root, state.meta).catch(() => {})
+  return { scanId }
+}
 
-  _maybeSendProgress() {
-    const now = Date.now()
-    if (now - this.lastUpdateTime >= this.UPDATE_INTERVAL_MS && this.onProgress) {
-      const snapshot = this._getTreeSnapshot(this.tree, 2)
-      this.onProgress(snapshot, { ...this.stats })
-      this.lastUpdateTime = now
-    }
-  }
-
-  _getTreeSnapshot(node, maxDepth, currentDepth = 0) {
-    const snap = { name: node.name, path: node.path, size: node.size }
-    if (currentDepth < maxDepth && node.children && node.children.length > 0) {
-      snap.children = node.children
-        .filter(c => c.size > 0)
-        .sort((a, b) => b.size - a.size)
-        .slice(0, 20)
-        .map(child => this._getTreeSnapshot(child, maxDepth, currentDepth + 1))
-    }
-    return snap
-  }
+function cancelScan() {
+  const scanner = state.scanner
+  if (scanner) scanner.cancel()
+  // run() resolves shortly after and emits scan:complete with cancelled: true
 }
 
 // ============================================
-// Electron App
+// Rescan one folder in place (after cleanups)
 // ============================================
 
-let mainWindow
-let activeScanner = null
+async function rescanSubtree(dirNode) {
+  const scanner = new Scanner(dirNode.path, {
+    clusterSize: state.meta?.drive?.clusterSize,
+    rootName: dirNode.name
+  })
+  const fresh = await scanner.run()
+  if (lookup(state.root, dirNode.path)?.dir === dirNode) replaceContents(dirNode, fresh)
+}
+
+// ============================================
+// Deletion
+// ============================================
+
+function isProtectedPath(p) {
+  const resolved = path.resolve(p)
+  if (isDriveRoot(resolved)) return true
+  if (process.platform === 'win32') {
+    const low = resolved.toLowerCase().replace(/[\\/]+$/, '')
+    const sysRoot = (process.env.SystemRoot || 'C:\\Windows').toLowerCase()
+    const protectedDirs = [
+      sysRoot,
+      path.join(sysRoot, 'system32').toLowerCase(),
+      (process.env.ProgramFiles || 'C:\\Program Files').toLowerCase(),
+      (process.env['ProgramFiles(x86)'] || 'C:\\Program Files (x86)').toLowerCase(),
+      (process.env.ProgramData || 'C:\\ProgramData').toLowerCase(),
+      path.join(path.parse(resolved).root, 'Users').toLowerCase(),
+      (process.env.USERPROFILE || '').toLowerCase()
+    ].filter(Boolean)
+    if (protectedDirs.includes(low)) return true
+    const name = path.basename(low)
+    if (['pagefile.sys', 'hiberfil.sys', 'swapfile.sys', 'bootmgr', '$recycle.bin', 'system volume information'].includes(name)) return true
+  }
+  return false
+}
+
+async function deletePaths(paths, { permanent = false } = {}) {
+  const results = []
+  let freed = 0
+  if (!state.root || !Array.isArray(paths)) return { results, freed }
+
+  for (const p of paths.slice(0, 10000)) {
+    if (typeof p !== 'string') continue
+    // Only entries that belong to the current scan can be deleted
+    const found = lookup(state.root, p)
+    if (!found) {
+      results.push({ path: p, ok: false, error: 'NOT_IN_SCAN' })
+      continue
+    }
+    if (isProtectedPath(p)) {
+      results.push({ path: p, ok: false, error: 'PROTECTED' })
+      continue
+    }
+    const target = found.file ? path.join(found.dir.path, found.file.name) : found.dir.path
+    try {
+      if (permanent) await fs.promises.rm(target, { recursive: true, force: false, maxRetries: 2 })
+      else await shell.trashItem(target)
+      const size = found.file ? found.file.size : found.dir.size
+      if (found.file) removeFile(found.dir, found.file)
+      else removeDir(found.dir)
+      freed += size
+      results.push({ path: p, ok: true, size })
+    } catch (err) {
+      results.push({ path: p, ok: false, error: err.code || err.message })
+    }
+  }
+  const meta = refreshMeta()
+  scheduleCacheSave()
+  return { results, freed, permanent, meta }
+}
+
+async function runCleanup(id) {
+  if (!state.root) return { ok: false, error: 'NO_SCAN' }
+  const s = findSuggestion(state.root, id)
+  if (!s) return { ok: false, error: 'NOT_FOUND' }
+  const found = lookup(state.root, s.path)
+  if (!found || found.file) return { ok: false, error: 'NOT_FOUND' }
+  const node = found.dir
+  const before = node.size
+  let failed = 0
+
+  try {
+    if (s.action === 'emptyRecycleBin') {
+      await emptyRecycleBin(s.drive)
+      await rescanSubtree(node)
+    } else if (s.action === 'trash') {
+      await shell.trashItem(node.path)
+      removeDir(node)
+    } else if (s.action === 'clearContents') {
+      const entries = [...node.children.map((c) => c.path), ...node.files.map((f) => path.join(node.path, f.name))]
+      for (const e of entries) {
+        try {
+          await fs.promises.rm(e, { recursive: true, force: true, maxRetries: 1 })
+        } catch {
+          failed++ // files in use are expected in temp folders
+        }
+      }
+      await rescanSubtree(node)
+    }
+  } catch (err) {
+    return { ok: false, error: err.code || err.message }
+  }
+
+  const after = lookup(state.root, s.path)?.dir?.size || 0
+  const meta = refreshMeta()
+  scheduleCacheSave()
+  return { ok: true, freed: Math.max(0, before - after), failed, meta }
+}
+
+// ============================================
+// Duplicates
+// ============================================
+
+function cancelDuplicates() {
+  if (state.dupes) state.dupes.ctl.cancelled = true
+  state.dupes = null
+}
+
+async function runDuplicates(opts = {}) {
+  if (!state.root) return null
+  cancelDuplicates()
+  const ctl = { cancelled: false }
+  const job = { ctl }
+  state.dupes = job
+  const minSize = Math.max(1, Number(opts.minSize) || 1024 * 1024)
+  const result = await findDuplicates(state.root, {
+    minSize,
+    ctl,
+    onProgress: (p) => {
+      if (state.dupes === job) send('dupes:progress', p)
+    }
+  })
+  if (state.dupes === job) state.dupes = null
+  if (!result) return { cancelled: true }
+  return result
+}
+
+// ============================================
+// Window
+// ============================================
+
+const TITLEBAR_HEIGHT = 40
 
 function createWindow() {
+  const dark = nativeTheme.shouldUseDarkColors
   mainWindow = new BrowserWindow({
-    width: 960,
-    height: 780,
-    minWidth: 800,
+    width: 1100,
+    height: 800,
+    minWidth: 820,
     minHeight: 600,
+    title: 'Check Space',
+    backgroundColor: dark ? '#181818' : '#F9F9F8',
     titleBarStyle: 'hidden',
     titleBarOverlay: {
-      color: '#F9F9F8',
-      symbolColor: '#1A1A1A',
-      height: 40
+      color: dark ? '#181818' : '#F9F9F8',
+      symbolColor: dark ? '#E4E4E4' : '#1A1A1A',
+      height: TITLEBAR_HEIGHT
     },
+    icon: join(__dirname, '../../resources/icon.png'),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      sandbox: true,
+      contextIsolation: true,
+      nodeIntegration: false
     }
+  })
+
+  // Never navigate away from the app or open new windows
+  mainWindow.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))
+  mainWindow.webContents.on('will-navigate', (e, url) => {
+    if (url !== mainWindow.webContents.getURL()) e.preventDefault()
   })
 
   if (process.env.ELECTRON_RENDERER_URL) {
@@ -293,126 +364,181 @@ function createWindow() {
   }
 }
 
-ipcMain.on('theme:set', (_event, isDark) => {
-  if (mainWindow) {
+// ============================================
+// IPC
+// ============================================
+
+function isTrustedSender(event) {
+  const url = event.senderFrame?.url || ''
+  if (url.startsWith('file://')) return true
+  const devUrl = process.env.ELECTRON_RENDERER_URL
+  return !!devUrl && url.startsWith(devUrl)
+}
+
+function handle(channel, fn) {
+  ipcMain.handle(channel, (event, ...args) => {
+    if (!isTrustedSender(event)) throw new Error('Untrusted sender')
+    return fn(...args)
+  })
+}
+
+function on(channel, fn) {
+  ipcMain.on(channel, (event, ...args) => {
+    if (isTrustedSender(event)) fn(...args)
+  })
+}
+
+on('theme:set', (isDark) => {
+  if (!mainWindow) return
+  try {
     mainWindow.setTitleBarOverlay({
       color: isDark ? '#181818' : '#F9F9F8',
       symbolColor: isDark ? '#E4E4E4' : '#1A1A1A'
     })
-  }
-})
-
-ipcMain.handle('drives:get', async () => {
-  return getDrives()
-})
-
-// Open folder/file in Windows Explorer
-ipcMain.handle('shell:openPath', async (_event, targetPath) => {
-  try {
-    await shell.openPath(targetPath)
-    return { success: true }
-  } catch (err) {
-    return { success: false, error: err.message }
-  }
-})
-
-// Show file in Explorer (select it)
-ipcMain.handle('shell:showItemInFolder', async (_event, targetPath) => {
-  try {
-    shell.showItemInFolder(targetPath)
-    return { success: true }
-  } catch (err) {
-    return { success: false, error: err.message }
-  }
-})
-
-// Delete file or folder (move to trash)
-ipcMain.handle('fs:moveToTrash', async (_event, targetPath) => {
-  try {
-    await shell.trashItem(targetPath)
-    return { success: true }
-  } catch (err) {
-    return { success: false, error: err.message }
-  }
-})
-
-// Cache management
-const CACHE_DIR = path.join(app.getPath('userData'), 'scan-cache')
-
-function ensureCacheDir() {
-  if (!fs.existsSync(CACHE_DIR)) {
-    fs.mkdirSync(CACHE_DIR, { recursive: true })
-  }
-}
-
-ipcMain.handle('cache:save', async (_event, driveLetter, data) => {
-  try {
-    ensureCacheDir()
-    const filePath = path.join(CACHE_DIR, `${driveLetter}.json`)
-    await fs.promises.writeFile(filePath, JSON.stringify(data), 'utf8')
-    return { success: true }
-  } catch (err) {
-    return { success: false, error: err.message }
-  }
-})
-
-ipcMain.handle('cache:load', async (_event, driveLetter) => {
-  try {
-    const filePath = path.join(CACHE_DIR, `${driveLetter}.json`)
-    if (!fs.existsSync(filePath)) return null
-    const raw = await fs.promises.readFile(filePath, 'utf8')
-    return JSON.parse(raw)
+    mainWindow.setBackgroundColor(isDark ? '#181818' : '#F9F9F8')
   } catch {
-    return null
+    // setTitleBarOverlay is not available on every platform
   }
 })
 
-ipcMain.handle('scan:start', async (_event, drivePath) => {
-  if (activeScanner) {
-    activeScanner.cancel()
-  }
-
-  // Find drive info to get usedSpace for progress estimation
-  let driveUsedSpace = 0
+handle('drives:get', async () => {
   try {
-    const drives = getDrives()
-    const drv = drives.find(d => d.path === drivePath)
-    if (drv) driveUsedSpace = drv.usedSpace
-  } catch {}
-
-  activeScanner = new DiskScanner(drivePath, { maxDepth: 8 })
-
-  activeScanner.onProgress = (tree, stats) => {
-    const progress = driveUsedSpace > 0 ? Math.min(0.99, stats.totalSize / driveUsedSpace) : 0
-    mainWindow?.webContents.send('scan:progress', { tree, stats, progress })
-  }
-
-  activeScanner.onComplete = (tree, stats, extras) => {
-    mainWindow?.webContents.send('scan:complete', { tree, stats, extras })
-    activeScanner = null
-  }
-
-  try {
-    await activeScanner.scan(() => {
-      // notify renderer that directory scan is done, now detecting duplicates
-      mainWindow?.webContents.send('scan:progress', {
-        tree: activeScanner._getTreeSnapshot(activeScanner.tree, 2),
-        stats: { ...activeScanner.stats },
-        progress: 0.99
+    const drives = await getDrives()
+    await Promise.all(
+      drives.map(async (d) => {
+        d.cachedAt = await hasCache(d.path)
       })
-    })
+    )
+    return { drives }
   } catch (err) {
-    mainWindow?.webContents.send('scan:error', { message: err.message })
-    activeScanner = null
+    return { drives: [], error: err.message }
   }
 })
 
-ipcMain.on('scan:cancel', () => {
-  if (activeScanner) {
-    activeScanner.cancel()
-    activeScanner = null
+handle('dialog:pickFolder', async () => {
+  const r = await dialog.showOpenDialog(mainWindow, { properties: ['openDirectory'] })
+  if (r.canceled || !r.filePaths[0]) return null
+  const p = r.filePaths[0]
+  return { path: p, name: path.basename(p) || p, cachedAt: await hasCache(p) }
+})
+
+handle('scan:start', (rootPath) => {
+  if (typeof rootPath !== 'string' || !rootPath) throw new Error('Invalid path')
+  // Do not await: the renderer learns the outcome through scan:* events
+  const scanId = state.scanId + 1
+  startScan(rootPath).catch((err) => send('scan:error', { scanId, message: err.message }))
+  return { scanId }
+})
+
+on('scan:cancel', () => cancelScan())
+
+handle('scan:loadCache', async (rootPath) => {
+  if (typeof rootPath !== 'string') return null
+  const cached = await loadCache(rootPath)
+  if (!cached) return null
+  if (state.scanner) state.scanner.cancel()
+  state.scanner = null
+  cancelDuplicates()
+  state.scanId++
+  state.root = cached.root
+  state.version++
+  state.summaryCache = null
+  state.meta = { ...cached.meta, fromCache: true, version: state.version }
+  return { scanId: state.scanId, meta: state.meta }
+})
+
+handle('scan:meta', () => state.meta)
+
+handle('tree:view', (targetPath, opts = {}) => {
+  if (!state.root) return null
+  const found = targetPath ? lookup(state.root, targetPath) : { dir: state.root }
+  if (!found || found.file) return null
+  const depth = Math.min(Math.max(1, Number(opts.depth) || 1), 6)
+  const maxChildren = Math.min(Math.max(1, Number(opts.maxChildren) || 200), 5000)
+  const metric = opts.metric === 'alloc' ? 'alloc' : 'size'
+  const extra = found.dir === state.root && state.meta ? [systemEntry(state.meta)].filter(Boolean) : null
+  return buildView(found.dir, { depth, maxChildren, metric, includeFiles: opts.includeFiles !== false }, extra)
+})
+
+handle('tree:summary', (opts = {}) => {
+  if (!state.root) return null
+  const metric = opts.metric === 'alloc' ? 'alloc' : 'size'
+  const key = `${state.version}:${metric}`
+  if (state.summaryCache?.key === key) return state.summaryCache.value
+  const value = summarize(state.root, { metric })
+  state.summaryCache = { key, value }
+  return value
+})
+
+handle('tree:search', (opts = {}) => {
+  if (!state.root) return { results: [], total: 0, truncated: false }
+  return search(state.root, {
+    query: String(opts.query || '').slice(0, 200),
+    exts: Array.isArray(opts.exts) ? opts.exts.slice(0, 50).map(String) : [],
+    minSize: Number(opts.minSize) || 0,
+    kind: ['files', 'dirs'].includes(opts.kind) ? opts.kind : 'all',
+    under: typeof opts.under === 'string' ? opts.under : null,
+    metric: opts.metric === 'alloc' ? 'alloc' : 'size',
+    olderThanMs: Number(opts.olderThanMs) || 0,
+    limit: Math.min(Number(opts.limit) || 500, 5000)
+  })
+})
+
+handle('fs:delete', (paths, opts = {}) => deletePaths(paths, { permanent: !!opts.permanent }))
+
+handle('shell:showItemInFolder', (p) => {
+  if (!state.root || !lookup(state.root, p)) return false
+  shell.showItemInFolder(p)
+  return true
+})
+
+handle('shell:openPath', async (p) => {
+  if (!state.root) return false
+  const found = lookup(state.root, p)
+  if (!found || found.file) return false // only folders: never execute files
+  return (await shell.openPath(found.dir.path)) === ''
+})
+
+handle('dupes:find', (opts) => runDuplicates(opts))
+on('dupes:cancel', () => cancelDuplicates())
+
+handle('cleanup:list', () => (state.root ? getSuggestions(state.root) : []))
+handle('cleanup:run', (id) => runCleanup(String(id)))
+
+handle('report:export', async (format) => {
+  if (!state.root || !state.meta) return { ok: false, error: 'NO_SCAN' }
+  const fmt = format === 'json' ? 'json' : 'csv'
+  const base = (state.root.name || 'scan').replace(/[\\/:*?"<>|]/g, '') || 'scan'
+  const stamp = new Date().toISOString().slice(0, 10)
+  const r = await dialog.showSaveDialog(mainWindow, {
+    defaultPath: `check-space-${base}-${stamp}.${fmt}`,
+    filters: [fmt === 'json' ? { name: 'JSON', extensions: ['json'] } : { name: 'CSV', extensions: ['csv'] }]
+  })
+  if (r.canceled || !r.filePath) return { ok: false, cancelled: true }
+  try {
+    if (fmt === 'json') await writeJson(state.root, r.filePath, state.meta)
+    else await writeCsv(state.root, r.filePath)
+    shell.showItemInFolder(r.filePath)
+    return { ok: true, path: r.filePath }
+  } catch (err) {
+    return { ok: false, error: err.message }
   }
 })
 
-app.whenReady().then(createWindow)
+handle('app:info', async () => ({
+  platform: process.platform,
+  isAdmin: await isAdmin(),
+  version: app.getVersion()
+}))
+
+handle('app:relaunchAsAdmin', async () => {
+  const ok = await relaunchAsAdmin()
+  if (ok) setTimeout(() => app.quit(), 300)
+  return ok
+})
+
+app.whenReady().then(() => {
+  initCache(app.getPath('userData'))
+  createWindow()
+})
 app.on('window-all-closed', () => app.quit())
