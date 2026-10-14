@@ -1,0 +1,45 @@
+.selection-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 10px 24px;
+  background: var(--accent-light);
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.selection-bar-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.selection-bar-sep {
+  color: var(--text-tertiary);
+}
+
+.selection-bar-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.selection-bar-actions .btn-secondary,
+.selection-bar-actions .btn-danger-solid {
+  padding: 6px 12px;
+}
+
+.selection-bar kbd {
+  font: inherit;
+  font-size: 11px;
+  padding: 0 5px;
+  margin-left: 4px;
+  border-radius: 4px;
+  border: 1px solid currentColor;
+  opacity: 0.65;
+}

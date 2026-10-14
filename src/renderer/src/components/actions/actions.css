@@ -1,0 +1,372 @@
+/* ---------- Modal dialog ---------- */
+.fa-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.fa-dialog {
+  width: 100%;
+  max-width: 520px;
+  max-height: calc(100vh - 48px);
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  outline: none;
+}
+
+.fa-dialog-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 16px 12px 20px;
+}
+
+.fa-dialog-head h3 {
+  flex: 1;
+  min-width: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.fa-dialog-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.fa-dialog-icon.danger {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.fa-dialog-body {
+  padding: 0 20px 4px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.fa-dialog-foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px 20px;
+}
+
+.fa-dialog-text {
+  color: var(--text-secondary);
+}
+
+.fa-item-list {
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+  overflow: hidden;
+}
+
+.fa-item-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.fa-item-list li:last-child {
+  border-bottom: none;
+}
+
+.fa-item-list .fa-item-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.fa-item-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fa-item-path {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  font-family: 'Cascadia Code', 'Consolas', monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fa-item-size {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.fa-item-more {
+  justify-content: center;
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.fa-total {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.fa-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: none;
+}
+
+.fa-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background: var(--bg-primary);
+}
+
+.fa-option:hover {
+  background: var(--bg-hover);
+}
+
+.fa-option.selected {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+.fa-option.selected.danger {
+  border-color: var(--danger);
+  background: var(--danger-bg);
+}
+
+.fa-option input {
+  margin-top: 3px;
+  accent-color: var(--accent);
+}
+
+.fa-option.danger input {
+  accent-color: var(--danger);
+}
+
+.fa-option-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.fa-option-hint {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.fa-note,
+.fa-warning {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.fa-note {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+.fa-warning {
+  background: var(--danger-bg);
+  color: var(--danger);
+  font-weight: 500;
+}
+
+.fa-note svg,
+.fa-warning svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ---------- Context menu ---------- */
+.fa-menu {
+  position: fixed;
+  z-index: 1100;
+  min-width: 220px;
+  max-width: 340px;
+  padding: 4px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+}
+
+.fa-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 7px 10px;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 13px;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  border-radius: var(--radius-xs);
+  outline: none;
+}
+
+.fa-menu-item:hover,
+.fa-menu-item:focus-visible {
+  background: var(--bg-secondary);
+}
+
+.fa-menu-item.danger {
+  color: var(--danger);
+}
+
+.fa-menu-item.danger:hover,
+.fa-menu-item.danger:focus-visible {
+  background: var(--danger-bg);
+}
+
+.fa-menu-item svg,
+.fa-menu-noicon {
+  flex-shrink: 0;
+  width: 14px;
+}
+
+.fa-menu-sep {
+  height: 1px;
+  margin: 4px 6px;
+  background: var(--border);
+}
+
+/* ---------- Toasts ---------- */
+.fa-toasts {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 380px;
+  max-width: calc(100vw - 40px);
+}
+
+.fa-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 8px 12px 14px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-left-width: 4px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  animation: fa-toast-in 0.18s ease-out;
+}
+
+.fa-toast.success {
+  border-left-color: #22a06b;
+}
+
+.fa-toast.success .fa-toast-icon {
+  color: #22a06b;
+}
+
+.fa-toast.warning {
+  border-left-color: #d9922b;
+}
+
+.fa-toast.warning .fa-toast-icon {
+  color: #d9922b;
+}
+
+.fa-toast.error {
+  border-left-color: var(--danger);
+}
+
+.fa-toast.error .fa-toast-icon {
+  color: var(--danger);
+}
+
+.fa-toast.info {
+  border-left-color: var(--accent);
+}
+
+.fa-toast.info .fa-toast-icon {
+  color: var(--accent);
+}
+
+.fa-toast-icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.fa-toast-text {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.fa-toast-title {
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.fa-toast-text ul {
+  margin-top: 6px;
+  padding-left: 16px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  word-break: break-word;
+}
+
+@keyframes fa-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

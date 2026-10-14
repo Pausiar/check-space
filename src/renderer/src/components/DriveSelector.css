@@ -1,0 +1,196 @@
+/* Drive selector overrides. Selectors are qualified so they win over App.css
+   regardless of stylesheet order (component CSS is injected before App.css). */
+
+.drive-selector.drive-screen {
+  justify-content: flex-start;
+  gap: 0;
+  padding: 40px 48px;
+}
+
+.drive-screen-inner {
+  margin: auto;
+  width: 100%;
+  max-width: 980px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+}
+
+.drive-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.drive-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 4px;
+}
+
+.drive-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.drive-screen .drive-refresh {
+  width: 32px;
+  height: 32px;
+}
+
+.drive-refresh-spin {
+  animation: drive-spin 0.8s linear infinite;
+}
+
+.drive-screen .drive-grid {
+  width: 100%;
+  gap: 16px;
+}
+
+.drive-screen .drive-card {
+  width: 240px;
+  padding: 20px;
+  gap: 14px;
+  display: flex;
+}
+
+.drive-screen .drive-card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  min-width: 0;
+}
+
+.drive-screen .drive-bar-track {
+  display: block;
+}
+
+.drive-screen .drive-bar-fill {
+  display: block;
+  height: 100%;
+}
+
+.drive-screen .drive-bar-fill.danger {
+  background: var(--danger);
+}
+
+.drive-screen .drive-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.drive-screen .drive-card-info > span {
+  display: block;
+}
+
+.drive-screen .drive-card-info .drive-cached {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.drive-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--accent-light);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.drive-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.drive-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: drive-spin 0.8s linear infinite;
+}
+
+@keyframes drive-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.drive-error {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--danger);
+  background: var(--danger-bg);
+  border-radius: var(--radius);
+}
+
+.drive-error code {
+  font-size: 12px;
+  color: var(--text-secondary);
+  word-break: break-all;
+}
+
+.drive-error .btn-secondary {
+  margin-top: 4px;
+}
+
+.drive-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.drive-inline-error {
+  font-size: 13px;
+  color: var(--danger);
+}
+
+.drive-admin-hint {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+
+@media (max-width: 600px) {
+  .drive-selector.drive-screen {
+    padding: 24px 16px;
+  }
+
+  .drive-screen .drive-card {
+    width: 100%;
+  }
+}

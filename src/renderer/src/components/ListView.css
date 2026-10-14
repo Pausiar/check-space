@@ -1,0 +1,368 @@
+.list-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  background: var(--bg-primary);
+}
+
+/* ---------- Filter bar ---------- */
+.list-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-primary);
+}
+
+.list-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1 1 280px;
+  min-width: 200px;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  background: var(--bg-secondary);
+  color: var(--text-tertiary);
+}
+
+.list-search:focus-within {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.list-search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 13px;
+}
+
+.list-search input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.list-search-clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.list-search-clear:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.list-field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.list-field select,
+.list-field input {
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 12px;
+  outline: none;
+}
+
+.list-field select:focus,
+.list-field input:focus {
+  border-color: var(--accent);
+}
+
+.list-field select option {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.list-ext {
+  width: 130px;
+}
+
+.list-filters .segmented button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ---------- Tables ---------- */
+.list-results {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.list-results-bar {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 16px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+.list-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  outline: none;
+  position: relative;
+}
+
+.list-scroll.busy {
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+
+.list-inner {
+  min-width: 680px;
+}
+
+.list-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: grid;
+  align-items: center;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-secondary);
+}
+
+.list-grid-tree {
+  grid-template-columns: minmax(220px, 1fr) 100px 150px 90px 110px;
+}
+
+.list-grid-results {
+  grid-template-columns: minmax(180px, 1fr) minmax(160px, 1.3fr) 100px 110px;
+}
+
+.list-th {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+  padding: 0 10px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+}
+
+.list-th.right {
+  justify-content: flex-end;
+}
+
+.list-th.sortable {
+  cursor: pointer;
+}
+
+.list-th.sortable:hover,
+.list-th.sorted {
+  color: var(--text-primary);
+}
+
+.list-body {
+  position: relative;
+}
+
+.list-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: grid;
+  align-items: center;
+  font-size: 13px;
+  color: var(--text-primary);
+  border-bottom: 1px solid transparent;
+  cursor: default;
+  user-select: none;
+}
+
+.list-row:hover {
+  background: var(--bg-hover);
+}
+
+.list-row.selected {
+  background: var(--accent-light);
+}
+
+.list-row.static {
+  cursor: default;
+}
+
+.list-row.static:hover {
+  background: transparent;
+}
+
+.list-scroll:focus .list-row.focused {
+  outline: 1px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.lc {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  padding: 0 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.lc.right {
+  justify-content: flex-end;
+}
+
+.lc-name {
+  gap: 6px;
+}
+
+.muted {
+  color: var(--text-tertiary);
+}
+
+.twisty {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+button.twisty {
+  cursor: pointer;
+}
+
+button.twisty:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.list-row.selected button.twisty:hover {
+  background: var(--accent-light);
+}
+
+.row-icon {
+  flex: none;
+  color: var(--text-tertiary);
+}
+
+.row-icon.folder {
+  color: var(--accent);
+}
+
+.row-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.row-badge {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+.row-badge.warn {
+  padding: 0;
+  background: transparent;
+  color: var(--danger);
+}
+
+.lc-pct {
+  gap: 8px;
+}
+
+.pct-bar {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--bg-secondary);
+  overflow: hidden;
+}
+
+.list-row.selected .pct-bar {
+  background: var(--bg-primary);
+}
+
+.pct-bar i {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--accent);
+}
+
+.pct-text {
+  flex: none;
+  width: 44px;
+  text-align: right;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.lc-dir {
+  font-size: 12px;
+}
+
+.dir-head {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dir-tail {
+  flex: 0 0 auto;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dir-head:not(:empty)::after {
+  content: '…';
+}
