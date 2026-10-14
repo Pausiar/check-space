@@ -7,7 +7,6 @@ export default {
   emptyHint: 'Suggestions only cover locations inside the scanned folder or drive. Scan the system drive (usually C:) to see more.',
 
   // Cards
-  files: '{count} files',
   sizeOnDisk: '{size} on disk',
   riskSafe: 'Safe',
   riskCaution: 'Review first',

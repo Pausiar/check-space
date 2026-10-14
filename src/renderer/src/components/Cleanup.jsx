@@ -176,7 +176,7 @@ export default function Cleanup({ dataVersion }) {
                 </div>
                 {desc && <p className="cleanup-desc">{desc}</p>}
                 <div className="cleanup-meta">
-                  <span>{t('cleanup.files', { count: s.files })}</span>
+                  <span>{t('common.files', { count: s.files })}</span>
                   {s.alloc > 0 && s.alloc !== s.size && (
                     <>
                       <span className="stat-sep">·</span>
@@ -227,7 +227,7 @@ export default function Cleanup({ dataVersion }) {
                 <span className="fa-item-path" title={pending.path}>{pending.path}</span>
               </div>
               <span className="fa-item-size">
-                {t('cleanup.confirmSize', { size: fmt.bytes(pending.size), files: t('cleanup.files', { count: pending.files }) })}
+                {t('cleanup.confirmSize', { size: fmt.bytes(pending.size), files: t('common.files', { count: pending.files }) })}
               </span>
             </li>
           </ul>

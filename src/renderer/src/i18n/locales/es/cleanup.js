@@ -7,7 +7,6 @@ export default {
   emptyHint: 'Las sugerencias solo cubren ubicaciones que están dentro de la carpeta o la unidad analizada. Analiza la unidad del sistema (normalmente C:) para ver más.',
 
   // Tarjetas
-  files: '{count} archivos',
   sizeOnDisk: '{size} en disco',
   riskSafe: 'Seguro',
   riskCaution: 'Revisar antes',
