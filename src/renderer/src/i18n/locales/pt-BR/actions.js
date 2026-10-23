@@ -1,0 +1,57 @@
+export default {
+  // Diálogo de confirmação de exclusão
+  confirmTitle_one: 'Excluir {count} item',
+  confirmTitle_other: 'Excluir {count} itens',
+  totalSize: 'Tamanho total: {size}',
+  andMore_one: 'e mais {count} item',
+  andMore_other: 'e mais {count} itens',
+  chooseMethod: 'Como você quer excluir',
+  optTrash: 'Mover para a lixeira',
+  optTrashHint: 'Pode ser restaurado a partir da lixeira.',
+  optPermanent: 'Excluir permanentemente',
+  optPermanentHint: 'Apaga do disco sem passar pela lixeira.',
+  trashNote: 'Mover para a lixeira não libera espaço em disco até que você a esvazie.',
+  permanentWarning: 'Esta ação não pode ser desfeita. Os arquivos serão excluídos definitivamente e não poderão ser recuperados.',
+  permanentWarningFolders: 'As pastas serão excluídas com todo o seu conteúdo.',
+  confirmTrash: 'Mover para a lixeira',
+  confirmPermanent: 'Excluir permanentemente',
+  working: 'Excluindo…',
+  cancel: 'Cancelar',
+
+  // Menu de contexto
+  copyPath: 'Copiar caminho',
+  trashSelected_one: 'Mover para a lixeira ({count} item)',
+  trashSelected_other: 'Mover para a lixeira ({count} itens)',
+  deleteSelected_one: 'Excluir permanentemente ({count} item)',
+  deleteSelected_other: 'Excluir permanentemente ({count} itens)',
+
+  // Barra de seleção
+  selectedCount_one: '{count} selecionado',
+  selectedCount_other: '{count} selecionados',
+  clearSelection: 'Limpar seleção',
+  trashHint: 'Del',
+  deleteHint: 'Shift+Del',
+
+  // Avisos
+  toastDeleted_one: '{count} item excluído, {size} liberados',
+  toastDeleted_other: '{count} itens excluídos, {size} liberados',
+  toastTrashed_one: '{count} item movido para a lixeira ({size}). O espaço será liberado ao esvaziá-la.',
+  toastTrashed_other: '{count} itens movidos para a lixeira ({size}). O espaço será liberado ao esvaziá-la.',
+  toastPartial: 'Foram processados {ok} de {total} itens',
+  toastFailed_one: 'Não foi possível excluir o item',
+  toastFailed_other: 'Não foi possível excluir os itens',
+  failedItem: '{name}: {reason}',
+  failedMore_one: 'e mais {count} erro',
+  failedMore_other: 'e mais {count} erros',
+  errProtected: 'local crítico do sistema, está protegido',
+  errNotInScan: 'não está mais na verificação; verifique novamente',
+  errBusy: 'está em uso por outro programa',
+  errPerm: 'sem permissões suficientes (tente executar como administrador)',
+  errNotFound: 'não existe mais',
+  errOther: 'erro: {error}',
+  errGeneric: 'Não foi possível concluir a operação: {error}',
+  copied: 'Caminho copiado para a área de transferência',
+  copyFailed: 'Não foi possível copiar o caminho',
+  openFailed: 'Não foi possível abrir esse local',
+  dismiss: 'Fechar aviso'
+}

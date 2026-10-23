@@ -22,13 +22,69 @@ jobs:
 
       - run: npm ci
 
+      # Optional code signing. Add the repository secrets CSC_LINK and
+      # CSC_KEY_PASSWORD (see docs/SIGNING.md); without them the build is
+      # unsigned and Windows SmartScreen will warn until the download earns
+      # reputation.
+      - name: Configure code signing
+        id: signing
+        shell: bash
+        env:
+          CSC_LINK_SECRET: ${{ secrets.CSC_LINK }}
+          CSC_KEY_PASSWORD_SECRET: ${{ secrets.CSC_KEY_PASSWORD }}
+        run: |
+          if [ -n "${CSC_LINK_SECRET:-}" ]; then
+            {
+              echo "CSC_LINK<<SIGNING_EOF"
+              echo "$CSC_LINK_SECRET"
+              echo "SIGNING_EOF"
+            } >> "$GITHUB_ENV"
+            {
+              echo "CSC_KEY_PASSWORD<<SIGNING_EOF"
+              echo "$CSC_KEY_PASSWORD_SECRET"
+              echo "SIGNING_EOF"
+            } >> "$GITHUB_ENV"
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            echo "Certificate configured: build will be signed."
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::No CSC_LINK secret configured - building unsigned. See docs/SIGNING.md."
+          fi
+
       - name: Build
         run: npm run build
 
       - name: Package (installer + portable)
         run: npx electron-builder --win --publish never
-        env:
-          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+
+      # rcedit must have written the icon, product name, version and publisher
+      # into both executables; SmartScreen and Defender read that metadata.
+      - name: Check executable metadata
+        shell: pwsh
+        run: |
+          Get-ChildItem build -Filter *.exe | ForEach-Object {
+            $v = $_.VersionInfo
+            Write-Host ("{0}: {1} {2} - {3}" -f $_.Name, $v.ProductName, $v.FileVersion, $v.CompanyName)
+            if (-not $v.ProductName) { throw "$($_.Name) is missing version metadata." }
+          }
+
+      - name: Verify signature
+        if: steps.signing.outputs.enabled == 'true'
+        shell: pwsh
+        run: |
+          $failed = $false
+          Get-ChildItem build -Filter *.exe | ForEach-Object {
+            $sig = Get-AuthenticodeSignature $_.FullName
+            Write-Host ("{0}: {1} - {2}" -f $_.Name, $sig.Status, $sig.SignerCertificate.Subject)
+            if ($sig.Status -ne 'Valid') { $failed = $true }
+          }
+          if ($failed) { throw 'One or more executables are not validly signed.' }
+
+      - name: SHA-256 checksums
+        shell: bash
+        run: |
+          cd build
+          sha256sum *.exe | tee SHA256SUMS.txt
 
       # Tag push -> that tag. Manual run -> "v<package.json version>" (created by the release step).
       - name: Resolve version
@@ -50,3 +106,4 @@ jobs:
           body_path: .github/release-notes/${{ steps.version.outputs.tag }}.md
           files: |
             build/*.exe
+            build/SHA256SUMS.txt

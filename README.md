@@ -13,7 +13,29 @@ Analizador de espacio en disco para Windows (Electron + React).
 - Sugerencias de limpieza (temporales, papelera, cachés de navegadores, Windows Update, `node_modules`…).
 - Borrado con confirmación (papelera o permanente), selección múltiple y actualización inmediata de los datos.
 - Exportación a CSV (Excel) y JSON. Caché de resultados con fecha del último análisis.
-- Tema claro / oscuro / del sistema e idioma español / inglés.
+- Tema claro / oscuro / del sistema.
+- Disponible en **español, inglés, portugués (Brasil), francés, alemán e italiano**; el idioma se detecta del sistema y se puede cambiar desde la barra de título.
+
+## Licencia y privacidad
+
+- Código bajo licencia **MIT** ([LICENSE](LICENSE)).
+- La aplicación **no recoge datos ni hace peticiones de red**: privacidad explicada en
+  [PRIVACY.md](PRIVACY.md).
+- Licencias de los componentes incluidos: [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+- Revisión legal y puntos pendientes: [docs/LEGAL.md](docs/LEGAL.md).
+- El aviso de licencia y el de privacidad se incluyen en cada paquete (`resources/LICENSE.txt`
+  y `resources/PRIVACY.txt`).
+- Páginas legales del sitio web: [aviso legal](https://check-space-docs.vercel.app/aviso-legal/),
+  [privacidad](https://check-space-docs.vercel.app/politica-privacidad/) y
+  [cookies](https://check-space-docs.vercel.app/politica-cookies/).
+
+## Firma de código
+
+Las releases se pueden firmar con un certificado Authenticode. Sin firma, Windows
+SmartScreen avisa de "editor desconocido" aunque el binario sea legítimo. El pipeline ya
+está preparado: añade los secretos `CSC_LINK` y `CSC_KEY_PASSWORD` y cada release saldrá
+firmada y con sello de tiempo. Instrucciones, opciones de certificado y cómo resolver
+falsos positivos de Defender en [docs/SIGNING.md](docs/SIGNING.md).
 
 ## Atajos de teclado
 
@@ -31,7 +53,8 @@ Analizador de espacio en disco para Windows (Electron + React).
 npm install
 npm run dev       # modo desarrollo
 npm run package   # instalador y ejecutable portable para Windows (carpeta build/)
-node scripts/make-icon.mjs   # regenera resources/icon.png
+                  # requiere Windows o Wine: se incrustan icono, versión y editor en el .exe
+node scripts/make-icon.mjs   # regenera resources/icon.png (1024 px) y resources/icon.ico (16–256 px)
 ```
 
-Para añadir un idioma, crea `src/renderer/src/i18n/locales/<código>/` con los mismos archivos que `es/` y añádelo a `LANGUAGES` en `src/renderer/src/i18n/index.jsx`.
+Para añadir un idioma, crea `src/renderer/src/i18n/locales/<código>/` con los mismos archivos y claves que `es/` y añádelo a `LANGUAGES` en `src/renderer/src/i18n/index.jsx`. Las claves ausentes caen al español, pero conviene mantener los diccionarios completos: `npm run build` falla si un archivo tiene un error de sintaxis.

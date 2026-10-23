@@ -1,0 +1,57 @@
+export default {
+  // Finestra di conferma eliminazione
+  confirmTitle_one: 'Elimina {count} elemento',
+  confirmTitle_other: 'Elimina {count} elementi',
+  totalSize: 'Dimensione totale: {size}',
+  andMore_one: 'e {count} altro elemento',
+  andMore_other: 'e altri {count} elementi',
+  chooseMethod: 'Come vuoi eliminarlo',
+  optTrash: 'Sposta nel cestino',
+  optTrashHint: 'Puoi ripristinarlo dal cestino.',
+  optPermanent: 'Elimina definitivamente',
+  optPermanentHint: 'Cancella dal disco senza passare dal cestino.',
+  trashNote: 'Spostare nel cestino non libera spazio su disco finché non lo svuoti.',
+  permanentWarning: 'Questa azione non può essere annullata. I file verranno eliminati definitivamente e non potranno essere recuperati.',
+  permanentWarningFolders: 'Le cartelle verranno eliminate con tutto il loro contenuto.',
+  confirmTrash: 'Sposta nel cestino',
+  confirmPermanent: 'Elimina definitivamente',
+  working: 'Eliminazione…',
+  cancel: 'Annulla',
+
+  // Menu contestuale
+  copyPath: 'Copia percorso',
+  trashSelected_one: 'Sposta nel cestino ({count} elemento)',
+  trashSelected_other: 'Sposta nel cestino ({count} elementi)',
+  deleteSelected_one: 'Elimina definitivamente ({count} elemento)',
+  deleteSelected_other: 'Elimina definitivamente ({count} elementi)',
+
+  // Barra di selezione
+  selectedCount_one: '{count} selezionato',
+  selectedCount_other: '{count} selezionati',
+  clearSelection: 'Deseleziona',
+  trashHint: 'Canc',
+  deleteHint: 'Maiusc+Canc',
+
+  // Avvisi
+  toastDeleted_one: '{count} elemento eliminato, {size} liberati',
+  toastDeleted_other: '{count} elementi eliminati, {size} liberati',
+  toastTrashed_one: '{count} elemento spostato nel cestino ({size}). Lo spazio verrà liberato quando lo svuoterai.',
+  toastTrashed_other: '{count} elementi spostati nel cestino ({size}). Lo spazio verrà liberato quando lo svuoterai.',
+  toastPartial: 'Elaborati {ok} di {total} elementi',
+  toastFailed_one: "Impossibile eliminare l'elemento",
+  toastFailed_other: 'Impossibile eliminare gli elementi',
+  failedItem: '{name}: {reason}',
+  failedMore_one: 'e altri {count} errore',
+  failedMore_other: 'e altri {count} errori',
+  errProtected: 'posizione critica del sistema, è protetta',
+  errNotInScan: "non è più nell'analisi; esegui di nuovo l'analisi",
+  errBusy: 'è in uso da un altro programma',
+  errPerm: 'permessi insufficienti (prova come amministratore)',
+  errNotFound: 'non esiste più',
+  errOther: 'errore: {error}',
+  errGeneric: "Impossibile completare l'operazione: {error}",
+  copied: 'Percorso copiato negli appunti',
+  copyFailed: 'Impossibile copiare il percorso',
+  openFailed: 'Impossibile aprire questa posizione',
+  dismiss: 'Chiudi avviso'
+}

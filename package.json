@@ -2,12 +2,19 @@
   "name": "disk-scanner",
   "version": "1.1.0",
   "description": "Disk space analyzer with real-time visualization",
+  "author": "Pausiar",
+  "license": "MIT",
+  "homepage": "https://github.com/Pausiar/check-space#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pausiar/check-space.git"
+  },
   "main": "./out/main/index.js",
   "scripts": {
     "dev": "electron-vite dev",
     "build": "electron-vite build",
     "preview": "electron-vite preview",
-    "package": "electron-vite build && electron-builder --win --config -c.win.signAndEditExecutable=false"
+    "package": "electron-vite build && electron-builder --win"
   },
   "dependencies": {
     "d3-hierarchy": "^3.1.2",

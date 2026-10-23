@@ -1,131 +1,160 @@
-// Generates resources/icon.png (256x256 RGBA) for Check Space.
-// Dependency-free: draws a rounded square in the accent colour with a stylised
-// donut chart (a 30% slice pulled out) using supersampled anti-aliasing,
-// then encodes the PNG with zlib + manual chunk/CRC writing.
+// Generates the Check Space app icon.
+//
+//   resources/icon.png   1024x1024 RGBA (window icon, Linux/macOS source)
+//   resources/icon.ico   16, 20, 24, 32, 40, 48, 64, 128, 256 px for Windows
+//
+// Dependency-free: the mark is drawn with a signed distance field and 4x4
+// supersampling per pixel, then encoded as PNG (zlib) or as a Windows ICO
+// (BMP entries for small sizes, PNG entries for 128/256 as Windows expects).
 //
 // Run from the repo root:   node scripts/make-icon.mjs
-// (package.json is intentionally not modified; add a script entry if you want
-//  e.g. "icon": "node scripts/make-icon.mjs")
 
 import { deflateSync } from 'node:zlib'
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const SIZE = 256
+const RES = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'resources')
+
+// The ICO sizes Windows actually asks for. 256 is the maximum allowed.
+const ICO_SIZES = [16, 20, 24, 32, 40, 48, 64, 128, 256]
+const PNG_SIZE = 1024
 const SS = 4 // supersampling per axis (16 samples per pixel)
-const OUT = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'resources', 'icon.png')
 
-const BG = [0xc9, 0x64, 0x42] // #C96442
-const WHITE = [255, 255, 255]
-
-const CENTER = SIZE / 2
-const CORNER_RADIUS = 56
-const RING_INNER = 36
-const RING_OUTER = 86
-const SLICE_SHARE = 0.3
-const SLICE_START = 0 // radians from 12 o'clock, clockwise
-const SLICE_SPAN = SLICE_SHARE * Math.PI * 2
-const EXPLODE = 12 // px the slice is pulled outwards
+// --- Geometry, expressed as a fraction of the canvas so every size matches ---
+const CORNER = 0.21875 // corner radius
+const RING_INNER = 0.1406
+const RING_OUTER = 0.336
+const SLICE_SHARE = 0.3 // the highlighted 30% wedge
+const EXPLODE = 0.058 // how far the wedge is pulled outwards
+const GAP = 0.06 // radians of empty space around the wedge
 const SLICE_ALPHA = 0.55
 
-const sliceMid = SLICE_START + SLICE_SPAN / 2
-const sliceDx = Math.sin(sliceMid) * EXPLODE
-const sliceDy = -Math.cos(sliceMid) * EXPLODE
+// Brand colours: the app accent (#C96442) with a little depth.
+const BG_TOP = [0xd8, 0x76, 0x51]
+const BG_BOTTOM = [0xa8, 0x4b, 0x2c]
+const WHITE = [255, 255, 255]
 
-/** Signed distance to a rounded square covering the whole canvas (<= 0 inside). */
-function roundedSquareDistance(x, y) {
-  const half = SIZE / 2 - CORNER_RADIUS
-  const qx = Math.abs(x - CENTER) - half
-  const qy = Math.abs(y - CENTER) - half
+const TWO_PI = Math.PI * 2
+const SLICE_START = 0 // 12 o'clock, clockwise
+const SLICE_SPAN = SLICE_SHARE * TWO_PI
+
+/** Signed distance to the rounded square covering the canvas (<= 0 inside). */
+function roundedSquareDistance(x, y, size) {
+  const half = size / 2 - CORNER * size
+  const qx = Math.abs(x - size / 2) - half
+  const qy = Math.abs(y - size / 2) - half
   const outside = Math.hypot(Math.max(qx, 0), Math.max(qy, 0))
   const inside = Math.min(Math.max(qx, qy), 0)
-  return outside + inside - CORNER_RADIUS
+  return outside + inside - CORNER * size
 }
 
 /** Angle from 12 o'clock, clockwise, in [0, 2π). */
 function angleFromTop(dx, dy) {
   let a = Math.atan2(dx, -dy)
-  if (a < 0) a += Math.PI * 2
+  if (a < 0) a += TWO_PI
   return a
 }
 
-/** Composite a colour with alpha over an existing RGBA (non-premultiplied) pixel. */
-function over(dst, src, alpha) {
-  const a = alpha + dst[3] * (1 - alpha)
-  if (a <= 0) return [0, 0, 0, 0]
-  return [
-    (src[0] * alpha + dst[0] * dst[3] * (1 - alpha)) / a,
-    (src[1] * alpha + dst[1] * dst[3] * (1 - alpha)) / a,
-    (src[2] * alpha + dst[2] * dst[3] * (1 - alpha)) / a,
-    a
-  ]
+function clamp255(v) {
+  return v < 0 ? 0 : v > 255 ? 255 : v
 }
 
-/** Colour of a single sample point (x, y in canvas pixels). */
-function shade(x, y) {
-  let px = [0, 0, 0, 0]
-  if (roundedSquareDistance(x, y) > 0) return px
-  px = [BG[0], BG[1], BG[2], 1]
-
-  // Whole donut, minus the exploded slice
-  const dx = x - CENTER
-  const dy = y - CENTER
-  const r = Math.hypot(dx, dy)
-  if (r >= RING_INNER && r <= RING_OUTER) {
-    const a = angleFromTop(dx, dy)
-    if (a < SLICE_START || a >= SLICE_START + SLICE_SPAN) {
-      px = over(px, WHITE, 1)
-    }
+/**
+ * Colour of one sample point. Writes the premultiplied result into `out` so the
+ * hot loop allocates nothing:
+ *   out[0..2] = colour * alpha, out[3] = alpha
+ */
+function shade(x, y, size, out) {
+  if (roundedSquareDistance(x, y, size) > 0) {
+    out[0] = out[1] = out[2] = out[3] = 0
+    return
   }
 
-  // The exploded slice, drawn semi-transparent
-  const sx = x - CENTER - sliceDx
-  const sy = y - CENTER - sliceDy
+  const c = size / 2
+  const dx = x - c
+  const dy = y - c
+  const dist = Math.hypot(dx, dy)
+
+  // Diagonal gradient plus a soft highlight towards the top-left, which keeps
+  // the mark from looking flat at large sizes without hurting 16 px legibility.
+  let t = (x + y) / (2 * size)
+  t = t < 0 ? 0 : t > 1 ? 1 : t
+  const light = 1 + 0.07 * Math.max(0, 1 - dist / (size * 0.62))
+  let r = clamp255((BG_TOP[0] + (BG_BOTTOM[0] - BG_TOP[0]) * t) * light)
+  let g = clamp255((BG_TOP[1] + (BG_BOTTOM[1] - BG_TOP[1]) * t) * light)
+  let b = clamp255((BG_TOP[2] + (BG_BOTTOM[2] - BG_TOP[2]) * t) * light)
+  let a = 1
+
+  // Small sizes get slightly thinner strokes and a wider hole so the mark
+  // stays legible in the taskbar instead of turning into a white blob.
+  const small = size <= 32
+  const inner = RING_INNER * size * (small ? 1.14 : 1)
+  const outer = RING_OUTER * size * (small ? 0.97 : 1)
+  const mid = SLICE_START + SLICE_SPAN / 2
+  const sx = x - c - Math.sin(mid) * EXPLODE * size
+  const sy = y - c + Math.cos(mid) * EXPLODE * size
   const sr = Math.hypot(sx, sy)
-  if (sr >= RING_INNER && sr <= RING_OUTER) {
-    const a = angleFromTop(sx, sy)
-    if (a >= SLICE_START && a < SLICE_START + SLICE_SPAN) {
-      px = over(px, WHITE, SLICE_ALPHA)
+  const sa = angleFromTop(sx, sy)
+  // Footprint of the exploded wedge: the ring is cut away here so the wedge
+  // reads as a separate slice instead of blending into the donut.
+  const inWedge = sr >= inner && sr <= outer && sa <= SLICE_SPAN
+
+  // The main donut, with a gap on each side of the wedge.
+  const rimInside = dist >= inner && dist <= outer
+  if (rimInside && !inWedge) {
+    const rimAngle = angleFromTop(dx, dy)
+    if (rimAngle >= SLICE_SPAN + GAP || rimAngle <= TWO_PI - GAP) {
+      r = WHITE[0]
+      g = WHITE[1]
+      b = WHITE[2]
     }
   }
-  return px
+
+  // The exploded wedge itself, slightly lighter than the ring.
+  if (inWedge && sa >= GAP * 0.5 && sa <= SLICE_SPAN - GAP * 0.5) {
+    r = r * (1 - SLICE_ALPHA) + WHITE[0] * SLICE_ALPHA
+    g = g * (1 - SLICE_ALPHA) + WHITE[1] * SLICE_ALPHA
+    b = b * (1 - SLICE_ALPHA) + WHITE[2] * SLICE_ALPHA
+  }
+
+  out[0] = r * a
+  out[1] = g * a
+  out[2] = b * a
+  out[3] = a
 }
 
-function renderPixels() {
-  const raw = Buffer.alloc((SIZE * 4 + 1) * SIZE) // one filter byte per row
+/** Rasterises the icon at `size` and returns straight (non-premultiplied) RGBA. */
+function render(size) {
+  const rgba = Buffer.alloc(size * size * 4)
   const samples = SS * SS
-  for (let py = 0; py < SIZE; py++) {
-    const rowStart = py * (SIZE * 4 + 1)
-    raw[rowStart] = 0 // filter: none
-    for (let px = 0; px < SIZE; px++) {
+  const out = [0, 0, 0, 0]
+  for (let py = 0; py < size; py++) {
+    for (let px = 0; px < size; px++) {
       let pr = 0
       let pg = 0
       let pb = 0
       let pa = 0
       for (let sy = 0; sy < SS; sy++) {
         for (let sx = 0; sx < SS; sx++) {
-          const x = px + (sx + 0.5) / SS
-          const y = py + (sy + 0.5) / SS
-          const [r, g, b, a] = shade(x, y)
-          // accumulate premultiplied colour so edges blend correctly
-          pr += r * a
-          pg += g * a
-          pb += b * a
-          pa += a
+          shade(px + (sx + 0.5) / SS, py + (sy + 0.5) / SS, size, out)
+          pr += out[0]
+          pg += out[1]
+          pb += out[2]
+          pa += out[3]
         }
       }
-      const o = rowStart + 1 + px * 4
+      const o = (py * size + px) * 4
       const alpha = pa / samples
       if (alpha > 0) {
-        raw[o] = Math.round(pr / pa)
-        raw[o + 1] = Math.round(pg / pa)
-        raw[o + 2] = Math.round(pb / pa)
+        rgba[o] = Math.round(pr / pa)
+        rgba[o + 1] = Math.round(pg / pa)
+        rgba[o + 2] = Math.round(pb / pa)
       }
-      raw[o + 3] = Math.round(alpha * 255)
+      rgba[o + 3] = Math.round(alpha * 255)
     }
   }
-  return raw
+  return rgba
 }
 
 // ---- PNG encoding ----
@@ -155,16 +184,19 @@ function chunk(type, data) {
   return Buffer.concat([len, typeAndData, crc])
 }
 
-function encodePng(raw) {
+function encodePng(rgba, size) {
+  const stride = size * 4
+  const raw = Buffer.alloc((stride + 1) * size)
+  for (let y = 0; y < size; y++) {
+    raw[y * (stride + 1)] = 0 // filter: none
+    rgba.copy(raw, y * (stride + 1) + 1, y * stride, (y + 1) * stride)
+  }
   const signature = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])
   const ihdr = Buffer.alloc(13)
-  ihdr.writeUInt32BE(SIZE, 0)
-  ihdr.writeUInt32BE(SIZE, 4)
+  ihdr.writeUInt32BE(size, 0)
+  ihdr.writeUInt32BE(size, 4)
   ihdr[8] = 8 // bit depth
   ihdr[9] = 6 // colour type: RGBA
-  ihdr[10] = 0 // compression
-  ihdr[11] = 0 // filter method
-  ihdr[12] = 0 // interlace
   return Buffer.concat([
     signature,
     chunk('IHDR', ihdr),
@@ -173,6 +205,90 @@ function encodePng(raw) {
   ])
 }
 
-mkdirSync(dirname(OUT), { recursive: true })
-writeFileSync(OUT, encodePng(renderPixels()))
-console.log(`Wrote ${OUT}`)
+// ---- ICO encoding ----
+// Small sizes use a 32-bit BMP entry because every Windows version (and
+// rcedit, which electron-builder uses to stamp the exe) reads those; 128 and
+// 256 use PNG entries, which is what Windows itself writes.
+
+function encodeDib(rgba, size) {
+  const header = Buffer.alloc(40)
+  header.writeUInt32LE(40, 0) // biSize
+  header.writeInt32LE(size, 4) // biWidth
+  header.writeInt32LE(size * 2, 8) // biHeight: colour + AND mask
+  header.writeUInt16LE(1, 12) // biPlanes
+  header.writeUInt16LE(32, 14) // biBitCount
+  header.writeUInt32LE(0, 16) // BI_RGB
+  header.writeUInt32LE(size * size * 4, 20) // biSizeImage
+
+  const pixels = Buffer.alloc(size * size * 4)
+  for (let y = 0; y < size; y++) {
+    const srcRow = (size - 1 - y) * size * 4 // bottom-up
+    for (let x = 0; x < size; x++) {
+      const s = srcRow + x * 4
+      const d = (y * size + x) * 4
+      pixels[d] = rgba[s + 2] // B
+      pixels[d + 1] = rgba[s + 1] // G
+      pixels[d + 2] = rgba[s] // R
+      pixels[d + 3] = rgba[s + 3] // A
+    }
+  }
+
+  // 1-bit AND mask: transparent pixels set, rows padded to 4 bytes.
+  const maskStride = Math.ceil(size / 32) * 4
+  const mask = Buffer.alloc(maskStride * size)
+  for (let y = 0; y < size; y++) {
+    const srcRow = (size - 1 - y) * size * 4
+    for (let x = 0; x < size; x++) {
+      if (rgba[srcRow + x * 4 + 3] === 0) {
+        mask[y * maskStride + (x >> 3)] |= 0x80 >> (x & 7)
+      }
+    }
+  }
+
+  return Buffer.concat([header, pixels, mask])
+}
+
+function encodeIco(entries) {
+  const header = Buffer.alloc(6)
+  header.writeUInt16LE(0, 0) // reserved
+  header.writeUInt16LE(1, 2) // type: icon
+  header.writeUInt16LE(entries.length, 4)
+
+  const dir = Buffer.alloc(16 * entries.length)
+  let offset = header.length + dir.length
+  entries.forEach((entry, i) => {
+    const o = i * 16
+    dir[o] = entry.size >= 256 ? 0 : entry.size // 0 means 256
+    dir[o + 1] = entry.size >= 256 ? 0 : entry.size
+    dir[o + 2] = 0 // palette colours
+    dir[o + 3] = 0 // reserved
+    dir.writeUInt16LE(1, o + 4) // planes
+    dir.writeUInt16LE(32, o + 6) // bits per pixel
+    dir.writeUInt32LE(entry.data.length, o + 8)
+    dir.writeUInt32LE(offset, o + 12)
+    offset += entry.data.length
+  })
+
+  return Buffer.concat([header, dir, ...entries.map((e) => e.data)])
+}
+
+// ---- Main ----
+
+mkdirSync(RES, { recursive: true })
+
+const pngPath = resolve(RES, 'icon.png')
+const large = render(PNG_SIZE)
+writeFileSync(pngPath, encodePng(large, PNG_SIZE))
+
+const entries = ICO_SIZES.map((size) => {
+  const rgba = size === PNG_SIZE ? large : render(size)
+  return {
+    size,
+    data: size >= 128 ? encodePng(rgba, size) : encodeDib(rgba, size)
+  }
+})
+const icoPath = resolve(RES, 'icon.ico')
+writeFileSync(icoPath, encodeIco(entries))
+
+console.log(`Wrote ${pngPath} (${PNG_SIZE}x${PNG_SIZE})`)
+console.log(`Wrote ${icoPath} (${ICO_SIZES.join(', ')} px)`)

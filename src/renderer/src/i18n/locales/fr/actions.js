@@ -1,0 +1,57 @@
+export default {
+  // Boîte de confirmation de suppression
+  confirmTitle_one: 'Supprimer {count} élément',
+  confirmTitle_other: 'Supprimer {count} éléments',
+  totalSize: 'Taille totale : {size}',
+  andMore_one: 'et {count} élément de plus',
+  andMore_other: 'et {count} éléments de plus',
+  chooseMethod: 'Comment voulez-vous le supprimer',
+  optTrash: 'Mettre à la corbeille',
+  optTrashHint: 'Vous pourrez le restaurer depuis la corbeille.',
+  optPermanent: 'Supprimer définitivement',
+  optPermanentHint: 'Efface du disque sans passer par la corbeille.',
+  trashNote: "Mettre à la corbeille ne libère pas d'espace disque tant que vous ne la videz pas.",
+  permanentWarning: 'Cette action est irréversible. Les fichiers seront définitivement supprimés et ne pourront pas être récupérés.',
+  permanentWarningFolders: 'Les dossiers seront supprimés avec tout leur contenu.',
+  confirmTrash: 'Mettre à la corbeille',
+  confirmPermanent: 'Supprimer définitivement',
+  working: 'Suppression…',
+  cancel: 'Annuler',
+
+  // Menu contextuel
+  copyPath: 'Copier le chemin',
+  trashSelected_one: 'Mettre à la corbeille ({count} élément)',
+  trashSelected_other: 'Mettre à la corbeille ({count} éléments)',
+  deleteSelected_one: 'Supprimer définitivement ({count} élément)',
+  deleteSelected_other: 'Supprimer définitivement ({count} éléments)',
+
+  // Barre de sélection
+  selectedCount_one: '{count} sélectionné',
+  selectedCount_other: '{count} sélectionnés',
+  clearSelection: 'Vider la sélection',
+  trashHint: 'Suppr',
+  deleteHint: 'Maj+Suppr',
+
+  // Messages
+  toastDeleted_one: '{count} élément supprimé, {size} libérés',
+  toastDeleted_other: '{count} éléments supprimés, {size} libérés',
+  toastTrashed_one: "{count} élément mis à la corbeille ({size}). L'espace sera libéré quand vous la viderez.",
+  toastTrashed_other: "{count} éléments mis à la corbeille ({size}). L'espace sera libéré quand vous la viderez.",
+  toastPartial: '{ok} éléments traités sur {total}',
+  toastFailed_one: "Impossible de supprimer l'élément",
+  toastFailed_other: 'Impossible de supprimer les éléments',
+  failedItem: '{name} : {reason}',
+  failedMore_one: 'et {count} erreur de plus',
+  failedMore_other: 'et {count} erreurs de plus',
+  errProtected: 'emplacement critique du système, il est protégé',
+  errNotInScan: "ne figure plus dans l'analyse ; relancez l'analyse",
+  errBusy: 'est utilisé par un autre programme',
+  errPerm: "permissions insuffisantes (essayez en tant qu'administrateur)",
+  errNotFound: "n'existe plus",
+  errOther: 'erreur : {error}',
+  errGeneric: "Impossible de terminer l'opération : {error}",
+  copied: 'Chemin copié dans le presse-papiers',
+  copyFailed: 'Impossible de copier le chemin',
+  openFailed: "Impossible d'ouvrir cet emplacement",
+  dismiss: 'Fermer le message'
+}

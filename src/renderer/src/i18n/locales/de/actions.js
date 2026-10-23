@@ -1,0 +1,57 @@
+export default {
+  // Bestätigungsdialog zum Löschen
+  confirmTitle_one: '{count} Element löschen',
+  confirmTitle_other: '{count} Elemente löschen',
+  totalSize: 'Gesamtgröße: {size}',
+  andMore_one: 'und {count} weiteres Element',
+  andMore_other: 'und {count} weitere Elemente',
+  chooseMethod: 'Wie möchtest du es löschen',
+  optTrash: 'In den Papierkorb verschieben',
+  optTrashHint: 'Kann aus dem Papierkorb wiederhergestellt werden.',
+  optPermanent: 'Endgültig löschen',
+  optPermanentHint: 'Wird ohne Umweg über den Papierkorb von der Festplatte gelöscht.',
+  trashNote: 'In den Papierkorb verschieben gibt erst Speicherplatz frei, wenn du ihn leerst.',
+  permanentWarning: 'Diese Aktion kann nicht rückgängig gemacht werden. Die Dateien werden endgültig gelöscht und können nicht wiederhergestellt werden.',
+  permanentWarningFolders: 'Die Ordner werden mit ihrem gesamten Inhalt gelöscht.',
+  confirmTrash: 'In den Papierkorb verschieben',
+  confirmPermanent: 'Endgültig löschen',
+  working: 'Wird gelöscht…',
+  cancel: 'Abbrechen',
+
+  // Kontextmenü
+  copyPath: 'Pfad kopieren',
+  trashSelected_one: 'In den Papierkorb verschieben ({count} Element)',
+  trashSelected_other: 'In den Papierkorb verschieben ({count} Elemente)',
+  deleteSelected_one: 'Endgültig löschen ({count} Element)',
+  deleteSelected_other: 'Endgültig löschen ({count} Elemente)',
+
+  // Auswahlleiste
+  selectedCount_one: '{count} ausgewählt',
+  selectedCount_other: '{count} ausgewählt',
+  clearSelection: 'Auswahl aufheben',
+  trashHint: 'Entf',
+  deleteHint: 'Umschalt+Entf',
+
+  // Hinweise
+  toastDeleted_one: '{count} Element gelöscht, {size} freigegeben',
+  toastDeleted_other: '{count} Elemente gelöscht, {size} freigegeben',
+  toastTrashed_one: '{count} Element in den Papierkorb verschoben ({size}). Der Speicherplatz wird beim Leeren freigegeben.',
+  toastTrashed_other: '{count} Elemente in den Papierkorb verschoben ({size}). Der Speicherplatz wird beim Leeren freigegeben.',
+  toastPartial: '{ok} von {total} Elementen verarbeitet',
+  toastFailed_one: 'Das Element konnte nicht gelöscht werden',
+  toastFailed_other: 'Die Elemente konnten nicht gelöscht werden',
+  failedItem: '{name}: {reason}',
+  failedMore_one: 'und {count} weiterer Fehler',
+  failedMore_other: 'und {count} weitere Fehler',
+  errProtected: 'kritischer Systemort, er ist geschützt',
+  errNotInScan: 'ist nicht mehr im Scan enthalten; bitte neu scannen',
+  errBusy: 'wird von einem anderen Programm verwendet',
+  errPerm: 'keine ausreichenden Berechtigungen (als Administrator versuchen)',
+  errNotFound: 'existiert nicht mehr',
+  errOther: 'Fehler: {error}',
+  errGeneric: 'Vorgang konnte nicht abgeschlossen werden: {error}',
+  copied: 'Pfad in die Zwischenablage kopiert',
+  copyFailed: 'Pfad konnte nicht kopiert werden',
+  openFailed: 'Dieser Ort konnte nicht geöffnet werden',
+  dismiss: 'Hinweis schließen'
+}

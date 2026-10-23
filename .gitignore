@@ -3,3 +3,9 @@ out/
 build/
 dist/
 *.log
+
+# Local clone of the website repo (https://github.com/Pausiar/check-space-docs)
+docs-site/
+
+# Generated review artifacts (patch for the website repo, previews)
+artifacts/

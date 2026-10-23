@@ -21,7 +21,11 @@ for (const [file, mod] of Object.entries(modules)) {
 
 export const LANGUAGES = [
   { code: 'es', label: 'Español', locale: 'es-ES' },
-  { code: 'en', label: 'English', locale: 'en-US' }
+  { code: 'en', label: 'English', locale: 'en-US' },
+  { code: 'pt-BR', label: 'Português (Brasil)', locale: 'pt-BR' },
+  { code: 'fr', label: 'Français', locale: 'fr-FR' },
+  { code: 'de', label: 'Deutsch', locale: 'de-DE' },
+  { code: 'it', label: 'Italiano', locale: 'it-IT' }
 ]
 const FALLBACK = 'es'
 const STORAGE_KEY = 'language'
@@ -52,8 +56,14 @@ function initialLanguage() {
     const saved = localStorage.getItem(STORAGE_KEY)
     if (saved && dictionaries[saved]) return saved
   } catch {}
-  const nav = (navigator.language || '').slice(0, 2)
-  return dictionaries[nav] ? nav : FALLBACK
+  // Match the full tag first (pt-BR, fr-FR…), then the base language so that
+  // pt-PT also lands on the Portuguese dictionary and de-AT on German.
+  const nav = (navigator.language || '').toLowerCase()
+  const base = nav.slice(0, 2)
+  const match =
+    LANGUAGES.find((l) => l.locale.toLowerCase() === nav) ||
+    LANGUAGES.find((l) => l.code.toLowerCase().split('-')[0] === base)
+  return match && dictionaries[match.code] ? match.code : FALLBACK
 }
 
 const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
