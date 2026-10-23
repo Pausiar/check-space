@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="google-site-verification" content="lMgmviyzAEtdI4kk1GYr1Bmbf03BI3K5N0eMR3a0JBQ">
+  <!-- AdSense se carga de forma condicional tras el consentimiento del usuario (RGPD) -->
+  {% seo %}
+  <meta property="og:image" content="{{ '/assets/images/og-image.png' | absolute_url }}">
+  <meta property="og:image:alt" content="Check Space analizador de espacio en disco para Windows">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="{{ '/assets/images/og-image.png' | absolute_url }}">
+  <link rel="apple-touch-icon" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}">
+  <!-- Inter se sirve desde este dominio (assets/fonts) para no enviar la IP del
+       visitante a Google antes de que dé su consentimiento. -->
+  <link rel="preload" href="{{ '/assets/fonts/inter-latin.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}?v={{ site.github.build_revision | default: site.time | date: '%s' }}">
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/images/favicon.svg' | relative_url }}">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Check Space",
+    "url": "{{ '/' | absolute_url }}",
+    "description": "Free disk space analyzer for Windows that visualizes which files and folders are using the most storage on your PC.",
+    "sameAs": [
+      "https://github.com/Pausiar/check-space"
+    ]
+  }
+  </script>
+</head>
+<body>
+  {{ content }}
+
+  <!-- ===== COOKIE BANNER ===== -->
+  <!-- Solo se cargan cookies/advertising si se acepta. Rechazar es tan fácil como
+       aceptar (mismo botón, misma prominencia) y no impide navegar. -->
+  <div id="cookie-banner" class="cookie-banner" role="dialog"
+       aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-desc"
+       tabindex="-1" style="display:none;">
+    <div class="cookie-banner__inner">
+      <div class="cookie-banner__text">
+        <strong id="cookie-banner-title">Cookies y publicidad</strong>
+        <p id="cookie-banner-desc">Este sitio usa almacenamiento técnico propio para recordar tu elección y, solo si lo aceptas,
+          cookies de Google AdSense para mostrar publicidad. Si las rechazas, el sitio funciona igual y no se carga publicidad.
+          <a href="{{ '/politica-cookies/' | relative_url }}" class="cookie-banner__link">Política de cookies</a> ·
+          <a href="{{ '/politica-privacidad/' | relative_url }}" class="cookie-banner__link">Privacidad</a>
+        </p>
+      </div>
+      <div class="cookie-banner__actions">
+        <button id="cookie-reject" class="btn btn--cookie">Rechazar</button>
+        <button id="cookie-accept" class="btn btn--cookie">Aceptar cookies</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var CONSENT_KEY = 'cookie-consent';
+      /* Súbelo al cambiar de proveedor o de finalidad: se volverá a preguntar. */
+      var CONSENT_VERSION = 2;
+
+      /* Carga AdSense solo tras el consentimiento (RGPD / ePrivacy) */
+      function loadAdSense() {
+        if (document.querySelector('script[src*="adsbygoogle"]')) return;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7612805768657333';
+        s.setAttribute('crossorigin', 'anonymous');
+        document.head.appendChild(s);
+      }
+
+      function readConsent() {
+        var raw;
+        try { raw = localStorage.getItem(CONSENT_KEY); } catch (e) { return null; }
+        if (!raw) return null;
+        try {
+          var parsed = JSON.parse(raw);
+          if (parsed && parsed.value) return parsed;
+        } catch (e) { /* valor antiguo en texto plano */ }
+        if (raw === 'accepted' || raw === 'rejected') return { value: raw, version: 1 };
+        return null;
+      }
+
+      function saveConsent(value) {
+        try {
+          localStorage.setItem(CONSENT_KEY, JSON.stringify({
+            value: value,
+            version: CONSENT_VERSION,
+            date: new Date().toISOString()
+          }));
+        } catch (e) { /* modo privado: la elección durará solo esta visita */ }
+      }
+
+      function showBanner() {
+        var banner = document.getElementById('cookie-banner');
+        banner.style.display = 'flex';
+        banner.focus();
+      }
+
+      function hideBanner() {
+        document.getElementById('cookie-banner').style.display = 'none';
+      }
+
+      /* Permite al usuario reabrir el banner para cambiar su preferencia.
+         Si AdSense ya se había cargado, se recarga la página para que deje de
+         ejecutarse; las cookies de Google ya instaladas se borran desde el navegador. */
+      window.resetCookieConsent = function() {
+        var hadAds = !!document.querySelector('script[src*="adsbygoogle"]');
+        try { localStorage.removeItem(CONSENT_KEY); } catch (e) {}
+        if (hadAds) {
+          location.reload();
+          return;
+        }
+        showBanner();
+      };
+
+      var consent = readConsent();
+      if (consent && consent.value === 'accepted' && consent.version === CONSENT_VERSION) {
+        loadAdSense();
+      } else if (!consent || consent.version !== CONSENT_VERSION) {
+        showBanner();
+      }
+      /* Rechazado en la versión actual: no se muestra el banner ni se carga nada */
+
+      document.getElementById('cookie-accept').addEventListener('click', function() {
+        saveConsent('accepted');
+        hideBanner();
+        loadAdSense();
+      });
+      document.getElementById('cookie-reject').addEventListener('click', function() {
+        saveConsent('rejected');
+        hideBanner();
+      });
+    })();
+  </script>
+</body>
+</html>

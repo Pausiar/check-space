@@ -4,8 +4,9 @@ build/
 dist/
 *.log
 
-# Local clone of the website repo (https://github.com/Pausiar/check-space-docs)
-docs-site/
+# Salida del build local de Jekyll (la web se publica desde docs/)
+docs/_site/
+docs/.jekyll-cache/
 
 # Generated review artifacts (patch for the website repo, previews)
 artifacts/

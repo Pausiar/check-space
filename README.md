@@ -25,9 +25,16 @@ Analizador de espacio en disco para Windows (Electron + React).
 - Revisión legal y puntos pendientes: [docs/LEGAL.md](docs/LEGAL.md).
 - El aviso de licencia y el de privacidad se incluyen en cada paquete (`resources/LICENSE.txt`
   y `resources/PRIVACY.txt`).
-- Páginas legales del sitio web: [aviso legal](https://check-space-docs.vercel.app/aviso-legal/),
-  [privacidad](https://check-space-docs.vercel.app/politica-privacidad/) y
-  [cookies](https://check-space-docs.vercel.app/politica-cookies/).
+- Páginas legales del sitio web: [aviso legal](https://pausiar.github.io/check-space/aviso-legal/),
+  [privacidad](https://pausiar.github.io/check-space/politica-privacidad/) y
+  [cookies](https://pausiar.github.io/check-space/politica-cookies/).
+
+## Web
+
+El sitio público está en <https://pausiar.github.io/check-space/> y su código vive en
+[`docs/`](docs/README.md). GitHub Pages lo publica directamente desde esa carpeta: al
+activarlo, la portada es `docs/index.html` y no un README renderizado. Los cambios de la
+web se hacen en el mismo repositorio que la aplicación.
 
 ## Firma de código
 

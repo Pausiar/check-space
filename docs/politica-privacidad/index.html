@@ -1,0 +1,198 @@
+---
+layout: default
+title: "Política de Privacidad — Check Space"
+description: "Política de privacidad de Check Space: qué datos trata el sitio web, con qué base jurídica y cómo ejercer tus derechos."
+---
+
+{% assign legal = site.legal %}
+{% assign has_email = false %}
+{% if legal.email and legal.email != "" %}{% assign has_email = true %}{% endif %}
+{% assign has_owner = false %}
+{% if legal.owner and legal.owner != "" %}{% assign has_owner = true %}{% endif %}
+
+<header class="navbar">
+  <div class="container navbar__inner">
+    <a href="{{ '/' | relative_url }}" class="navbar__logo">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <circle cx="14" cy="14" r="13" stroke="#6366f1" stroke-width="2"/>
+        <path d="M14 14 L14 4 A10 10 0 0 1 24 14 Z" fill="#6366f1"/>
+        <path d="M14 14 L24 14 A10 10 0 0 1 8 23 Z" fill="#818cf8"/>
+        <path d="M14 14 L8 23 A10 10 0 0 1 4 14 Z" fill="#4338ca"/>
+        <path d="M14 14 L4 14 A10 10 0 0 1 14 4 Z" fill="#312e81"/>
+      </svg>
+      <span>Check Space</span>
+    </a>
+    <nav class="navbar__links" aria-label="Navegación principal">
+      <a href="{{ '/' | relative_url }}#features">Características</a>
+      <a href="{{ '/' | relative_url }}#download" class="btn btn--sm btn--primary">Descargar gratis</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="legal-page">
+    <div class="container" style="max-width: 860px;">
+      <div class="legal-page__header">
+        <h1>Política de <span class="gradient-text">Privacidad</span></h1>
+        <p>Última actualización: {{ legal.updated }}</p>
+      </div>
+
+      <div class="legal-page__body">
+        <p>
+          Esta política explica qué datos personales trata <strong>Check Space</strong> a través del sitio
+          web <strong>{{ '/' | absolute_url | remove: 'https://' }}</strong>, con qué finalidad, durante cuánto tiempo
+          y cómo puedes ejercer tus derechos conforme al Reglamento (UE) 2016/679 (RGPD) y a la
+          Ley Orgánica 3/2018 (LOPDGDD).
+        </p>
+
+        <h2>1. Responsable del tratamiento</h2>
+        <div class="info-box">
+          <p style="margin:0 0 6px;"><strong>Responsable:</strong> {% if has_owner %}{{ legal.owner }}{% else %}Pausiar (proyecto personal){% endif %}</p>
+          {% if legal.nif and legal.nif != "" %}<p style="margin:0 0 6px;"><strong>NIF:</strong> {{ legal.nif }}</p>{% endif %}
+          {% if legal.address and legal.address != "" %}<p style="margin:0 0 6px;"><strong>Domicilio:</strong> {{ legal.address }} ({{ legal.country }})</p>{% endif %}
+          <p style="margin:0;"><strong>Contacto para privacidad:</strong>
+            {% if has_email %}
+              <a href="mailto:{{ legal.email }}">{{ legal.email }}</a>
+            {% else %}
+              <a href="https://github.com/Pausiar/check-space/issues" target="_blank" rel="noopener noreferrer">GitHub Issues</a>
+            {% endif %}
+          </p>
+        </div>
+        <p>
+          No es necesario designar un Delegado de Protección de Datos: el tratamiento no se realiza a
+          gran escala ni afecta a categorías especiales de datos.
+        </p>
+
+        <h2>2. Qué datos se tratan</h2>
+        <p>
+          El sitio <strong>no tiene formularios de registro, comentarios ni área de usuario</strong>, y no
+          solicita nombre, correo electrónico ni ningún otro dato identificativo.
+        </p>
+        <ul>
+          <li>
+            <strong>Datos técnicos del servidor (Vercel):</strong> al visitar el sitio, el proveedor de
+            alojamiento registra automáticamente la dirección IP, el agente de usuario, la URL solicitada
+            y la fecha y hora. Estos registros son necesarios para servir el sitio y protegerlo frente a
+            abusos.
+          </li>
+          <li>
+            <strong>Publicidad (Google AdSense):</strong> solo si aceptas las cookies, Google puede tratar
+            datos de tu dispositivo, identificadores de cookies y tu actividad de navegación para mostrar
+            publicidad personalizada o no personalizada. Si rechazas, <strong>no se carga ningún script
+            publicitario</strong>.
+          </li>
+          <li>
+            <strong>Tu elección sobre cookies:</strong> se guarda en el almacenamiento local de tu navegador
+            (no se envía a ningún servidor).
+          </li>
+        </ul>
+        <p>
+          El sitio <strong>no usa Google Analytics ni ninguna otra herramienta de analítica</strong>. La
+          tipografía y los recursos se sirven desde este mismo dominio, de modo que
+          <strong>no se cargan cookies ni scripts publicitarios de terceros antes de que aceptes</strong>.
+          La única petición externa automática es una consulta a la API pública de GitHub
+          (<code>api.github.com</code>) para mostrar la última versión en los botones de descarga: no
+          instala cookies y se ampara en el interés legítimo de ofrecer la descarga correcta. Si la
+          bloqueas, los botones siguen funcionando y llevan a la página de la última release.
+        </p>
+
+        <h2>3. Finalidades y base jurídica</h2>
+        <ul>
+          <li><strong>Servir el sitio y mantener su seguridad:</strong> interés legítimo del responsable (art. 6.1.f RGPD).</li>
+          <li><strong>Mostrar publicidad y personalizarla:</strong> tu consentimiento (art. 6.1.a RGPD), que puedes retirar en cualquier momento.</li>
+          <li><strong>Recordar tu decisión sobre cookies:</strong> interés legítimo y obligación legal de poder acreditar el consentimiento.</li>
+          <li><strong>Atender consultas que nos envíes:</strong> interés legítimo en responder y, si procede, consentimiento implícito en el envío del mensaje.</li>
+        </ul>
+
+        <h2>4. Destinatarios y transferencias internacionales</h2>
+        <ul>
+          <li><strong>Vercel Inc.</strong> (alojamiento y CDN), con sede en Estados Unidos.</li>
+          <li><strong>Google LLC / Google Ireland Ltd.</strong> (AdSense), solo tras el consentimiento.</li>
+          <li><strong>GitHub Inc.</strong>, si accedes al repositorio o descargas la aplicación desde GitHub Releases.</li>
+        </ul>
+        <p>
+          Estas transferencias se amparan en las cláusulas contractuales tipo aprobadas por la Comisión
+          Europea y, cuando el proveedor está adherido, en el Marco de Privacidad de Datos UE–EE. UU.
+          No se venden datos personales a terceros.
+        </p>
+
+        <h2>5. Plazos de conservación</h2>
+        <ul>
+          <li><strong>Registros del servidor:</strong> el tiempo mínimo necesario para la seguridad y el funcionamiento del servicio, según la configuración del proveedor.</li>
+          <li><strong>Preferencia de cookies:</strong> en tu navegador hasta que la borres o pulses «Gestionar cookies».</li>
+          <li><strong>Cookies publicitarias:</strong> según la duración definida por Google; puedes eliminarlas desde tu navegador.</li>
+          <li><strong>Mensajes de consulta:</strong> el tiempo necesario para responder y, después, el exigido por posibles responsabilidades legales.</li>
+        </ul>
+
+        <h2>6. Tus derechos</h2>
+        <p>Puedes ejercer en cualquier momento los siguientes derechos:</p>
+        <ul>
+          <li><strong>Acceso:</strong> saber qué datos se tratan sobre ti.</li>
+          <li><strong>Rectificación:</strong> corregir datos inexactos.</li>
+          <li><strong>Supresión:</strong> solicitar la eliminación de tus datos.</li>
+          <li><strong>Oposición:</strong> oponerte al tratamiento basado en interés legítimo.</li>
+          <li><strong>Limitación:</strong> solicitar que se restrinja el tratamiento.</li>
+          <li><strong>Portabilidad:</strong> recibir tus datos en un formato estructurado.</li>
+          <li><strong>Retirar el consentimiento</strong> en cualquier momento, sin que ello afecte a la licitud del tratamiento previo.</li>
+        </ul>
+        <p>
+          Para ejercerlos, escribe al canal de contacto indicado arriba. También puedes reclamar ante la
+          <a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">Agencia Española de Protección de Datos</a>
+          o ante la autoridad de protección de datos de tu país de residencia en la UE.
+        </p>
+
+        <h2>7. Cookies</h2>
+        <p>
+          El detalle de las cookies y del almacenamiento local, con su finalidad y duración, está en la
+          <a href="{{ '/politica-cookies/' | relative_url }}">Política de Cookies</a>. Puedes cambiar tu
+          elección en cualquier momento con el enlace «Gestionar cookies» del pie de página.
+        </p>
+
+        <h2>8. Seguridad</h2>
+        <p>
+          El sitio se sirve íntegramente por HTTPS y aplica cabeceras de seguridad básicas. No se
+          almacenan contraseñas ni datos de pago porque no existe autenticación ni comercio electrónico.
+          Ningún sistema es infalible, pero se aplican medidas razonables y proporcionadas al riesgo.
+        </p>
+
+        <h2>9. Menores de edad</h2>
+        <p>
+          El sitio no está dirigido a menores de 14 años y no se recogen conscientemente datos de menores
+          de esa edad. Si detectas que un menor nos ha facilitado datos, comunícalo para eliminarlos.
+        </p>
+
+        <h2>10. La aplicación de escritorio</h2>
+        <p>
+          <strong>Check Space no recoge datos ni se conecta a internet.</strong> No hay cuentas, telemetría
+          ni informes de fallos: los nombres de tus archivos y los tamaños nunca salen de tu equipo. La
+          aplicación solo guarda en tu PC una caché de resultados y tus preferencias. Los detalles están
+          en la
+          <a href="https://github.com/Pausiar/check-space/blob/main/PRIVACY.md" target="_blank" rel="noopener noreferrer">política de privacidad de la aplicación</a>.
+        </p>
+
+        <h2>11. Cambios en esta política</h2>
+        <p>
+          Esta política puede actualizarse para reflejar cambios legales o técnicos. La fecha de la
+          última revisión aparece al inicio. Si el cambio afecta al consentimiento, se volverá a pedir.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>
+      &copy; 2026 Check Space por
+      <a href="https://github.com/Pausiar" target="_blank" rel="noopener noreferrer">Pausiar</a>.
+      Código abierto bajo licencia MIT.
+    </p>
+    <nav class="footer__links" aria-label="Enlaces del pie de página">
+      <a href="{{ '/politica-cookies/' | relative_url }}">Política de cookies</a>
+      <a href="{{ '/politica-privacidad/' | relative_url }}">Privacidad</a>
+      <a href="{{ '/aviso-legal/' | relative_url }}">Aviso legal</a>
+      <a href="{{ '/faq/' | relative_url }}">FAQ</a>
+      <a href="javascript:void(0)" onclick="resetCookieConsent()" style="cursor:pointer;">Gestionar cookies</a>
+    </nav>
+  </div>
+</footer>

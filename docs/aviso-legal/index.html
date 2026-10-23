@@ -1,0 +1,183 @@
+---
+layout: default
+title: "Aviso Legal — Check Space"
+description: "Aviso legal de Check Space: titular, condiciones de uso del sitio y de la aplicación, licencia y responsabilidad."
+---
+
+{% assign legal = site.legal %}
+{% assign has_email = false %}
+{% if legal.email and legal.email != "" %}{% assign has_email = true %}{% endif %}
+{% assign has_owner = false %}
+{% if legal.owner and legal.owner != "" %}{% assign has_owner = true %}{% endif %}
+
+<header class="navbar">
+  <div class="container navbar__inner">
+    <a href="{{ '/' | relative_url }}" class="navbar__logo">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <circle cx="14" cy="14" r="13" stroke="#6366f1" stroke-width="2"/>
+        <path d="M14 14 L14 4 A10 10 0 0 1 24 14 Z" fill="#6366f1"/>
+        <path d="M14 14 L24 14 A10 10 0 0 1 8 23 Z" fill="#818cf8"/>
+        <path d="M14 14 L8 23 A10 10 0 0 1 4 14 Z" fill="#4338ca"/>
+        <path d="M14 14 L4 14 A10 10 0 0 1 14 4 Z" fill="#312e81"/>
+      </svg>
+      <span>Check Space</span>
+    </a>
+    <nav class="navbar__links" aria-label="Navegación principal">
+      <a href="{{ '/' | relative_url }}#features">Características</a>
+      <a href="{{ '/' | relative_url }}#download" class="btn btn--sm btn--primary">Descargar gratis</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="legal-page">
+    <div class="container" style="max-width: 860px;">
+      <div class="legal-page__header">
+        <h1><span class="gradient-text">Aviso Legal</span></h1>
+        <p>Última actualización: {{ legal.updated }}</p>
+      </div>
+
+      <div class="legal-page__body">
+        <p>
+          En cumplimiento del deber de información del artículo 10 de la Ley 34/2002, de 11 de julio,
+          de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSICE), se facilitan
+          los siguientes datos.
+        </p>
+
+        <h2>1. Datos identificativos</h2>
+        <div class="info-box">
+          <p style="margin:0 0 6px;"><strong>Titular:</strong> {% if has_owner %}{{ legal.owner }}{% else %}Pausiar (proyecto personal){% endif %}</p>
+          {% if legal.nif and legal.nif != "" %}<p style="margin:0 0 6px;"><strong>NIF:</strong> {{ legal.nif }}</p>{% endif %}
+          {% if legal.address and legal.address != "" %}<p style="margin:0 0 6px;"><strong>Domicilio:</strong> {{ legal.address }} ({{ legal.country }})</p>{% endif %}
+          <p style="margin:0 0 6px;"><strong>Proyecto:</strong> Check Space</p>
+          <p style="margin:0 0 6px;"><strong>Sitio web:</strong> <a href="{{ '/' | absolute_url }}">{{ '/' | absolute_url | remove: 'https://' }}</a></p>
+          <p style="margin:0;"><strong>Contacto:</strong>
+            {% if has_email %}
+              <a href="mailto:{{ legal.email }}">{{ legal.email }}</a>
+            {% else %}
+              <a href="https://github.com/Pausiar/check-space/issues" target="_blank" rel="noopener noreferrer">github.com/Pausiar/check-space/issues</a>
+            {% endif %}
+          </p>
+        </div>
+        <p>
+          Para cualquier consulta sobre este sitio, la aplicación o la protección de datos, utiliza el
+          canal de contacto indicado; es la vía habilitada a estos efectos. Los derechos descritos en la
+          <a href="{{ '/politica-privacidad/' | relative_url }}">Política de Privacidad</a> pueden
+ejercerse por ese mismo canal.
+        </p>
+
+        <h2>2. Objeto y ámbito de aplicación</h2>
+        <p>
+          Este Aviso Legal regula el acceso y uso del sitio web <strong>{{ '/' | absolute_url | remove: 'https://' }}</strong>
+          y de la aplicación de escritorio <strong>Check Space</strong> para Windows. El uso del sitio o
+          de la aplicación implica la aceptación de estas condiciones. Si no estás de acuerdo, no uses
+          el sitio ni la aplicación.
+        </p>
+        <p>
+          Check Space es un <strong>proyecto de software libre, gratuito y sin ánimo de lucro</strong>.
+          No se vende ninguna licencia, no hay suscripciones ni funciones de pago y no existe una
+          relación de consumo derivada de una compra.
+        </p>
+
+        <h2>3. Propiedad intelectual y licencia</h2>
+        <p>
+          El código fuente se distribuye bajo la <strong>Licencia MIT</strong>, cuyo texto completo está en
+          <a href="https://github.com/Pausiar/check-space/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">el repositorio</a>.
+          La licencia permite usar, copiar, modificar y redistribuir el software conservando el aviso de
+          copyright y de licencia.
+        </p>
+        <p>
+          Los textos, el diseño y el contenido de este sitio son propiedad de su titular. Puedes
+          compartirlos citando la fuente; no está permitido usarlos con fines comerciales sin
+          autorización expresa.
+        </p>
+        <p>
+          Los componentes de terceros incluidos en la aplicación y sus licencias se detallan en
+          <a href="https://github.com/Pausiar/check-space/blob/main/THIRD-PARTY-NOTICES.md" target="_blank" rel="noopener noreferrer">THIRD-PARTY-NOTICES.md</a>.
+        </p>
+
+        <h2>4. Condiciones de uso de la aplicación</h2>
+        <ul>
+          <li>Check Space se proporciona <strong>«tal cual»</strong>, sin garantías expresas ni implícitas, tal como establece la Licencia MIT.</li>
+          <li>El usuario es el único responsable de las decisiones que tome sobre la eliminación de archivos en su sistema. <strong>Haz una copia de seguridad</strong> de lo importante antes de borrar.</li>
+          <li>La aplicación <strong>no borra nada por su cuenta</strong>: solo elimina lo que el usuario selecciona y confirma de forma explícita.</li>
+          <li>Algunas operaciones requieren permisos de administrador; es el usuario quien decide si reinicia la aplicación con esos permisos.</li>
+          <li>Queda prohibido usar la aplicación para actividades ilegales o que vulneren derechos de terceros.</li>
+        </ul>
+
+        <h2>5. Limitación de responsabilidad</h2>
+        <p>
+          En la medida en que la ley aplicable lo permita, el titular no será responsable de los daños
+          derivados del uso de Check Space o de este sitio, incluida la pérdida de datos, daños en el
+          sistema o cualquier perjuicio directo o indirecto. La aplicación muestra información sobre el
+          disco, pero <strong>no sustituye una copia de seguridad ni el criterio del usuario</strong>.
+        </p>
+        <p>
+          El sitio enlaza a servicios de terceros (GitHub, Google). El titular no controla ni responde
+          del contenido de esos sitios ni de sus prácticas de privacidad.
+        </p>
+
+        <h2>6. Disponibilidad del servicio</h2>
+        <p>
+          No se garantiza la disponibilidad continua del sitio ni de los archivos de descarga. El
+          servicio puede interrumpirse por mantenimiento, actualizaciones o causas técnicas sin previo
+          aviso. Las descargas se alojan en GitHub Releases y dependen de la disponibilidad de GitHub.
+        </p>
+
+        <h2>7. Protección de datos y cookies</h2>
+        <p>
+          El tratamiento de datos personales se describe en la
+          <a href="{{ '/politica-privacidad/' | relative_url }}">Política de Privacidad</a> y el uso de
+          cookies y almacenamiento local en la
+          <a href="{{ '/politica-cookies/' | relative_url }}">Política de Cookies</a>. La aplicación de
+          escritorio no recoge datos; su funcionamiento se detalla en la
+          <a href="https://github.com/Pausiar/check-space/blob/main/PRIVACY.md" target="_blank" rel="noopener noreferrer">política de privacidad de la aplicación</a>.
+        </p>
+
+        <h2>8. Marcas de terceros</h2>
+        <p>
+          Windows, Microsoft y OneDrive son marcas de Microsoft Corporation. Check Space es un proyecto
+          independiente y <strong>no está afiliado, patrocinado ni respaldado por Microsoft</strong>, ni por
+          WinDirStat, TreeSize ni ninguna otra utilidad de disco. Las marcas de terceros se citan
+          únicamente con fines descriptivos.
+        </p>
+
+        <h2>9. Legislación aplicable y jurisdicción</h2>
+        <p>
+          Este Aviso Legal se rige por la legislación española. Para cualquier controversia derivada del
+          uso del sitio o de la aplicación, las partes se someten a los Juzgados y Tribunales del
+          domicilio del usuario, salvo que la normativa aplicable establezca otro fuero imperativo.
+        </p>
+        <p>
+          Si resides en la Unión Europea y consideras que el tratamiento de tus datos no se ajusta a la
+          normativa, puedes reclamar ante la autoridad de protección de datos de tu país o ante la
+          <a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">Agencia Española de Protección de Datos</a>.
+        </p>
+
+        <h2>10. Modificaciones</h2>
+        <p>
+          El titular puede modificar este Aviso Legal en cualquier momento. La fecha de la última
+          actualización aparece al inicio del documento; los cambios sustanciales se anunciarán en el
+          repositorio del proyecto.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>
+      &copy; 2026 Check Space por
+      <a href="https://github.com/Pausiar" target="_blank" rel="noopener noreferrer">Pausiar</a>.
+      Código abierto bajo licencia MIT.
+    </p>
+    <nav class="footer__links" aria-label="Enlaces del pie de página">
+      <a href="{{ '/politica-cookies/' | relative_url }}">Política de cookies</a>
+      <a href="{{ '/politica-privacidad/' | relative_url }}">Privacidad</a>
+      <a href="{{ '/aviso-legal/' | relative_url }}">Aviso legal</a>
+      <a href="{{ '/faq/' | relative_url }}">FAQ</a>
+      <a href="javascript:void(0)" onclick="resetCookieConsent()" style="cursor:pointer;">Gestionar cookies</a>
+    </nav>
+  </div>
+</footer>

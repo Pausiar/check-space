@@ -1,0 +1,652 @@
+---
+layout: default
+title: "Descubre qué llena tu disco con Check Space"
+description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 y 11. Limpia tu PC rápido con un visualizador claro, gratis y sin registro."
+---
+
+<!-- ===== NAVBAR ===== -->
+<header class="navbar">
+  <div class="container navbar__inner">
+    <a href="{{ '/' | relative_url }}" class="navbar__logo">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <circle cx="14" cy="14" r="13" stroke="#6366f1" stroke-width="2"/>
+        <path d="M14 14 L14 4 A10 10 0 0 1 24 14 Z" fill="#6366f1"/>
+        <path d="M14 14 L24 14 A10 10 0 0 1 8 23 Z" fill="#818cf8"/>
+        <path d="M14 14 L8 23 A10 10 0 0 1 4 14 Z" fill="#4338ca"/>
+        <path d="M14 14 L4 14 A10 10 0 0 1 14 4 Z" fill="#312e81"/>
+      </svg>
+      <span>Check Space</span>
+    </a>
+    <nav class="navbar__links" aria-label="Navegación principal">
+      <a href="#features">Características</a>
+      <a href="#how-it-works">Cómo funciona</a>
+      <a href="#download" class="btn btn--sm btn--primary">Descargar gratis</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<main>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <span class="badge" id="hero-version-badge">v{{ site.app.version }} disponible — Windows</span>
+        <h1 id="hero-title">Descubre qué llena tu disco con <span class="gradient-text">Check Space</span></h1>
+        <p class="hero__desc">
+          Un <strong>analizador de espacio de disco gratuito</strong> para ver en segundos qué carpetas,
+          archivos temporales y descargas están consumiendo almacenamiento en tu PC. Claro, rápido y sin complicaciones.
+        </p>
+        <div class="hero__actions">
+          <a id="hero-installer-btn"
+             href="https://github.com/Pausiar/check-space/releases/latest"
+             class="btn btn--primary btn--lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M13 2v10.586l3.293-3.293 1.414 1.414L12 16.414l-5.707-5.707 1.414-1.414L11 12.586V2h2zm-9 18v-6H2v8h20v-8h-2v6H4z"/>
+            </svg>
+            Descargar para Windows
+          </a>
+          <a id="hero-portable-btn"
+             href="https://github.com/Pausiar/check-space/releases/latest"
+             class="btn btn--ghost btn--lg">
+            Versión Portable
+          </a>
+        </div>
+        <p class="hero__meta">App gratis · Sin registro · Sin anuncios · Sin telemetría · Windows 10/11</p>
+      </div>
+      <div class="hero__visual" aria-hidden="true">
+        <div class="disk-viz">
+          <div class="disk-viz__header">
+            <span class="disk-viz__title">Disco C: — 476 GB</span>
+            <span class="disk-viz__used">189 GB usados</span>
+          </div>
+          <div class="disk-viz__bar">
+            <div class="disk-viz__bar-fill" style="width: 40%"></div>
+          </div>
+          <ul class="disk-viz__list">
+            <li><span class="dot dot--1"></span><span class="name">Windows</span><span class="size">32,4 GB</span></li>
+            <li><span class="dot dot--2"></span><span class="name">Archivos de usuario</span><span class="size">89,1 GB</span></li>
+            <li><span class="dot dot--3"></span><span class="name">Programas</span><span class="size">41,7 GB</span></li>
+            <li><span class="dot dot--4"></span><span class="name">Archivos temporales</span><span class="size">12,3 GB</span></li>
+            <li><span class="dot dot--5"></span><span class="name">Otros</span><span class="size">13,5 GB</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROBLEMA ===== -->
+  <section class="problem" aria-labelledby="problem-title">
+    <div class="container problem__inner">
+      <h2 id="problem-title">¿Por qué tu disco duro está siempre lleno?</h2>
+      <p>
+        Con el tiempo, tu PC acumula <strong>archivos duplicados</strong>, cachés de aplicaciones,
+        instaladores olvidados y descargas que nunca borras. El problema no es que tengas poco espacio,
+        es que no sabes <em>dónde</em> está ese espacio. Check Space te da la respuesta al instante.
+      </p>
+      <div class="stats-row">
+        <div class="stat-card">
+          <strong>100% local</strong>
+          <span>sin cuentas, sin telemetría y sin conexión a internet</span>
+        </div>
+        <div class="stat-card">
+          <strong>6 idiomas</strong>
+          <span>español, inglés, portugués, francés, alemán e italiano</span>
+        </div>
+        <div class="stat-card">
+          <strong>Gratis y abierto</strong>
+          <span>código fuente auditable bajo licencia MIT</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="features" id="features" aria-labelledby="features-title">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="features-title">Todo lo que necesitas para limpiar tu disco</h2>
+        <p>Un visualizador de archivos grandes diseñado para que actúes, no solo para que veas.</p>
+      </div>
+      <div class="features__grid">
+        <article class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M11 2a9 9 0 100 18A9 9 0 0011 2zm0 2a7 7 0 110 14A7 7 0 0111 4zm1 3h-2v5l4.25 2.55.75-1.23-3-1.82V7z"/>
+            </svg>
+          </div>
+          <h3>Análisis en Tiempo Real</h3>
+          <p>
+            Escanea tu almacenamiento al instante y visualiza el <strong>mapa de uso de disco</strong>
+            mientras se construye. Sin progresos interminables, resultados inmediatos.
+          </p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+            </svg>
+          </div>
+          <h3>Visualización Intuitiva del Disco</h3>
+          <p>
+            Un <strong>mapa visual de carpetas</strong> que muestra de un vistazo qué archivos
+            y directorios ocupan más espacio. Identifica los culpables en segundos.
+          </p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+            </svg>
+          </div>
+          <h3>Encuentra Archivos que Más Pesan</h3>
+          <p>
+            Ordena directorios y archivos por tamaño para localizar los <strong>archivos grandes</strong>
+            y carpetas pesadas que puedes eliminar con seguridad.
+          </p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9h-4v4h-2v-4H9V9h4V5h2v4h4v2z"/>
+            </svg>
+          </div>
+          <h3>Windows 10, 11 y seis idiomas</h3>
+          <p>
+            Diseñado para <strong>Windows 10 y Windows 11</strong>, con interfaz en español, inglés,
+            portugués, francés, alemán e italiano. Mac y Linux están en el roadmap.
+          </p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M13 2.05V4.07c3.39.49 6 3.39 6 6.93 0 3.21-1.81 6.01-4.72 7.28L13 17v5h5l-1.22-1.22C19.91 19.07 21 16.14 21 13c0-5.18-3.95-9.45-9-9.95zM11 2.05C5.95 2.55 2 6.82 2 12c0 3.14 1.09 6.07 3.22 8.78L4 22h5v-5l-1.28 1.28C6.81 17.01 5 14.21 5 11c0-3.54 2.61-6.44 6-6.93V2.05z"/>
+            </svg>
+          </div>
+          <h3>App Ligera y Rápida</h3>
+          <p>
+            Un <strong>analizador de disco ligero</strong> basado en Electron que no consume
+            recursos. Abre, escanea y actúa. Sin instalaciones pesadas.
+          </p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+            </svg>
+          </div>
+          <h3>Sin Registro ni Telemetría</h3>
+          <p>
+            Sin cuentas, sin seguimiento, sin datos enviados a ningún servidor.
+            Check Space funciona <strong>100% en local</strong> en tu equipo.
+          </p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z"/>
+            </svg>
+          </div>
+          <h3>Duplicados verificados</h3>
+          <p>
+            Encuentra copias idénticas comparando tamaño, una huella de los extremos del archivo y un
+            <strong>SHA-1 del contenido completo</strong>. No borra nada sin tu confirmación.
+          </p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M15 16h4v2h-4zm0-8h7v2h-7zm0 4h6v2h-6zM3 18c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V8H3v10zM14 5h-3l-1-1H6L5 5H2v2h12z"/>
+            </svg>
+          </div>
+          <h3>Limpieza con confirmación</h3>
+          <p>
+            Sugerencias de temporales, papelera, cachés de navegadores y Windows Update, con el riesgo
+            de cada una indicado. Siempre decides tú qué se elimina.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section class="how-it-works" id="how-it-works" aria-labelledby="hiw-title">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="hiw-title">Analiza tu disco en 3 pasos</h2>
+        <p>Sin configuración. Sin curva de aprendizaje. Abre la app y empieza.</p>
+      </div>
+      <ol class="steps">
+        <li class="step">
+          <div class="step__number" aria-hidden="true">01</div>
+          <div class="step__content">
+            <h3>Descarga e instala</h3>
+            <p>
+              Descarga el instalador para Windows. La instalación tarda menos de 30 segundos.
+              También disponible en versión portable, sin instalación.
+            </p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step__number" aria-hidden="true">02</div>
+          <div class="step__content">
+            <h3>Selecciona tu disco o carpeta</h3>
+            <p>
+              Elige el disco duro o la carpeta que quieres analizar.
+              Check Space comenzará a escanear tu almacenamiento al instante.
+            </p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step__number" aria-hidden="true">03</div>
+          <div class="step__content">
+            <h3>Visualiza y libera espacio</h3>
+            <p>
+              Explora el mapa visual de tu disco. Identifica qué archivos y carpetas
+              pesan más y decide qué eliminar para recuperar espacio al momento.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== WHAT IS CHECK SPACE ===== -->
+  <section class="seo-content" aria-labelledby="what-is-title">
+    <div class="container">
+      <div class="seo-content__block" style="max-width:760px; margin:0 auto;">
+        <h2 id="what-is-title">¿Qué es Check Space?</h2>
+        <p>
+          Check Space es una <strong>aplicación gratuita de análisis de espacio en disco para Windows</strong>.
+          Escanea tu disco y muestra un mapa visual de qué archivos y carpetas ocupan más almacenamiento,
+          para que puedas identificar y eliminar lo que no necesitas en segundos.
+          Funciona en Windows 10 y Windows 11, es de código abierto (licencia MIT) y no envía ningún dato a servidores externos.
+        </p>
+        <p>
+          No requiere registro ni cuenta. Disponible como instalador y como versión portable (sin instalación).
+          Además del mapa del disco, detecta <strong>duplicados verificados byte a byte</strong>, sugiere limpiezas
+          seguras, exporta informes en CSV y JSON y funciona en seis idiomas.
+          Analiza discos internos, unidades externas, pendrives y cualquier carpeta a la que tengas acceso.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SEO CONTENT ===== -->
+  <section class="seo-content" aria-labelledby="seo-title">
+    <div class="container">
+      <div class="seo-content__grid">
+        <div class="seo-content__block">
+          <h2 id="seo-title">Libera espacio en tu PC sin borrar nada importante</h2>
+          <p>
+            La mayoría de usuarios que buscan <em>cómo liberar espacio en el PC</em> no tienen un problema
+            de capacidad real: tienen un problema de visibilidad. Los discos duros acumulan años de
+            archivos temporales, cachés de navegadores, instaladores descargados y carpetas duplicadas
+            que nadie nunca limpia porque nadie sabe que existen.
+          </p>
+          <p>
+            Check Space actúa como un <strong>software para liberar espacio en Windows</strong> que,
+            en lugar de borrar ciegamente, primero te <em>muestra</em> el problema. Con su
+            visualizador de archivos grandes puedes ver exactamente qué está ocupando tu disco y tomar
+            decisiones informadas.
+          </p>
+          <p>
+            Si tu PC dice que no tiene espacio de almacenamiento o Windows 11 te avisa de un disco
+            casi lleno, Check Space es la herramienta que necesitas para diagnosticar y solucionar el
+            problema en minutos.
+          </p>
+          <p>
+            También es útil si editas vídeo, trabajas con máquinas virtuales, sincronizas carpetas en la nube
+            o instalas juegos grandes con frecuencia. En todos esos casos es fácil perder visibilidad sobre
+            qué carpetas crecen cada semana y cuáles ya no aportan nada. Tener una vista clara del espacio
+            ocupado te ayuda a mantener el equipo rápido y a evitar avisos de almacenamiento crítico.
+          </p>
+        </div>
+        <div class="seo-content__block">
+          <h2>¿Cómo saber qué archivos ocupan más espacio en Windows 11?</h2>
+          <p>
+            Windows incluye herramientas básicas de almacenamiento, pero ninguna te da la foto completa
+            que necesitas. Con Check Space obtienes un <strong>análisis de espacio de disco</strong>
+            completo: árbol de directorios ordenado por peso, tamaños de carpetas en tiempo real y
+            una vista que te permite navegar hasta los archivos más grandes de tu sistema.
+          </p>
+          <p>
+            Ideal para analizar el almacenamiento de tu laptop antes de que se quede sin espacio,
+            o para hacer limpieza periódica en equipos de sobremesa con múltiples discos.
+            Compatible con <strong>Windows 10 y Windows 11</strong>.
+          </p>
+          <p>
+            En lugar de revisar carpeta por carpeta, puedes detectar enseguida si el problema está en vídeos,
+            copias de seguridad antiguas, archivos ISO, caches de programas creativos o restos de instalaciones.
+            Eso reduce errores al limpiar y te permite liberar espacio sin tocar documentos importantes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" aria-labelledby="faq-title">
+    <div class="container">
+      <div class="section-header faq__header">
+        <h2 id="faq-title">Preguntas frecuentes sobre espacio en disco</h2>
+        <p>Respuestas directas para quienes necesitan liberar almacenamiento sin poner en riesgo sus archivos.</p>
+      </div>
+      <div class="faq__grid">
+        <article class="faq-card">
+          <h3>¿Qué suele ocupar más espacio en un PC con Windows?</h3>
+          <p>
+            Lo más habitual es encontrar carpetas de descargas olvidadas, vídeos, archivos ZIP, copias locales de
+            servicios en la nube, proyectos creativos, bibliotecas de juegos y cachés de aplicaciones. En muchos
+            equipos también pesan bastante los archivos temporales de actualizaciones y los restos de instaladores.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>¿Es seguro borrar archivos grandes solo por su tamaño?</h3>
+          <p>
+            No siempre. El tamaño ayuda a localizar candidatos, pero antes de borrar conviene revisar la ruta,
+            la fecha de uso y el tipo de archivo. La mejor estrategia es identificar primero qué directorios han
+            crecido más y confirmar si pertenecen a copias, descargas antiguas o contenido prescindible.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>¿Cada cuánto conviene revisar el almacenamiento?</h3>
+          <p>
+            Si trabajas con archivos grandes, una revisión semanal evita llenados repentinos. Para un uso normal,
+            una revisión mensual suele ser suficiente. Lo importante es detectar tendencias: una carpeta que gana
+            varios gigas al mes puede avisarte antes de que el sistema empiece a ir lento.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>¿Sirve para discos externos o carpetas concretas?</h3>
+          <p>
+            Sí. Analizar una carpeta concreta o una unidad externa es especialmente útil cuando compartes archivos
+            entre varios programas o dispositivos. Así puedes comprobar en qué proyecto, copia o biblioteca se está
+            yendo el espacio sin recorrer manualmente miles de archivos.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>¿Check Space borra archivos por su cuenta?</h3>
+          <p>
+            No. La aplicación nunca elimina nada de forma automática: solo borra los elementos que seleccionas
+            y confirmas, y puedes elegir entre moverlos a la papelera o eliminarlos definitivamente. Aun así,
+            conviene revisar la ruta y tener una copia de seguridad antes de borrar.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>¿Por qué Windows SmartScreen muestra un aviso al instalar?</h3>
+          <p>
+            Porque las versiones actuales todavía no están firmadas con un certificado de código y el
+            instalador no tiene historial de descargas. El aviso no significa que la app contenga un virus:
+            el código es abierto y las releases se compilan en GitHub Actions. Puedes continuar con
+            «Más información» → «Ejecutar de todas formas». La firma de código está prevista; cuando esté
+            disponible, el aviso desaparecerá.
+          </p>
+        </article>
+      </div>
+      <div class="seo-checklist">
+        <h2>Qué revisar antes de borrar archivos grandes</h2>
+        <ul>
+          <li>Comprueba si el archivo está duplicado o si existe una copia de seguridad reciente.</li>
+          <li>Revisa si pertenece a una app que todavía usas, como editores de vídeo, launchers o máquinas virtuales.</li>
+          <li>Prioriza descargas antiguas, instaladores, exportaciones repetidas y cachés regenerables.</li>
+          <li>Mueve a un disco externo lo que necesites conservar pero no consultar a diario.</li>
+        </ul>
+        <p>
+          Un buen análisis de almacenamiento no consiste solo en encontrar un archivo enorme. Consiste en entender
+          el contexto: qué lo generó, si se puede recrear, si hay una copia adicional y si seguirá creciendo. Con
+          esa información puedes liberar espacio de forma más segura y mantener el sistema estable.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DOWNLOAD ===== -->
+  <section class="download" id="download" aria-labelledby="download-title">
+    <div class="container download__inner">
+      <h2 id="download-title">Descarga Check Space Gratis</h2>
+      <p>Disponible para Windows 10 y Windows 11. Sin registro. Sin coste.</p>
+      <div class="download__grid">
+        <div class="download-card download-card--featured">
+          <div class="download-card__icon">
+            <svg width="40" height="40" viewBox="0 0 88 88" fill="none" aria-hidden="true">
+              <rect width="40" height="40" x="4" y="4" fill="#00adef"/>
+              <rect width="40" height="40" x="48" y="4" fill="#00adef"/>
+              <rect width="40" height="40" x="4" y="48" fill="#00adef"/>
+              <rect width="40" height="40" x="48" y="48" fill="#00adef"/>
+            </svg>
+          </div>
+          <h3>Windows</h3>
+          <span class="version-badge" id="download-version-badge">v{{ site.app.version }}</span>
+          <p>Instalador para Windows 10/11. La forma recomendada de instalar Check Space.</p>
+          <a id="download-installer-btn"
+             href="https://github.com/Pausiar/check-space/releases/latest"
+             class="btn btn--primary btn--block">
+            Descargar instalador (.exe)
+          </a>
+          <a id="download-portable-btn"
+             href="https://github.com/Pausiar/check-space/releases/latest"
+             class="btn btn--ghost btn--block">
+            Versión portable (.exe)
+          </a>
+        </div>
+        <div class="download-card download-card--soon">
+          <div class="download-card__icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
+          </div>
+          <h3>macOS</h3>
+          <span class="version-badge version-badge--soon">Próximamente</span>
+          <p>Soporte para Mac M1, M2 y procesadores Intel. En desarrollo.</p>
+          <button class="btn btn--disabled btn--block" disabled>
+            Próximamente
+          </button>
+        </div>
+        <div class="download-card download-card--soon">
+          <div class="download-card__icon">
+            <svg width="40" height="40" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true">
+              <path d="M257.2 162.7c-48.7 1.8-169.5 15.5-169.5 117.5 0 37.3 26.4 62.9 64.4 62.9 23.6 0 41.2-9.1 49.3-19.4 5.4-6.9 3.1-3.8 7.3-11.4 2.5-4.6 2.5-4.6 5.7-7.8 2.8-2.8 2.8-2.8 5.5-5.5 7.3-7.4 7.5-7.5 12.9-15.3 5.1-7.4 4.7-6.3 7.9-15.8 3.9-11.6 3.1-19.4 2.6-33.9-.8-17.6-3.8-25.9-6.6-41.1zm-95.8 176.7c-14.4 0-26.1-14.2-26.1-31.7 0-17.5 11.7-31.7 26.1-31.7 14.4 0 26.1 14.2 26.1 31.7 0 17.4-11.7 31.7-26.1 31.7zm286.8-14.5c-1.7-7.9-6.9-12.7-13.7-15.3-9.8-3.7-19.4-3.7-29.2-.2-15.9 5.6-26.4 16.3-34.7 30.2-7.3 12.1-13.9 24.8-21.1 37-8.7 14.5-20.5 25.8-35.8 33.1-3.7 1.8-7.4 3.5-11.6 5.5.7-1.9 1.2-3.2 1.7-4.5 5.3-13.1 10.1-26.4 11.4-40.7 1-10.5.1-20.8-4.5-30.4-6.2-12.8-17.2-19.4-31-20.1-11.1-.6-21.9 1.8-31.8 6.7-13.9 6.9-25.3 17-35.6 28.4-16.8 18.6-31.5 38.6-47.1 58-4.1 5.1-8.2 10.1-12.4 15.2-.8.9-1.6 1.8-2.9 3.2-.1-2.8-.3-4.7-.3-6.5-.1-13.5-.1-27-.1-40.5 0-20.6.3-41.2-.1-61.8-.2-11.7-1.4-23.3-2.6-34.8-.8-8-5.8-12.4-13.8-12.7-7.6-.3-13.3 3.5-15.8 10.6-1.8 5.2-3.3 10.5-4.4 15.9-2.7 13.3-2.9 26.9-2.8 40.4.1 13.9 0 27.8 0 41.7h.2c0 13.2-.2 26.4.1 39.6.2 9.6.8 19.2 1.8 28.7.8 7.5 5.2 11.9 12.5 13.1 7.3 1.2 13.1-1.3 17.4-7.4 2.5-3.5 4.9-7 7.1-10.7 15.6-25.5 31.7-50.8 51.8-73.2 10.1-11.2 20.6-21.9 33.8-29.6 8.9-5.2 18.3-8.8 28.8-9.8 5.8-.6 10.9.9 14.3 5.9 3.5 5.1 2.8 10.6.3 15.8-1.7 3.4-3.8 6.6-6 9.7-8.1 11.6-18.6 20.7-31 27.4-7.9 4.3-16.3 7.7-24.6 11.1-4.9 2-7.7 5.4-8.4 10.6-1.1 8.5 3.8 15.6 12.7 17.1 6.5 1.1 13.2 1.8 19.8 1.4 21.8-1.3 40.5-10.2 56.3-25 15.9-14.9 26-33.3 37.4-50.8 5.6-8.5 11.3-17 17.3-25.2 2.9-4 6.6-7.5 10.4-10.6 5.8-4.7 12.4-5.3 19.1-2 4.9 2.4 9.7 5 14.8 6.9 8.3 3.1 16.8 2.9 24.8-1.2 8.6-4.4 12.3-14 9.8-23.4zM151.1 157.3c-11.9 0-21.5-10.5-21.5-23.4 0-12.9 9.6-23.4 21.5-23.4 11.9 0 21.5 10.5 21.5 23.4 0 12.9-9.6 23.4-21.5 23.4zm118.6 0c-11.9 0-21.5-10.5-21.5-23.4 0-12.9 9.6-23.4 21.5-23.4 11.9 0 21.5 10.5 21.5 23.4 0 12.9-9.6 23.4-21.5 23.4z"/>
+            </svg>
+          </div>
+          <h3>Linux</h3>
+          <span class="version-badge version-badge--soon">Próximamente</span>
+          <p>Soporte para distribuciones principales: Ubuntu, Debian, Fedora. En desarrollo.</p>
+          <button class="btn btn--disabled btn--block" disabled>
+            Próximamente
+          </button>
+        </div>
+      </div>
+      <p class="download__note">
+        <a href="https://github.com/Pausiar/check-space/releases" target="_blank" rel="noopener noreferrer">
+          Ver todas las versiones en GitHub →
+        </a>
+      </p>
+    </div>
+  </section>
+</main>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Qué suele ocupar más espacio en un PC con Windows?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Lo más habitual es encontrar carpetas de descargas olvidadas, vídeos, archivos ZIP, copias locales de servicios en la nube, proyectos creativos, bibliotecas de juegos y cachés de aplicaciones."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Es seguro borrar archivos grandes solo por su tamaño?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No siempre. Antes de borrar conviene revisar la ruta, la fecha de uso y el tipo de archivo para confirmar que no pertenece a una aplicación activa o a datos importantes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cada cuánto conviene revisar el almacenamiento?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Si trabajas con archivos grandes, una revisión semanal evita llenados repentinos. Para un uso normal, una revisión mensual suele ser suficiente."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Sirve para discos externos o carpetas concretas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. Analizar una carpeta concreta o una unidad externa permite detectar rápidamente proyectos, copias o bibliotecas que están consumiendo almacenamiento."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Check Space borra archivos por su cuenta?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. La aplicación solo elimina los elementos que el usuario selecciona y confirma, eligiendo entre moverlos a la papelera o eliminarlos definitivamente."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Por qué Windows SmartScreen muestra un aviso al instalar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Porque las versiones actuales todavía no están firmadas con un certificado de código y el instalador no tiene historial de descargas. El código es abierto y las releases se compilan en GitHub Actions; la firma de código está prevista."
+        }
+      }
+    ]
+  }
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Check Space",
+  "description": "Free disk space analyzer for Windows that visualizes which files and folders are using the most storage on your PC. No registration required, 100% local, open source.",
+  "url": "{{ '/' | absolute_url }}",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Windows 10, Windows 11",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "Real-time disk analysis",
+    "Visual folder map sorted by size",
+    "Large file and folder finder",
+    "Verified duplicate finder (SHA-1)",
+    "Cleanup suggestions with explicit confirmation",
+    "CSV and JSON export",
+    "Portable version (no installation required)",
+    "External drive and USB support",
+    "Six interface languages",
+    "No telemetry, no registration, 100% local"
+  ],
+  "downloadUrl": "https://github.com/Pausiar/check-space/releases/latest",
+  "softwareVersion": "{{ site.app.version }}",
+  "license": "https://github.com/Pausiar/check-space/blob/main/LICENSE",
+  "author": {
+    "@type": "Person",
+    "name": "Pausiar",
+    "url": "https://github.com/Pausiar"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Cómo analizar el espacio en disco con Check Space",
+  "description": "Analiza tu disco duro en 3 pasos con Check Space, el analizador de espacio gratuito para Windows.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Descarga e instala",
+      "text": "Descarga el instalador para Windows desde la página principal. La instalación tarda menos de 30 segundos. También disponible en versión portable sin necesidad de instalación."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Selecciona tu disco o carpeta",
+      "text": "Elige el disco duro o la carpeta que quieres analizar. Check Space comenzará a escanear tu almacenamiento al instante."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Visualiza y libera espacio",
+      "text": "Explora el mapa visual de tu disco. Identifica qué archivos y carpetas pesan más y decide qué eliminar para recuperar espacio al momento."
+    }
+  ]
+}
+</script>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>
+      &copy; 2026 Check Space por
+      <a href="https://github.com/Pausiar" target="_blank" rel="noopener noreferrer">Pausiar</a>.
+      Código abierto bajo licencia MIT.
+    </p>
+    <nav class="footer__links" aria-label="Enlaces del pie de página">
+      <a href="https://github.com/Pausiar/check-space" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://github.com/Pausiar/check-space/issues" target="_blank" rel="noopener noreferrer">Reportar un bug</a>
+      <a href="{{ '/faq/' | relative_url }}">FAQ</a>
+      <a href="{{ '/politica-cookies/' | relative_url }}">Política de cookies</a>
+      <a href="{{ '/politica-privacidad/' | relative_url }}">Privacidad</a>
+      <a href="{{ '/aviso-legal/' | relative_url }}">Aviso legal</a>
+      <a href="javascript:void(0)" onclick="resetCookieConsent()" style="cursor:pointer;">Gestionar cookies</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  fetch('https://api.github.com/repos/Pausiar/check-space/releases/latest')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      var tag = data.tag_name;
+      var assets = data.assets || [];
+
+      var installerAsset = assets.find(function (a) {
+        return /Check\.Space\.Setup.*\.exe$/i.test(a.name);
+      });
+      var portableAsset = assets.find(function (a) {
+        return /CheckSpace-Portable\.exe$/i.test(a.name);
+      });
+
+      var installerUrl = installerAsset
+        ? installerAsset.browser_download_url
+        : 'https://github.com/Pausiar/check-space/releases/latest';
+      var portableUrl = portableAsset
+        ? portableAsset.browser_download_url
+        : 'https://github.com/Pausiar/check-space/releases/latest';
+
+      var heroBadge = document.getElementById('hero-version-badge');
+      if (heroBadge) heroBadge.textContent = tag + ' disponible — Windows';
+
+      var downloadBadge = document.getElementById('download-version-badge');
+      if (downloadBadge) downloadBadge.textContent = tag;
+
+      ['hero-installer-btn', 'download-installer-btn'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.href = installerUrl;
+      });
+
+      ['hero-portable-btn', 'download-portable-btn'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.href = portableUrl;
+      });
+    })
+    .catch(function () {
+      // Fallo silencioso: los enlaces estáticos de fallback permanecen activos
+    });
+}());
+</script>

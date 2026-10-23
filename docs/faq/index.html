@@ -1,0 +1,358 @@
+---
+layout: default
+title: "FAQ — Preguntas frecuentes sobre Check Space"
+description: "Respuestas a las preguntas más frecuentes sobre Check Space, el analizador de espacio en disco gratuito para Windows."
+---
+
+<header class="navbar">
+  <div class="container navbar__inner">
+    <a href="{{ '/' | relative_url }}" class="navbar__logo">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <circle cx="14" cy="14" r="13" stroke="#6366f1" stroke-width="2"/>
+        <path d="M14 14 L14 4 A10 10 0 0 1 24 14 Z" fill="#6366f1"/>
+        <path d="M14 14 L24 14 A10 10 0 0 1 8 23 Z" fill="#818cf8"/>
+        <path d="M14 14 L8 23 A10 10 0 0 1 4 14 Z" fill="#4338ca"/>
+        <path d="M14 14 L4 14 A10 10 0 0 1 14 4 Z" fill="#312e81"/>
+      </svg>
+      <span>Check Space</span>
+    </a>
+    <nav class="navbar__links" aria-label="Navegación principal">
+      <a href="{{ '/' | relative_url }}#features">Características</a>
+      <a href="{{ '/' | relative_url }}#download" class="btn btn--sm btn--primary">Descargar gratis</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="faq" style="padding-top: 80px;">
+    <div class="container">
+      <div class="section-header faq__header">
+        <h1 id="faq-title" style="font-size: clamp(2rem,4vw,2.8rem); font-weight:800; margin-bottom:12px;">
+          Preguntas <span class="gradient-text">frecuentes</span>
+        </h1>
+        <p>Todo lo que necesitas saber sobre Check Space, instalación, privacidad y uso.</p>
+      </div>
+
+      <!-- Sobre la app -->
+      <h2 style="font-size:1.3rem; font-weight:700; margin: 0 0 20px; color: var(--clr-muted);">Sobre la aplicación</h2>
+      <div class="faq-page__grid">
+        <article class="faq-card">
+          <h3>¿Qué es Check Space?</h3>
+          <p>
+            Check Space es un <strong>analizador de espacio en disco gratuito</strong> para Windows que te
+            permite visualizar qué archivos y carpetas ocupan más espacio en tu equipo, de forma rápida y
+            sin registro.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>¿Es gratuito? ¿Tiene versión de pago?</h3>
+          <p>
+            Sí, Check Space es completamente gratuito y de código abierto bajo licencia MIT. No existe
+            versión de pago ni funciones bloqueadas.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>¿En qué sistemas operativos funciona?</h3>
+          <p>
+            Actualmente está disponible para <strong>Windows 10 y Windows 11</strong>. Las versiones para
+            macOS y Linux están en desarrollo.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>¿Qué tecnología usa Check Space?</h3>
+          <p>
+            Check Space está construido con <strong>Electron</strong> y React: una aplicación de escritorio
+            con interfaz clara y moderna. Por ahora se distribuye solo para Windows 10 y 11; las versiones
+            para macOS y Linux están en el roadmap, no disponibles todavía.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>¿En qué idiomas está disponible?</h3>
+          <p>
+            En <strong>español, inglés, portugués (Brasil), francés, alemán e italiano</strong>. La aplicación
+            detecta el idioma de Windows al abrirse y puedes cambiarlo en cualquier momento desde la barra
+            de título.
+          </p>
+        </article>
+      </div>
+
+      <!-- Instalación -->
+      <h2 style="font-size:1.3rem; font-weight:700; margin: 48px 0 20px; color: var(--clr-muted);">Instalación y descarga</h2>
+      <div class="faq-page__grid">
+        <article class="faq-card">
+          <h3>¿Cómo instalo Check Space?</h3>
+          <p>
+            Descarga el instalador <code>.exe</code> desde la página principal o desde
+            <a href="https://github.com/Pausiar/check-space/releases" target="_blank" rel="noopener noreferrer">GitHub Releases</a>.
+            Ejecuta el instalador y sigue los pasos; la instalación es rápida y no requiere configuración.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>¿Existe versión portable?</h3>
+          <p>
+            Sí. Puedes descargar <strong>CheckSpace-Portable.exe</strong> y ejecutarlo directamente sin
+            instalar nada. Ideal para usarlo en equipos donde no tienes permisos de administrador.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>¿Windows SmartScreen bloquea la instalación?</h3>
+          <p>
+            Es posible que Windows muestre un aviso de SmartScreen porque las versiones actuales todavía
+            <strong>no están firmadas con un certificado de código</strong> y el instalador aún no tiene
+            historial de descargas. No significa que contenga un virus: el código es abierto y cada release
+            se compila en GitHub Actions. Puedes continuar con «Más información» → «Ejecutar de todas
+            formas». La firma de código está prevista para eliminar este aviso.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>¿Cómo actualizo a una nueva versión?</h3>
+          <p>
+            Actualmente las actualizaciones son manuales. Descarga la última versión desde
+            <a href="https://github.com/Pausiar/check-space/releases" target="_blank" rel="noopener noreferrer">Releases</a>
+            e instálala sobre la versión anterior. Las actualizaciones automáticas llegarán en futuras versiones.
+          </p>
+        </article>
+      </div>
+
+      <!-- Privacidad -->
+      <h2 style="font-size:1.3rem; font-weight:700; margin: 48px 0 20px; color: var(--clr-muted);">Privacidad y seguridad</h2>
+      <div class="faq-page__grid">
+        <article class="faq-card">
+          <h3>¿Check Space envía mis datos a algún servidor?</h3>
+          <p>
+            No. Check Space funciona <strong>100% en local</strong>. No envía información sobre tus archivos
+            ni tu estructura de carpetas a ningún servidor externo.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>¿Necesito crear una cuenta?</h3>
+          <p>
+            No. La aplicación no requiere registro, ni correo electrónico, ni ningún tipo de cuenta.
+            Descarga y usa directamente.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>¿Check Space puede borrar archivos?</h3>
+          <p>
+            Solo si tú lo pides. No es un limpiador automático: muestra qué ocupa espacio y únicamente
+            elimina los elementos que seleccionas y confirmas, eligiendo entre moverlos a la papelera o
+            borrarlos definitivamente. La decisión es siempre tuya; revisa la ruta y ten una copia de
+            seguridad antes de borrar.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>¿El código fuente está disponible?</h3>
+          <p>
+            Sí. El código fuente está publicado en
+            <a href="https://github.com/Pausiar/check-space" target="_blank" rel="noopener noreferrer">GitHub</a>
+            bajo licencia MIT. Puedes auditarlo, modificarlo y contribuir libremente.
+          </p>
+        </article>
+      </div>
+
+      <!-- Uso -->
+      <h2 style="font-size:1.3rem; font-weight:700; margin: 48px 0 20px; color: var(--clr-muted);">Uso y almacenamiento</h2>
+      <div class="faq-page__grid">
+        <article class="faq-card">
+          <h3>¿Qué suele ocupar más espacio en Windows?</h3>
+          <p>
+            Lo más habitual son descargas olvidadas, vídeos, copias locales de la nube, proyectos creativos,
+            bibliotecas de juegos, cachés de aplicaciones e instaladores descargados.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>¿Es seguro borrar archivos grandes?</h3>
+          <p>
+            No siempre. Antes de borrar, revisa la ruta, la fecha de uso y el tipo de archivo. Prioriza
+            descargas antiguas, archivos ZIP ya extraídos y cachés regenerables.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>¿Funciona con discos externos?</h3>
+          <p>
+            Sí. Puedes analizar cualquier unidad montada en Windows: discos externos, pendrives, NAS
+            accesibles como unidad de red, etc.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>¿Con qué frecuencia debo revisar el almacenamiento?</h3>
+          <p>
+            Para uso normal, una revisión mensual es suficiente. Si trabajas con archivos grandes
+            (vídeo, virtualización, diseño), una revisión semanal evita llenados repentinos.
+          </p>
+        </article>
+      </div>
+
+      <div class="seo-checklist" style="margin-top:8px;">
+        <h2>¿No encuentras lo que buscas?</h2>
+        <p>
+          Si tienes alguna pregunta que no aparece aquí, puedes abrir un
+          <a href="https://github.com/Pausiar/check-space/issues" target="_blank" rel="noopener noreferrer">Issue en GitHub</a>.
+          Respondemos lo antes posible.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>
+      &copy; 2026 Check Space por
+      <a href="https://github.com/Pausiar" target="_blank" rel="noopener noreferrer">Pausiar</a>.
+      Código abierto bajo licencia MIT.
+    </p>
+    <nav class="footer__links" aria-label="Enlaces del pie de página">
+      <a href="{{ '/politica-cookies/' | relative_url }}">Política de cookies</a>
+      <a href="{{ '/politica-privacidad/' | relative_url }}">Privacidad</a>
+      <a href="{{ '/aviso-legal/' | relative_url }}">Aviso legal</a>
+      <a href="{{ '/faq/' | relative_url }}">FAQ</a>
+      <a href="javascript:void(0)" onclick="resetCookieConsent()" style="cursor:pointer;">Gestionar cookies</a>
+    </nav>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Qué es Check Space?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Check Space es un analizador de espacio en disco gratuito para Windows que permite visualizar qué archivos y carpetas ocupan más espacio en tu equipo, de forma rápida y sin registro."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Es gratuito Check Space? ¿Tiene versión de pago?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, Check Space es completamente gratuito y de código abierto bajo licencia MIT. No existe versión de pago ni funciones bloqueadas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿En qué sistemas operativos funciona Check Space?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Actualmente está disponible para Windows 10 y Windows 11. Las versiones para macOS y Linux están en desarrollo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué tecnología usa Check Space?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Check Space está construido con Electron y React: una aplicación de escritorio con interfaz clara y moderna. Por ahora se distribuye solo para Windows 10 y 11; las versiones para macOS y Linux están en el roadmap."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿En qué idiomas está disponible Check Space?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En español, inglés, portugués (Brasil), francés, alemán e italiano. La aplicación detecta el idioma de Windows al abrirse y permite cambiarlo desde la barra de título."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo instalo Check Space?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Descarga el instalador .exe desde la página principal o desde GitHub Releases. Ejecuta el instalador y sigue los pasos; la instalación es rápida y no requiere configuración."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Existe versión portable de Check Space?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Puedes descargar CheckSpace-Portable.exe y ejecutarlo directamente sin instalar nada. Ideal para usarlo en equipos donde no tienes permisos de administrador."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Windows SmartScreen bloquea la instalación de Check Space?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Es posible que Windows muestre un aviso de SmartScreen porque las versiones actuales todavía no están firmadas con un certificado de código y el instalador aún no tiene historial de descargas. El código es abierto y cada release se compila en GitHub Actions. Puedes continuar con «Más información» → «Ejecutar de todas formas»."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo actualizo Check Space a una nueva versión?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Actualmente las actualizaciones son manuales. Descarga la última versión desde GitHub Releases e instálala sobre la versión anterior. Las actualizaciones automáticas llegarán en futuras versiones."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Check Space envía mis datos a algún servidor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Check Space funciona 100% en local. No envía información sobre tus archivos ni tu estructura de carpetas a ningún servidor externo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Necesito crear una cuenta para usar Check Space?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. La aplicación no requiere registro, ni correo electrónico, ni ningún tipo de cuenta. Descarga y usa directamente."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Check Space puede borrar archivos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Solo si el usuario lo pide. No es un limpiador automático: únicamente elimina los elementos que se seleccionan y confirman, eligiendo entre moverlos a la papelera o borrarlos definitivamente."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿El código fuente de Check Space está disponible?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. El código fuente está publicado en GitHub bajo licencia MIT. Puedes auditarlo, modificarlo y contribuir libremente."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué suele ocupar más espacio en Windows?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lo más habitual son descargas olvidadas, vídeos, copias locales de la nube, proyectos creativos, bibliotecas de juegos, cachés de aplicaciones e instaladores descargados."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Es seguro borrar archivos grandes encontrados con Check Space?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No siempre. Antes de borrar, revisa la ruta, la fecha de uso y el tipo de archivo. Prioriza descargas antiguas, archivos ZIP ya extraídos y cachés regenerables."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Check Space funciona con discos externos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Puedes analizar cualquier unidad montada en Windows: discos externos, pendrives, NAS accesibles como unidad de red, etc."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Con qué frecuencia debo revisar el almacenamiento con Check Space?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Para uso normal, una revisión mensual es suficiente. Si trabajas con archivos grandes (vídeo, virtualización, diseño), una revisión semanal evita llenados repentinos."
+      }
+    }
+  ]
+}
+</script>

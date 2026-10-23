@@ -4,7 +4,7 @@
 
 Check Space es un analizador de espacio en disco que funciona **íntegramente en tu
 equipo**. Esta política cubre la aplicación de escritorio; la del sitio web está en
-<https://check-space-docs.vercel.app/politica-privacidad/>.
+<https://pausiar.github.io/check-space/politica-privacidad/>.
 
 ## Resumen
 
@@ -63,7 +63,7 @@ Dudas o solicitudes: <https://github.com/Pausiar/check-space/issues>.
 **Last updated: October 2026**
 
 Check Space runs **entirely on your computer**. This notice covers the desktop app; the
-website notice is at <https://check-space-docs.vercel.app/politica-privacidad/>.
+website notice is at <https://pausiar.github.io/check-space/politica-privacidad/>.
 
 - No account, sign-up or login.
 - No telemetry, analytics or crash reporting.

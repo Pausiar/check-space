@@ -16,10 +16,11 @@ No es asesoramiento jurídico: es una lista de comprobación para que nada quede
 | Firma de código | **Pendiente de certificado**; pipeline preparado ([SIGNING.md](SIGNING.md)) |
 | Nombre «Check Space» | **Sin comprobar.** Conviene buscar antecedentes en la EUIPO/OEPM antes de invertir en la marca |
 
-## Sitio web (`check-space-docs`)
+## Sitio web (`docs/`)
 
-Los cambios están en el repositorio de la web (`check-space-docs`), en las páginas
-legales, `_config.yml` y la portada. Resumen:
+La web se publica con GitHub Pages desde `docs/` en este mismo repositorio
+(<https://pausiar.github.io/check-space/>); instrucciones en [README.md](README.md).
+Los cambios legales están en las páginas, `_config.yml` y la portada. Resumen:
 
 | Punto | Estado |
 |---|---|
@@ -44,8 +45,9 @@ legales, `_config.yml` y la portada. Resumen:
 3. **CMP certificada** (p. ej. Funding Choices) si se sirve publicidad a visitantes del
    EEE, Reino Unido o Suiza: Google la exige para esos territorios y el aviso actual no
    es una CMP certificada.
-4. **Plazo de conservación de logs** de Vercel: fijarlo según el plan contratado y
-   reflejarlo en la política de privacidad.
+4. **Registros de acceso**: GitHub Pages no entrega logs de visitas al propietario, así
+   que no hay datos de navegación que conservar; si se añade una CDN o un dominio con
+   logs, habrá que fijar plazo y reflejarlo en la política de privacidad.
 5. **Accesibilidad**: no hay obligación directa para este sitio, pero un repaso WCAG 2.2 AA
    (contraste, foco visible, navegación por teclado del aviso de cookies) es recomendable.
 6. **Marca**: búsqueda de antecedentes antes de registrar el nombre.

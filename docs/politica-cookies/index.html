@@ -1,0 +1,162 @@
+---
+layout: default
+title: "Política de Cookies — Check Space"
+description: "Cookies y almacenamiento local que usa Check Space, para qué sirven y cómo aceptarlas, rechazarlas o retirar el consentimiento."
+---
+
+{% assign legal = site.legal %}
+{% assign has_email = false %}
+{% if legal.email and legal.email != "" %}{% assign has_email = true %}{% endif %}
+
+<header class="navbar">
+  <div class="container navbar__inner">
+    <a href="{{ '/' | relative_url }}" class="navbar__logo">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <circle cx="14" cy="14" r="13" stroke="#6366f1" stroke-width="2"/>
+        <path d="M14 14 L14 4 A10 10 0 0 1 24 14 Z" fill="#6366f1"/>
+        <path d="M14 14 L24 14 A10 10 0 0 1 8 23 Z" fill="#818cf8"/>
+        <path d="M14 14 L8 23 A10 10 0 0 1 4 14 Z" fill="#4338ca"/>
+        <path d="M14 14 L4 14 A10 10 0 0 1 14 4 Z" fill="#312e81"/>
+      </svg>
+      <span>Check Space</span>
+    </a>
+    <nav class="navbar__links" aria-label="Navegación principal">
+      <a href="{{ '/' | relative_url }}#features">Características</a>
+      <a href="{{ '/' | relative_url }}#download" class="btn btn--sm btn--primary">Descargar gratis</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="legal-page">
+    <div class="container" style="max-width: 860px;">
+      <div class="legal-page__header">
+        <h1>Política de <span class="gradient-text">Cookies</span></h1>
+        <p>Última actualización: {{ legal.updated }}</p>
+      </div>
+
+      <div class="legal-page__body">
+        <p>
+          Esta política explica qué cookies y qué almacenamiento local utiliza
+          <strong>{{ '/' | absolute_url | remove: 'https://' }}</strong>, para qué y cómo puedes controlarlos. Se
+          aplica el artículo 22.2 de la LSSICE y la normativa europea de privacidad electrónica
+          (ePrivacy).
+        </p>
+
+        <h2>¿Qué son las cookies y el almacenamiento local?</h2>
+        <p>
+          Las cookies son pequeños archivos que un sitio guarda en tu dispositivo. El almacenamiento
+          local (<code>localStorage</code>) es una tecnología similar: guarda datos en el navegador y
+          <strong>no se envía automáticamente al servidor</strong>. A efectos legales, ambos requieren
+          información y, salvo los estrictamente necesarios, consentimiento previo.
+        </p>
+
+        <h2>Resumen</h2>
+        <ul>
+          <li>Antes de que decidas, <strong>no se carga ningún script publicitario</strong>.</li>
+          <li>No usamos cookies de analítica ni de seguimiento propio.</li>
+          <li>Puedes rechazar y el sitio funciona exactamente igual.</li>
+          <li>Puedes cambiar de opinión con «Gestionar cookies» en el pie de página.</li>
+        </ul>
+
+        <h2>Almacenamiento propio (necesario)</h2>
+        <div class="info-box">
+          <p style="margin:0 0 6px;"><strong>Nombre:</strong> <code>cookie-consent</code></p>
+          <p style="margin:0 0 6px;"><strong>Tipo:</strong> almacenamiento local (no es una cookie)</p>
+          <p style="margin:0 0 6px;"><strong>Finalidad:</strong> recordar si aceptaste o rechazaste la publicidad y la versión del aviso aceptada</p>
+          <p style="margin:0 0 6px;"><strong>Contenido:</strong> la decisión, la versión del aviso y la fecha; ningún dato personal</p>
+          <p style="margin:0;"><strong>Duración:</strong> hasta que borres los datos del navegador o pulses «Gestionar cookies»</p>
+        </div>
+        <p>
+          Es imprescindible para no volver a preguntarte en cada visita y para poder acreditar tu
+          elección, por lo que está exento de consentimiento previo.
+        </p>
+
+        <h2>Cookies de terceros: Google AdSense</h2>
+        <p>
+          Este sitio muestra publicidad de <strong>Google AdSense</strong> (editor:
+          <code>ca-pub-7612805768657333</code>). Al aceptar, Google puede instalar cookies propias y de
+          terceros para medir la publicidad y personalizarla según tus visitas a este y otros sitios.
+          Estas cookies <strong>solo se cargan tras tu consentimiento</strong>; si rechazas, el script de
+          AdSense ni siquiera se descarga.
+        </p>
+        <div class="info-box">
+          <p style="margin:0 0 6px;"><strong>Proveedor:</strong> Google Ireland Ltd. / Google LLC</p>
+          <p style="margin:0 0 6px;"><strong>Cookies habituales:</strong> <code>__gads</code>, <code>__gpi</code>, <code>IDE</code> (DoubleClick) y otras cookies de medición</p>
+          <p style="margin:0 0 6px;"><strong>Finalidad:</strong> mostrar anuncios, limitar la frecuencia, medir su rendimiento y personalizar el contenido</p>
+          <p style="margin:0;"><strong>Duración:</strong> variable, desde la sesión hasta varios meses, según la cookie y la configuración de Google</p>
+        </div>
+        <p>
+          Puedes informarte y oponerte en:
+        </p>
+        <ul>
+          <li><a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">Cómo usa Google las cookies en publicidad</a></li>
+          <li><a href="https://myadcenter.google.com" target="_blank" rel="noopener noreferrer">Mi centro de anuncios de Google</a> (desactivar la personalización)</li>
+          <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Política de privacidad de Google</a></li>
+        </ul>
+        <p>
+          Este sitio no usa Google Analytics, píxeles de redes sociales ni ninguna otra herramienta de
+          analítica o de seguimiento.
+        </p>
+
+        <h2>Cómo aceptar, rechazar o retirar el consentimiento</h2>
+        <ul>
+          <li>
+            <strong>Aviso del sitio:</strong> la primera vez puedes aceptar o rechazar con dos botones de
+            la misma prominencia. Rechazar no limita el acceso a ningún contenido.
+          </li>
+          <li>
+            <strong>Cambiar de opinión:</strong> pulsa «Gestionar cookies» en el pie de página y elige de
+            nuevo. Si aceptas, la publicidad se cargará en esa misma visita.
+          </li>
+          <li>
+            <strong>Navegador:</strong> puedes bloquear o eliminar cookies y almacenamiento local desde la
+            configuración de Chrome, Edge, Firefox o Safari. Al borrarlo, el aviso volverá a aparecer.
+          </li>
+          <li>
+            <strong>Herramientas de terceros:</strong> extensiones como uBlock Origin o Privacy Badger
+            bloquean la publicidad de forma automática.
+          </li>
+        </ul>
+        <p>
+          Ten en cuenta que bloquear el almacenamiento local del sitio hará que el aviso de cookies se
+          muestre en cada visita.
+        </p>
+
+        <h2>Cambios en esta política</h2>
+        <p>
+          Esta política puede actualizarse cuando cambien las cookies utilizadas o la normativa. La fecha
+          de la última revisión aparece al inicio. Si el cambio afecta a la finalidad publicitaria, se
+          volverá a pedir consentimiento.
+        </p>
+
+        <h2>Contacto</h2>
+        <p>
+          Para cualquier duda sobre esta política puedes escribir a
+          {% if has_email %}
+            <a href="mailto:{{ legal.email }}">{{ legal.email }}</a>.
+          {% else %}
+            los <a href="https://github.com/Pausiar/check-space/issues" target="_blank" rel="noopener noreferrer">Issues del repositorio en GitHub</a>.
+          {% endif %}
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>
+      &copy; 2026 Check Space por
+      <a href="https://github.com/Pausiar" target="_blank" rel="noopener noreferrer">Pausiar</a>.
+      Código abierto bajo licencia MIT.
+    </p>
+    <nav class="footer__links" aria-label="Enlaces del pie de página">
+      <a href="{{ '/politica-cookies/' | relative_url }}">Política de cookies</a>
+      <a href="{{ '/politica-privacidad/' | relative_url }}">Privacidad</a>
+      <a href="{{ '/aviso-legal/' | relative_url }}">Aviso legal</a>
+      <a href="{{ '/faq/' | relative_url }}">FAQ</a>
+      <a href="javascript:void(0)" onclick="resetCookieConsent()" style="cursor:pointer;">Gestionar cookies</a>
+    </nav>
+  </div>
+</footer>

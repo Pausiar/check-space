@@ -1,0 +1,80 @@
+title: "Check Space"
+tagline: "Analizador de Espacio de Disco Gratuito"
+description: >-
+  Descubre en segundos qué archivos y carpetas están ocupando más espacio en
+  tu PC. Analizador de disco gratuito para Windows 10 y 11, con visualización
+  en tiempo real, sin registro y sin telemetría.
+
+# Dirección pública del sitio. Es un proyecto de GitHub Pages dentro del repo de
+# la app, de ahí el subdirectorio en baseurl. Si algún día se usa un dominio
+# propio, cambia url por el dominio y deja baseurl vacío ("").
+url: "https://pausiar.github.io"
+baseurl: "/check-space"
+lang: "es-ES"
+
+# Documentos del repositorio que no forman parte de la web. Sin esto, Jekyll los
+# publicaría como páginas sueltas (/LEGAL.html, /SIGNING.html…).
+exclude:
+  - README.md
+  - LEGAL.md
+  - SIGNING.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+
+author:
+  name: "Pausiar"
+
+github:
+  username: Pausiar
+  repository: check-space
+
+twitter:
+  card: summary_large_image
+
+social:
+  name: Check Space
+  links:
+    - https://github.com/Pausiar/check-space
+
+# Versión de la aplicación que se muestra en la web y en los datos estructurados.
+# Actualízala junto con package.json al publicar una release.
+app:
+  version: "1.1.0"
+  languages:
+    - Español
+    - English
+    - Português (Brasil)
+    - Français
+    - Deutsch
+    - Italiano
+
+# Datos del titular que exige el artículo 10 de la LSSICE.
+# Rellena owner, nif, address y email antes de publicar: mientras estén vacíos,
+# las páginas legales muestran solo GitHub Issues como vía de contacto.
+legal:
+  owner: ""
+  nif: ""
+  address: ""
+  email: ""
+  country: "España"
+  updated: "octubre de 2026"
+
+# SEO defaults
+defaults:
+  - scope:
+      path: ""
+    values:
+      og_image: /assets/images/og-image.png
+
+# Plugins (GitHub Pages whitelist)
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# jekyll-sitemap genera /sitemap.xml con las URL absolutas a partir de url y
+# baseurl. No se mantiene un sitemap.xml a mano para que no se desincronice.
+
+# Build settings
+markdown: kramdown
+theme: null
