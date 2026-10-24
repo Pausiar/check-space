@@ -1,0 +1,22 @@
+export default {
+  title: '업데이트',
+  currentVersion: '설치된 버전: {version}',
+  checkNow: '업데이트 확인',
+  checking: '업데이트를 확인하는 중…',
+  update: '업데이트',
+  available: '{version} 버전을 사용할 수 있습니다',
+  availableHint: '여기에서 내려받아 스스로 설치합니다. GitHub에서 설치 파일을 받을 필요가 없습니다.',
+  download: '업데이트 다운로드',
+  downloading: '업데이트를 내려받는 중…',
+  downloadingDetail: '{total} 중 {done} · {speed}',
+  ready: '{version} 버전을 설치할 준비가 되었습니다',
+  readyHint: 'Check Space를 다시 시작하면 완료됩니다. 저장된 스캔과 설정은 그대로 유지됩니다.',
+  restart: '다시 시작하고 업데이트',
+  restartShort: '다시 시작',
+  upToDate: '최신 버전을 사용 중입니다',
+  upToDateHint: '새 버전이 나오면 알려 드립니다.',
+  error: '업데이트를 완료할 수 없습니다',
+  errorHint: '연결을 확인한 뒤 다시 시도하세요. 앱은 평소처럼 계속 작동합니다.',
+  retry: '다시 시도',
+  autoCheckHint: 'Check Space는 시작할 때 업데이트를 확인합니다.'
+}

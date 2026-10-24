@@ -1,0 +1,22 @@
+export default {
+  title: 'Güncellemeler',
+  currentVersion: 'Kurulu sürüm: {version}',
+  checkNow: 'Güncellemeleri denetle',
+  checking: 'Güncellemeler denetleniyor…',
+  update: 'Güncelle',
+  available: '{version} sürümü mevcut',
+  availableHint: 'Buradan indirilir ve kendini kurar: kurulum dosyasını GitHub’dan indirmeniz gerekmez.',
+  download: 'Güncellemeyi indir',
+  downloading: 'Güncelleme indiriliyor…',
+  downloadingDetail: '{total} içinden {done} · {speed}',
+  ready: '{version} sürümü kurulmaya hazır',
+  readyHint: 'Tamamlamak için Check Space’i yeniden başlatın. Kaydedilmiş taramalar ve tercihleriniz korunur.',
+  restart: 'Yeniden başlat ve güncelle',
+  restartShort: 'Yeniden başlat',
+  upToDate: 'En son sürümdesiniz',
+  upToDateHint: 'Yeni bir sürüm çıktığında size haber vereceğim.',
+  error: 'Güncelleme tamamlanamadı',
+  errorHint: 'Bağlantınızı denetleyip yeniden deneyin. Uygulama normal çalışmaya devam eder.',
+  retry: 'Yeniden dene',
+  autoCheckHint: 'Check Space açılışta güncellemeleri denetler.'
+}

@@ -9,7 +9,7 @@ No es asesoramiento jurídico: es una lista de comprobación para que nada quede
 |---|---|
 | Licencia del código | **MIT** en [LICENSE](../LICENSE); el texto viaja en cada paquete (`resources/LICENSE.txt`) |
 | Licencias de terceros | Documentadas en [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md); Electron incluye además las suyas |
-| Datos personales | **Ninguno.** Sin cuentas, telemetría, analítica ni red; solo caché y preferencias locales ([PRIVACY.md](../PRIVACY.md)) |
+| Datos personales | **Ninguno.** Sin cuentas, telemetría ni analítica; solo caché y preferencias locales. La única conexión es la consulta de actualizaciones a GitHub Releases, sin datos del disco ([PRIVACY.md](../PRIVACY.md)) |
 | Borrado de archivos | Requiere selección y confirmación explícita; rutas críticas protegidas; aviso de irreversibilidad |
 | Garantías | La licencia MIT excluye garantías; el aviso legal de la web incide en la copia de seguridad |
 | Marcas de terceros | Se declara que no hay afiliación con Microsoft, WinDirStat ni TreeSize |
@@ -55,6 +55,9 @@ Los cambios legales están en las páginas, `_config.yml` y la portada. Resumen:
 ## Al publicar una versión
 
 - Actualizar `version` en `package.json` **y** `app.version` en `_config.yml`.
+- Crear `.github/release-notes/v<versión>.md`: el workflow lo usa como cuerpo de la release.
+- Comprobar que la release incluye `latest.yml` y los `.blockmap` además de los `.exe`;
+  sin ellos la app instalada no puede actualizarse ([UPDATES.md](UPDATES.md)).
 - Regenerar el icono si cambia el diseño (`node scripts/make-icon.mjs`).
-- Revisar que `PRIVACY.md` siga siendo cierto: si algún día se añaden actualizaciones
-  automáticas, analítica o informes de errores, hay que actualizarlo **antes** de activarlos.
+- Revisar que `PRIVACY.md` siga siendo cierto: cualquier función nueva que trate datos
+  (analítica, informes de errores) exige actualizarlo **antes** de activarla.

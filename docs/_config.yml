@@ -18,6 +18,7 @@ exclude:
   - README.md
   - LEGAL.md
   - SIGNING.md
+  - UPDATES.md
   - Gemfile
   - Gemfile.lock
   - vendor
@@ -40,7 +41,7 @@ social:
 # Versión de la aplicación que se muestra en la web y en los datos estructurados.
 # Actualízala junto con package.json al publicar una release.
 app:
-  version: "1.1.0"
+  version: "1.2.0"
   languages:
     - Español
     - English
@@ -48,6 +49,13 @@ app:
     - Français
     - Deutsch
     - Italiano
+    - Русский
+    - 日本語
+    - 简体中文
+    - Polski
+    - Türkçe
+    - 한국어
+    - Nederlands
 
 # Datos del titular que exige el artículo 10 de la LSSICE.
 # Rellena owner, nif, address y email antes de publicar: mientras estén vacíos,

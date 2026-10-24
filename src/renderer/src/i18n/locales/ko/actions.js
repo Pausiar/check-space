@@ -1,0 +1,57 @@
+export default {
+  // Delete confirmation dialog
+  confirmTitle_one: '{count}개 항목 삭제',
+  confirmTitle_other: '{count}개 항목 삭제',
+  totalSize: '전체 크기: {size}',
+  andMore_one: '외 {count}개 항목',
+  andMore_other: '외 {count}개 항목',
+  chooseMethod: '삭제 방법 선택',
+  optTrash: '휴지통으로 이동',
+  optTrashHint: '휴지통에서 복원할 수 있습니다.',
+  optPermanent: '영구 삭제',
+  optPermanentHint: '휴지통을 거치지 않고 디스크에서 제거합니다.',
+  trashNote: '휴지통으로 이동하는 것만으로는 휴지통을 비울 때까지 공간이 확보되지 않습니다.',
+  permanentWarning: '이 작업은 되돌릴 수 없습니다. 파일이 영구적으로 삭제되어 복구할 수 없습니다.',
+  permanentWarningFolders: '폴더는 안의 내용과 함께 삭제됩니다.',
+  confirmTrash: '휴지통으로 이동',
+  confirmPermanent: '영구 삭제',
+  working: '삭제하는 중…',
+  cancel: '취소',
+
+  // Context menu
+  copyPath: '경로 복사',
+  trashSelected_one: '휴지통으로 이동 ({count}개 항목)',
+  trashSelected_other: '휴지통으로 이동 ({count}개 항목)',
+  deleteSelected_one: '영구 삭제 ({count}개 항목)',
+  deleteSelected_other: '영구 삭제 ({count}개 항목)',
+
+  // Selection bar
+  selectedCount_one: '{count}개 선택됨',
+  selectedCount_other: '{count}개 선택됨',
+  clearSelection: '선택 해제',
+  trashHint: 'Del',
+  deleteHint: 'Shift+Del',
+
+  // Toasts
+  toastDeleted_one: '{count}개 항목 삭제, {size} 확보',
+  toastDeleted_other: '{count}개 항목 삭제, {size} 확보',
+  toastTrashed_one: '{count}개 항목을 휴지통으로 이동했습니다({size}). 휴지통을 비우면 공간이 확보됩니다.',
+  toastTrashed_other: '{count}개 항목을 휴지통으로 이동했습니다({size}). 휴지통을 비우면 공간이 확보됩니다.',
+  toastPartial: '{total}개 중 {ok}개 처리됨',
+  toastFailed_one: '항목을 삭제할 수 없습니다',
+  toastFailed_other: '항목을 삭제할 수 없습니다',
+  failedItem: '{name}: {reason}',
+  failedMore_one: '외 {count}개 오류',
+  failedMore_other: '외 {count}개 오류',
+  errProtected: '중요 시스템 위치라 보호됩니다',
+  errNotInScan: '더 이상 스캔 결과에 없습니다. 다시 스캔하세요',
+  errBusy: '다른 프로그램에서 사용 중입니다',
+  errPerm: '권한이 부족합니다(관리자로 실행해 보세요)',
+  errNotFound: '더 이상 존재하지 않습니다',
+  errOther: '오류: {error}',
+  errGeneric: '작업을 완료할 수 없습니다: {error}',
+  copied: '경로를 클립보드에 복사했습니다',
+  copyFailed: '경로를 복사할 수 없습니다',
+  openFailed: '해당 위치를 열 수 없습니다',
+  dismiss: '닫기'
+}

@@ -1,0 +1,22 @@
+export default {
+  title: 'Updates',
+  currentVersion: 'Geïnstalleerde versie: {version}',
+  checkNow: 'Controleren op updates',
+  checking: 'Controleren op updates…',
+  update: 'Bijwerken',
+  available: 'Versie {version} is beschikbaar',
+  availableHint: 'Hij wordt hier gedownload en installeert zichzelf: je hoeft de installer niet meer van GitHub te halen.',
+  download: 'Update downloaden',
+  downloading: 'Update wordt gedownload…',
+  downloadingDetail: '{done} van {total} · {speed}',
+  ready: 'Versie {version} staat klaar om te installeren',
+  readyHint: 'Start Check Space opnieuw om af te ronden. Opgeslagen scans en je voorkeuren blijven behouden.',
+  restart: 'Opnieuw starten en bijwerken',
+  restartShort: 'Opnieuw starten',
+  upToDate: 'Je hebt de nieuwste versie',
+  upToDateHint: 'Je krijgt bericht zodra er een nieuwe versie is.',
+  error: 'De update kon niet worden voltooid',
+  errorHint: 'Controleer je verbinding en probeer het opnieuw. De app blijft gewoon werken.',
+  retry: 'Opnieuw proberen',
+  autoCheckHint: 'Check Space zoekt bij het starten naar updates.'
+}

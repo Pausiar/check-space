@@ -5,6 +5,16 @@ directories:
   buildResources: resources
   output: build
 
+# Where the update feed lives. electron-builder writes latest.yml (the manifest
+# electron-updater polls) and app-update.yml (read by the installed app) from
+# this block, so releases must keep those files next to the .exe. See
+# docs/UPDATES.md before changing it.
+publish:
+  provider: github
+  owner: Pausiar
+  repo: check-space
+  releaseType: release
+
 # The MIT notice and the privacy notice must travel with every copy, and they
 # also let antivirus tooling see consistent publisher information.
 extraResources:
@@ -35,6 +45,12 @@ nsis:
   installerIcon: resources/icon.ico
   uninstallerIcon: resources/icon.ico
   installerHeaderIcon: resources/icon.ico
+  # In-place updates download only the changed blocks (the .blockmap file),
+  # so an update costs far less than the full installer.
+  differentialPackage: true
+  # Named explicitly: the update URL comes from latest.yml, and a name without
+  # spaces survives every proxy and CDN unchanged.
+  artifactName: "CheckSpace-Setup-${version}.exe"
 
 portable:
   artifactName: "CheckSpace-Portable.exe"

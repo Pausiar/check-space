@@ -12,6 +12,7 @@ import { initCache, saveCache, loadCache, hasCache } from './cache'
 import { findDuplicates } from './duplicates'
 import { getSuggestions, findSuggestion } from './cleanup'
 import { writeCsv, writeJson } from './report'
+import { initUpdater, getUpdateState, checkForUpdates, downloadUpdate, installUpdate, disposeUpdater } from './updater'
 
 let mainWindow = null
 
@@ -537,10 +538,21 @@ handle('app:relaunchAsAdmin', async () => {
   return ok
 })
 
+// Updates: the renderer asks for the current state, starts a check or a
+// download, and installs. Progress arrives through 'update:status'.
+handle('update:state', () => getUpdateState())
+handle('update:check', () => checkForUpdates())
+handle('update:download', () => downloadUpdate())
+on('update:install', () => installUpdate())
+
 app.whenReady().then(() => {
   // No application menu: its accelerators (Ctrl+R reload...) would steal the app's shortcuts
   Menu.setApplicationMenu(null)
   initCache(app.getPath('userData'))
   createWindow()
+  // After the window exists, so the first status has somewhere to go
+  initUpdater((payload) => send('update:status', payload))
 })
+
+app.on('before-quit', () => disposeUpdater())
 app.on('window-all-closed', () => app.quit())

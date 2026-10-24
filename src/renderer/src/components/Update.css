@@ -1,0 +1,191 @@
+/* ============================================
+   Update indicator (title bar) + update panel
+   ============================================ */
+
+.update-root {
+  position: relative;
+  display: flex;
+  align-items: center;
+  -webkit-app-region: no-drag;
+}
+
+.update-trigger {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 8px;
+  border: none;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.update-trigger:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.update-trigger.is-highlighted {
+  background: var(--accent-light);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.update-trigger.is-busy {
+  cursor: progress;
+}
+
+.update-trigger-label {
+  white-space: nowrap;
+}
+
+.update-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.update-spin {
+  animation: update-spin 1s linear infinite;
+}
+
+@keyframes update-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.update-panel {
+  position: fixed;
+  top: 44px;
+  right: 12px;
+  width: 328px;
+  max-width: calc(100vw - 24px);
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-primary);
+  box-shadow: var(--shadow-lg);
+  color: var(--text-primary);
+  font-size: 13px;
+  z-index: 40;
+  -webkit-app-region: no-drag;
+}
+
+.update-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.update-panel-head h3 {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.update-panel-close {
+  width: 24px;
+  height: 24px;
+}
+
+.update-current {
+  color: var(--text-tertiary);
+  font-size: 11px;
+  margin-bottom: 10px;
+}
+
+.update-message {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.update-message svg {
+  flex-shrink: 0;
+  color: var(--text-secondary);
+}
+
+.update-message.update-ok svg {
+  color: #2e9e5b;
+}
+
+.update-message.update-available svg,
+.update-message.update-available {
+  color: var(--accent);
+}
+
+.update-message.update-error,
+.update-message.update-error svg {
+  color: var(--danger);
+}
+
+.update-hint {
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.45;
+  margin-bottom: 10px;
+}
+
+.update-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--bg-secondary);
+  overflow: hidden;
+  margin: 2px 0 8px;
+}
+
+.update-progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width 0.2s ease;
+}
+
+.update-progress-detail {
+  margin-bottom: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.update-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 2px;
+  margin-bottom: 8px;
+}
+
+.update-cta {
+  font-weight: 600;
+}
+
+.update-error-detail {
+  display: block;
+  max-height: 72px;
+  overflow: auto;
+  padding: 6px 8px;
+  margin-bottom: 10px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 11px;
+  word-break: break-word;
+}
+
+.update-footnote {
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  color: var(--text-tertiary);
+  font-size: 11px;
+  line-height: 1.4;
+}

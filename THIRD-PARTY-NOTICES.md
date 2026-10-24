@@ -15,6 +15,8 @@ empaqueta los siguientes componentes de terceros, cada uno bajo su propia licenc
 | [d3-hierarchy](https://github.com/d3/d3-hierarchy) | ISC | Cálculo del treemap |
 | [d3-shape](https://github.com/d3/d3-shape) | ISC | Gráfico de anillo |
 | [lucide-react](https://github.com/lucide-icons/lucide) | ISC | Iconos |
+| [electron-updater](https://github.com/electron-userland/electron-builder) | MIT | Actualizaciones dentro de la aplicación |
+| [builder-util-runtime](https://github.com/electron-userland/electron-builder) | MIT | Utilidades del actualizador |
 
 Electron incluye sus propios textos de licencia en la carpeta de instalación
 (`LICENSE.electron.txt` y `LICENSES.chromium.html`); electron-builder los copia
@@ -42,6 +44,6 @@ terceros se citan únicamente con fines descriptivos.
 
 Check Space is MIT-licensed. It bundles Electron (MIT, including Chromium under
 BSD 3-Clause and Node.js under MIT), React and React DOM (MIT), d3-hierarchy and d3-shape
-(ISC) and lucide-react (ISC). Development-only tooling (electron-vite, electron-builder,
+(ISC), lucide-react (ISC), and electron-updater with builder-util-runtime (MIT). Development-only tooling (electron-vite, electron-builder,
 Vite, @vitejs/plugin-react) is MIT. Windows and OneDrive are trademarks of Microsoft
 Corporation; this project is not affiliated with or endorsed by Microsoft.

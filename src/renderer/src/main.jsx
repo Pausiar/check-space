@@ -5,6 +5,7 @@ import { I18nProvider } from './i18n'
 import { ThemeProvider } from './theme/ThemeProvider'
 import { ScanProvider } from './context/ScanContext'
 import { FileActionsProvider } from './context/FileActions'
+import { UpdateProvider } from './context/UpdateContext'
 import './App.css'
 
 class ErrorBoundary extends React.Component {
@@ -51,7 +52,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <ThemeProvider>
         <ScanProvider>
           <FileActionsProvider>
-            <App />
+            <UpdateProvider>
+              <App />
+            </UpdateProvider>
           </FileActionsProvider>
         </ScanProvider>
       </ThemeProvider>

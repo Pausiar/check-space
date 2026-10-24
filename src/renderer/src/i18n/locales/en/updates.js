@@ -1,0 +1,22 @@
+export default {
+  title: 'Updates',
+  currentVersion: 'Installed version: {version}',
+  checkNow: 'Check for updates',
+  checking: 'Checking for updates…',
+  update: 'Update',
+  available: 'Version {version} is available',
+  availableHint: 'It downloads from here and installs itself: no need to fetch the installer from GitHub.',
+  download: 'Download update',
+  downloading: 'Downloading the update…',
+  downloadingDetail: '{done} of {total} · {speed}',
+  ready: 'Version {version} is ready to install',
+  readyHint: 'Restart Check Space to finish. Your saved scans and preferences are kept.',
+  restart: 'Restart and update',
+  restartShort: 'Restart',
+  upToDate: 'You are on the latest version',
+  upToDateHint: 'You will be told when a new version is available.',
+  error: 'The update could not be completed',
+  errorHint: 'Check your connection and try again. The app keeps working as usual.',
+  retry: 'Try again',
+  autoCheckHint: 'Check Space looks for updates when it starts.'
+}

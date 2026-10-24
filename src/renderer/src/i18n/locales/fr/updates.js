@@ -1,0 +1,22 @@
+export default {
+  title: 'Mises à jour',
+  currentVersion: 'Version installée : {version}',
+  checkNow: 'Rechercher des mises à jour',
+  checking: 'Recherche de mises à jour…',
+  update: 'Mettre à jour',
+  available: 'La version {version} est disponible',
+  availableHint: "Elle se télécharge ici et s'installe toute seule : inutile de récupérer l'installateur sur GitHub.",
+  download: 'Télécharger la mise à jour',
+  downloading: 'Téléchargement de la mise à jour…',
+  downloadingDetail: '{done} sur {total} · {speed}',
+  ready: 'La version {version} est prête à être installée',
+  readyHint: 'Redémarrez Check Space pour terminer. Vos analyses enregistrées et vos préférences sont conservées.',
+  restart: 'Redémarrer et mettre à jour',
+  restartShort: 'Redémarrer',
+  upToDate: 'Vous avez la dernière version',
+  upToDateHint: 'Vous serez prévenu dès qu’une nouvelle version sera disponible.',
+  error: 'La mise à jour n’a pas pu aboutir',
+  errorHint: 'Vérifiez votre connexion et réessayez. L’application continue de fonctionner normalement.',
+  retry: 'Réessayer',
+  autoCheckHint: 'Check Space recherche des mises à jour au démarrage.'
+}

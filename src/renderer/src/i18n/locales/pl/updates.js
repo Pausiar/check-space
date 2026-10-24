@@ -1,0 +1,22 @@
+export default {
+  title: 'Aktualizacje',
+  currentVersion: 'Zainstalowana wersja: {version}',
+  checkNow: 'Sprawdź aktualizacje',
+  checking: 'Sprawdzanie aktualizacji…',
+  update: 'Aktualizuj',
+  available: 'Dostępna jest wersja {version}',
+  availableHint: 'Zostanie pobrana tutaj i zainstaluje się sama: nie trzeba pobierać instalatora z GitHuba.',
+  download: 'Pobierz aktualizację',
+  downloading: 'Pobieranie aktualizacji…',
+  downloadingDetail: '{done} z {total} · {speed}',
+  ready: 'Wersja {version} jest gotowa do instalacji',
+  readyHint: 'Uruchom ponownie Check Space, aby dokończyć. Zapisane skany i ustawienia zostaną zachowane.',
+  restart: 'Uruchom ponownie i zaktualizuj',
+  restartShort: 'Uruchom ponownie',
+  upToDate: 'Masz najnowszą wersję',
+  upToDateHint: 'Powiadomię Cię, gdy pojawi się nowa wersja.',
+  error: 'Nie udało się zaktualizować',
+  errorHint: 'Sprawdź połączenie i spróbuj ponownie. Aplikacja nadal działa normalnie.',
+  retry: 'Spróbuj ponownie',
+  autoCheckHint: 'Check Space sprawdza aktualizacje przy uruchomieniu.'
+}

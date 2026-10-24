@@ -25,7 +25,14 @@ export const LANGUAGES = [
   { code: 'pt-BR', label: 'Português (Brasil)', locale: 'pt-BR' },
   { code: 'fr', label: 'Français', locale: 'fr-FR' },
   { code: 'de', label: 'Deutsch', locale: 'de-DE' },
-  { code: 'it', label: 'Italiano', locale: 'it-IT' }
+  { code: 'it', label: 'Italiano', locale: 'it-IT' },
+  { code: 'ru', label: 'Русский', locale: 'ru-RU' },
+  { code: 'ja', label: '日本語', locale: 'ja-JP' },
+  { code: 'zh-CN', label: '简体中文', locale: 'zh-CN' },
+  { code: 'pl', label: 'Polski', locale: 'pl-PL' },
+  { code: 'tr', label: 'Türkçe', locale: 'tr-TR' },
+  { code: 'ko', label: '한국어', locale: 'ko-KR' },
+  { code: 'nl', label: 'Nederlands', locale: 'nl-NL' }
 ]
 const FALLBACK = 'es'
 const STORAGE_KEY = 'language'
@@ -37,10 +44,39 @@ function resolveKey(lang, key) {
   return ns ? ns[key.slice(dot + 1)] : undefined
 }
 
+// Plural forms come from Intl.PluralRules, so Slavic languages get their real
+// categories: 1 -> one, 2-4 -> few, 5+ -> other. A dictionary only needs the
+// forms it uses; the rest fall back to 'other' and then 'one'.
+const LOCALES = Object.fromEntries(LANGUAGES.map((l) => [l.code, l.locale]))
+const pluralRules = new Map()
+
+function pluralRule(lang) {
+  let rules = pluralRules.get(lang)
+  if (!rules) {
+    try {
+      rules = new Intl.PluralRules(LOCALES[lang] || 'en-US')
+    } catch {
+      rules = new Intl.PluralRules('en-US')
+    }
+    pluralRules.set(lang, rules)
+  }
+  return rules
+}
+
+function plural(lang, key, count) {
+  const categories = (code) => [pluralRule(code).select(count), 'other', 'one']
+  for (const code of [lang, FALLBACK]) {
+    for (const category of categories(code)) {
+      const text = resolveKey(code, `${key}_${category}`)
+      if (text !== undefined) return text
+    }
+  }
+  return undefined
+}
+
 function lookup(lang, key, vars) {
   if (vars && typeof vars.count === 'number') {
-    const pluralKey = `${key}_${vars.count === 1 ? 'one' : 'other'}`
-    const p = resolveKey(lang, pluralKey) ?? resolveKey(FALLBACK, pluralKey)
+    const p = plural(lang, key, vars.count)
     if (p !== undefined) return p
   }
   return resolveKey(lang, key) ?? resolveKey(FALLBACK, key)

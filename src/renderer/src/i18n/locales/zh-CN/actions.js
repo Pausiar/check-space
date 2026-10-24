@@ -1,0 +1,57 @@
+export default {
+  // Delete confirmation dialog
+  confirmTitle_one: '删除 {count} 项',
+  confirmTitle_other: '删除 {count} 项',
+  totalSize: '总大小：{size}',
+  andMore_one: '以及另外 {count} 项',
+  andMore_other: '以及另外 {count} 项',
+  chooseMethod: '选择删除方式',
+  optTrash: '移到回收站',
+  optTrashHint: '可以随时从回收站还原。',
+  optPermanent: '永久删除',
+  optPermanentHint: '直接从磁盘删除，不经过回收站。',
+  trashNote: '移到回收站并不会释放空间，直到你清空回收站。',
+  permanentWarning: '此操作无法撤销。文件将被永久删除，无法恢复。',
+  permanentWarningFolders: '文件夹会连同其中的所有内容一起删除。',
+  confirmTrash: '移到回收站',
+  confirmPermanent: '永久删除',
+  working: '正在删除…',
+  cancel: '取消',
+
+  // Context menu
+  copyPath: '复制路径',
+  trashSelected_one: '移到回收站（{count} 项）',
+  trashSelected_other: '移到回收站（{count} 项）',
+  deleteSelected_one: '永久删除（{count} 项）',
+  deleteSelected_other: '永久删除（{count} 项）',
+
+  // Selection bar
+  selectedCount_one: '已选择 {count} 项',
+  selectedCount_other: '已选择 {count} 项',
+  clearSelection: '取消选择',
+  trashHint: 'Del',
+  deleteHint: 'Shift+Del',
+
+  // Toasts
+  toastDeleted_one: '已删除 {count} 项，释放 {size}',
+  toastDeleted_other: '已删除 {count} 项，释放 {size}',
+  toastTrashed_one: '已将 {count} 项移到回收站（{size}）。清空回收站后才会释放空间。',
+  toastTrashed_other: '已将 {count} 项移到回收站（{size}）。清空回收站后才会释放空间。',
+  toastPartial: '已处理 {total} 项中的 {ok} 项',
+  toastFailed_one: '无法删除该项目',
+  toastFailed_other: '无法删除这些项目',
+  failedItem: '{name}：{reason}',
+  failedMore_one: '以及另外 {count} 个错误',
+  failedMore_other: '以及另外 {count} 个错误',
+  errProtected: '关键系统位置，已被保护',
+  errNotInScan: '已不在扫描结果中，请重新扫描',
+  errBusy: '正被其他程序使用',
+  errPerm: '权限不足（请尝试以管理员身份运行）',
+  errNotFound: '已不存在',
+  errOther: '错误：{error}',
+  errGeneric: '无法完成操作：{error}',
+  copied: '路径已复制到剪贴板',
+  copyFailed: '无法复制路径',
+  openFailed: '无法打开该位置',
+  dismiss: '关闭'
+}

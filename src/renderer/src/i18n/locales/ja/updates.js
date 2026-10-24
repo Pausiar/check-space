@@ -1,0 +1,22 @@
+export default {
+  title: 'アップデート',
+  currentVersion: 'インストール済み: {version}',
+  checkNow: 'アップデートを確認',
+  checking: 'アップデートを確認しています…',
+  update: '更新',
+  available: 'バージョン {version} が利用可能です',
+  availableHint: 'ここから自動でダウンロードしてインストールします。GitHub からインストーラーを落とす必要はありません。',
+  download: 'アップデートをダウンロード',
+  downloading: 'アップデートをダウンロードしています…',
+  downloadingDetail: '{total} 中 {done} · {speed}',
+  ready: 'バージョン {version} をインストールできます',
+  readyHint: 'Check Space を再起動すると完了します。保存済みのスキャンと設定はそのまま残ります。',
+  restart: '再起動して更新',
+  restartShort: '再起動',
+  upToDate: '最新バージョンです',
+  upToDateHint: '新しいバージョンが出たらお知らせします。',
+  error: 'アップデートできませんでした',
+  errorHint: '接続を確認して再試行してください。アプリは通常どおり使えます。',
+  retry: '再試行',
+  autoCheckHint: 'Check Space は起動時にアップデートを確認します。'
+}

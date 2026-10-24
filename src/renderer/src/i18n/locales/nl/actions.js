@@ -1,0 +1,57 @@
+export default {
+  // Delete confirmation dialog
+  confirmTitle_one: '{count} item verwijderen',
+  confirmTitle_other: '{count} items verwijderen',
+  totalSize: 'Totale grootte: {size}',
+  andMore_one: 'en nog {count} item',
+  andMore_other: 'en nog {count} items',
+  chooseMethod: 'Hoe wil je dit verwijderen',
+  optTrash: 'Naar prullenbak verplaatsen',
+  optTrashHint: 'Je kunt het uit de prullenbak herstellen.',
+  optPermanent: 'Permanent verwijderen',
+  optPermanentHint: 'Wordt van de schijf verwijderd zonder de prullenbak.',
+  trashNote: 'Naar de prullenbak verplaatsen maakt pas ruimte vrij als je hem leegt.',
+  permanentWarning: 'Dit kan niet ongedaan worden gemaakt. De bestanden worden definitief verwijderd en je kunt ze niet meer terughalen.',
+  permanentWarningFolders: 'Mappen worden samen met hun volledige inhoud verwijderd.',
+  confirmTrash: 'Naar prullenbak verplaatsen',
+  confirmPermanent: 'Permanent verwijderen',
+  working: 'Verwijderen…',
+  cancel: 'Annuleren',
+
+  // Context menu
+  copyPath: 'Pad kopiëren',
+  trashSelected_one: 'Naar prullenbak verplaatsen ({count} item)',
+  trashSelected_other: 'Naar prullenbak verplaatsen ({count} items)',
+  deleteSelected_one: 'Permanent verwijderen ({count} item)',
+  deleteSelected_other: 'Permanent verwijderen ({count} items)',
+
+  // Selection bar
+  selectedCount_one: '{count} geselecteerd',
+  selectedCount_other: '{count} geselecteerd',
+  clearSelection: 'Selectie wissen',
+  trashHint: 'Del',
+  deleteHint: 'Shift+Del',
+
+  // Toasts
+  toastDeleted_one: '{count} item verwijderd, {size} vrijgemaakt',
+  toastDeleted_other: '{count} items verwijderd, {size} vrijgemaakt',
+  toastTrashed_one: '{count} item naar de prullenbak verplaatst ({size}). Ruimte komt vrij zodra je hem leegt.',
+  toastTrashed_other: '{count} items naar de prullenbak verplaatst ({size}). Ruimte komt vrij zodra je hem leegt.',
+  toastPartial: '{ok} van {total} items verwerkt',
+  toastFailed_one: 'Het item kon niet worden verwijderd',
+  toastFailed_other: 'De items konden niet worden verwijderd',
+  failedItem: '{name}: {reason}',
+  failedMore_one: 'en nog {count} fout',
+  failedMore_other: 'en nog {count} fouten',
+  errProtected: 'kritieke systeemlocatie, deze is beveiligd',
+  errNotInScan: 'niet meer in de scan; scan opnieuw',
+  errBusy: 'in gebruik door een ander programma',
+  errPerm: 'onvoldoende rechten (probeer als administrator te draaien)',
+  errNotFound: 'bestaat niet meer',
+  errOther: 'fout: {error}',
+  errGeneric: 'De bewerking kon niet worden voltooid: {error}',
+  copied: 'Pad naar het klembord gekopieerd',
+  copyFailed: 'Het pad kon niet worden gekopieerd',
+  openFailed: 'Die locatie kon niet worden geopend',
+  dismiss: 'Sluiten'
+}

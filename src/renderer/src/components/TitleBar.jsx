@@ -1,6 +1,7 @@
 import { HardDrive, Sun, Moon, Monitor, Languages } from 'lucide-react'
 import { useTheme } from '../theme/ThemeProvider'
 import { useI18n, LANGUAGES } from '../i18n'
+import UpdateButton from './UpdateButton'
 
 const THEME_OPTIONS = [
   { mode: 'light', icon: Sun },
@@ -24,6 +25,7 @@ export default function TitleBar() {
         <span>Check Space</span>
       </div>
       <div className="titlebar-controls">
+        <UpdateButton />
         <label className="lang-select" title={t('common.language')}>
           <Languages size={14} />
           <select value={lang} onChange={(e) => setLang(e.target.value)} aria-label={t('common.language')}>

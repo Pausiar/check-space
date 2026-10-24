@@ -1,0 +1,22 @@
+export default {
+  title: '更新',
+  currentVersion: '已安装版本：{version}',
+  checkNow: '检查更新',
+  checking: '正在检查更新…',
+  update: '更新',
+  available: '版本 {version} 可用',
+  availableHint: '更新会从这里下载并自动安装，无需再从 GitHub 下载安装程序。',
+  download: '下载更新',
+  downloading: '正在下载更新…',
+  downloadingDetail: '{total} 中的 {done} · {speed}',
+  ready: '版本 {version} 已准备好安装',
+  readyHint: '重启 Check Space 即可完成。已保存的扫描结果和你的设置都会保留。',
+  restart: '重启并更新',
+  restartShort: '重启',
+  upToDate: '你已是最新版本',
+  upToDateHint: '有新版本时会通知你。',
+  error: '无法完成更新',
+  errorHint: '请检查网络连接后重试。应用仍可正常使用。',
+  retry: '重试',
+  autoCheckHint: 'Check Space 会在启动时检查更新。'
+}

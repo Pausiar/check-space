@@ -49,5 +49,14 @@ contextBridge.exposeInMainWorld('api', {
   runCleanup: (id) => ipcRenderer.invoke('cleanup:run', id),
 
   // Export
-  exportReport: (format) => ipcRenderer.invoke('report:export', format)
+  exportReport: (format) => ipcRenderer.invoke('report:export', format),
+
+  // Updates
+  updates: {
+    getState: () => ipcRenderer.invoke('update:state'),
+    check: () => ipcRenderer.invoke('update:check'),
+    download: () => ipcRenderer.invoke('update:download'),
+    install: () => ipcRenderer.send('update:install'),
+    onStatus: subscribe('update:status')
+  }
 })

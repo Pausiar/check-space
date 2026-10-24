@@ -80,6 +80,16 @@ jobs:
           }
           if ($failed) { throw 'One or more executables are not validly signed.' }
 
+      # electron-updater polls latest.yml and downloads only the changed blocks,
+      # so both files must reach the release or installed copies stop updating.
+      - name: Check update feed
+        shell: bash
+        run: |
+          test -f build/latest.yml || { echo "::error::latest.yml was not generated."; exit 1; }
+          ls build/*.blockmap >/dev/null || { echo "::error::No .blockmap generated."; exit 1; }
+          echo "Update feed: build/latest.yml"
+          cat build/latest.yml
+
       - name: SHA-256 checksums
         shell: bash
         run: |
@@ -106,4 +116,6 @@ jobs:
           body_path: .github/release-notes/${{ steps.version.outputs.tag }}.md
           files: |
             build/*.exe
+            build/latest.yml
+            build/*.blockmap
             build/SHA256SUMS.txt

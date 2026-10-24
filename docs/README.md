@@ -69,9 +69,10 @@ Issues. Detalles y pendientes en [LEGAL.md](LEGAL.md).
 
 ## Ficheros que no son la web
 
-`LEGAL.md` y `SIGNING.md` son documentación del repositorio, no páginas del
-sitio. Están en `exclude` dentro de `_config.yml` para que Jekyll no las publique.
-Al añadir documentación nueva a esta carpeta, añádela también a esa lista.
+`LEGAL.md`, `SIGNING.md` y `UPDATES.md` son documentación del repositorio, no
+páginas del sitio. Están en `exclude` dentro de `_config.yml` para que Jekyll no
+las publique. Al añadir documentación nueva a esta carpeta, añádela también a esa
+lista.
 
 ## Notas
 

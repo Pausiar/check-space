@@ -1,0 +1,57 @@
+export default {
+  // Delete confirmation dialog
+  confirmTitle_one: '{count} öğeyi sil',
+  confirmTitle_other: '{count} öğeyi sil',
+  totalSize: 'Toplam boyut: {size}',
+  andMore_one: 've {count} öğe daha',
+  andMore_other: 've {count} öğe daha',
+  chooseMethod: 'Nasıl silmek istersiniz',
+  optTrash: 'Geri dönüşüm kutusuna taşı',
+  optTrashHint: 'Geri dönüşüm kutusundan geri yükleyebilirsiniz.',
+  optPermanent: 'Kalıcı olarak sil',
+  optPermanentHint: 'Geri dönüşüm kutusuna uğramadan diskten kaldırılır.',
+  trashNote: 'Geri dönüşüm kutusuna taşımak, kutuyu boşaltana kadar yer açmaz.',
+  permanentWarning: 'Bu işlem geri alınamaz. Dosyalar kalıcı olarak silinir ve kurtarılamaz.',
+  permanentWarningFolders: 'Klasörler tüm içerikleriyle birlikte silinir.',
+  confirmTrash: 'Geri dönüşüm kutusuna taşı',
+  confirmPermanent: 'Kalıcı olarak sil',
+  working: 'Siliniyor…',
+  cancel: 'İptal',
+
+  // Context menu
+  copyPath: 'Yolu kopyala',
+  trashSelected_one: 'Geri dönüşüm kutusuna taşı ({count} öğe)',
+  trashSelected_other: 'Geri dönüşüm kutusuna taşı ({count} öğe)',
+  deleteSelected_one: 'Kalıcı olarak sil ({count} öğe)',
+  deleteSelected_other: 'Kalıcı olarak sil ({count} öğe)',
+
+  // Selection bar
+  selectedCount_one: '{count} seçili',
+  selectedCount_other: '{count} seçili',
+  clearSelection: 'Seçimi temizle',
+  trashHint: 'Del',
+  deleteHint: 'Shift+Del',
+
+  // Toasts
+  toastDeleted_one: '{count} öğe silindi, {size} boşaltıldı',
+  toastDeleted_other: '{count} öğe silindi, {size} boşaltıldı',
+  toastTrashed_one: '{count} öğe geri dönüşüm kutusuna taşındı ({size}). Kutu boşaltılınca yer açılır.',
+  toastTrashed_other: '{count} öğe geri dönüşüm kutusuna taşındı ({size}). Kutu boşaltılınca yer açılır.',
+  toastPartial: '{total} öğeden {ok} tanesi işlendi',
+  toastFailed_one: 'Öğe silinemedi',
+  toastFailed_other: 'Öğeler silinemedi',
+  failedItem: '{name}: {reason}',
+  failedMore_one: 've {count} hata daha',
+  failedMore_other: 've {count} hata daha',
+  errProtected: 'kritik sistem konumu, korunuyor',
+  errNotInScan: 'artık tarama sonuçlarında yok; yeniden tarayın',
+  errBusy: 'başka bir program tarafından kullanılıyor',
+  errPerm: 'yeterli izin yok (yönetici olarak çalıştırmayı deneyin)',
+  errNotFound: 'artık mevcut değil',
+  errOther: 'hata: {error}',
+  errGeneric: 'İşlem tamamlanamadı: {error}',
+  copied: 'Yol panoya kopyalandı',
+  copyFailed: 'Yol kopyalanamadı',
+  openFailed: 'Bu konum açılamadı',
+  dismiss: 'Kapat'
+}

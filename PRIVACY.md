@@ -10,8 +10,10 @@ equipo**. Esta política cubre la aplicación de escritorio; la del sitio web es
 
 - No hay cuentas, registro ni inicio de sesión.
 - No hay telemetría, analítica ni informes de fallos.
-- La aplicación **no realiza peticiones de red**. Puedes usarla sin conexión.
-- Tus archivos, nombres de archivo y tamaños no salen de tu ordenador.
+- Tus archivos, nombres de archivo, tamaños y estructura de carpetas no salen de tu ordenador.
+- La única conexión a internet es la **búsqueda de actualizaciones** en GitHub Releases, que
+  solo envía la petición habitual (versión instalada, sistema e IP) y nunca datos de tu disco.
+  Sin conexión, el análisis funciona igual.
 
 ## Qué datos se guardan y dónde
 
@@ -39,8 +41,17 @@ aplicación nunca borra, mueve ni sube archivos por su cuenta.
 ## Servicios de terceros
 
 La aplicación no integra SDK de terceros, publicidad ni rastreo. Las descargas se
-distribuyen a través de GitHub Releases; esa descarga la realiza tu navegador, no la
-aplicación, y se rige por la política de privacidad de GitHub.
+distribuyen a través de GitHub Releases.
+
+Actualizaciones: al arrancar, y cada seis horas mientras la app está abierta, se consulta
+el feed público de releases (`latest.yml`) para saber si hay una versión nueva. Esa
+petición la hace la aplicación, no tu navegador, y GitHub ve la IP y la versión que
+envía cualquier cliente HTTP; no incluye nombres de archivo, rutas ni tamaños. Si
+aceptas la actualización, el instalador se descarga desde el mismo GitHub y se ejecuta
+al reiniciar. Puedes usar la aplicación sin conexión: solo se pierde esa comprobación.
+La versión portable no se actualiza sola y no consulta el feed.
+
+En ambos casos se aplica la política de privacidad de GitHub.
 
 ## Menores
 
@@ -48,9 +59,11 @@ La aplicación no recoge datos de ninguna persona, incluidos menores de edad.
 
 ## Cambios
 
-Si en el futuro la aplicación incorporase alguna función que implique tratamiento de
-datos (por ejemplo, actualizaciones automáticas o informes de errores), esta política se
-actualizará **antes** de activarla y se pedirá consentimiento cuando la ley lo exija.
+Si en el futuro la aplicación incorporase alguna función que implique un nuevo
+tratamiento de datos (por ejemplo, informes de errores), esta política se actualizará
+**antes** de activarla y se pedirá consentimiento cuando la ley lo exija. Las
+actualizaciones descritas arriba solo consultan GitHub y no crean perfiles ni recogen
+datos personales.
 
 ## Contacto
 
@@ -67,8 +80,10 @@ website notice is at <https://pausiar.github.io/check-space/politica-privacidad/
 
 - No account, sign-up or login.
 - No telemetry, analytics or crash reporting.
-- The app makes **no network requests** and works offline.
-- Your files, file names and sizes never leave your machine.
+- Your files, file names, sizes and folder structure never leave your machine.
+- The only internet request is the **update check** against GitHub Releases, which sends
+  the usual HTTP request (installed version, OS and IP) and never any data from your
+  disk. Without a connection, scanning works exactly the same.
 
 The only data stored is local: a per-drive scan cache (file names, paths and sizes) in
 `%APPDATA%\Check Space`, plus your language and theme preferences in the window's local
@@ -79,5 +94,11 @@ The app reads file metadata and uses the Windows Recycle Bin when you ask it to.
 those calls send data anywhere. Files are only deleted after you select them and confirm;
 the app never deletes, moves or uploads anything on its own.
 
-Downloads are served by GitHub Releases, so the download itself follows GitHub's privacy
-policy. Questions: <https://github.com/Pausiar/check-space/issues>.
+Downloads are served by GitHub Releases. At startup, and every six hours while the app
+is open, the app reads the public release feed (`latest.yml`) to see whether a newer
+version exists; GitHub sees the IP and version sent by any HTTP client, never file
+names, paths or sizes. If you accept the update, the installer is downloaded from the
+same place and runs on restart. The portable build does not update itself and never
+queries the feed. Both cases follow GitHub's privacy policy.
+
+Questions: <https://github.com/Pausiar/check-space/issues>.

@@ -1,0 +1,57 @@
+export default {
+  // Delete confirmation dialog
+  confirmTitle_one: '{count} 項目を削除',
+  confirmTitle_other: '{count} 項目を削除',
+  totalSize: '合計サイズ: {size}',
+  andMore_one: 'ほか {count} 項目',
+  andMore_other: 'ほか {count} 項目',
+  chooseMethod: '削除方法を選択',
+  optTrash: 'ごみ箱に移動',
+  optTrashHint: 'ごみ箱から復元できます。',
+  optPermanent: '完全に削除',
+  optPermanentHint: 'ごみ箱を経由せずディスクから削除します。',
+  trashNote: 'ごみ箱に移動しただけでは、空にするまでディスクの空き容量は増えません。',
+  permanentWarning: 'この操作は元に戻せません。ファイルは完全に削除され、復元できなくなります。',
+  permanentWarningFolders: 'フォルダーは中身ごと削除されます。',
+  confirmTrash: 'ごみ箱に移動',
+  confirmPermanent: '完全に削除',
+  working: '削除中…',
+  cancel: 'キャンセル',
+
+  // Context menu
+  copyPath: 'パスをコピー',
+  trashSelected_one: 'ごみ箱に移動 ({count} 項目)',
+  trashSelected_other: 'ごみ箱に移動 ({count} 項目)',
+  deleteSelected_one: '完全に削除 ({count} 項目)',
+  deleteSelected_other: '完全に削除 ({count} 項目)',
+
+  // Selection bar
+  selectedCount_one: '{count} 件選択中',
+  selectedCount_other: '{count} 件選択中',
+  clearSelection: '選択を解除',
+  trashHint: 'Del',
+  deleteHint: 'Shift+Del',
+
+  // Toasts
+  toastDeleted_one: '{count} 項目を削除し、{size} を解放しました',
+  toastDeleted_other: '{count} 項目を削除し、{size} を解放しました',
+  toastTrashed_one: '{count} 項目をごみ箱に移動しました ({size})。空にすると容量が解放されます。',
+  toastTrashed_other: '{count} 項目をごみ箱に移動しました ({size})。空にすると容量が解放されます。',
+  toastPartial: '{total} 件中 {ok} 件を処理しました',
+  toastFailed_one: '項目を削除できませんでした',
+  toastFailed_other: '項目を削除できませんでした',
+  failedItem: '{name}: {reason}',
+  failedMore_one: 'ほか {count} 件のエラー',
+  failedMore_other: 'ほか {count} 件のエラー',
+  errProtected: '重要なシステム領域のため保護されています',
+  errNotInScan: 'スキャン結果に存在しません。再スキャンしてください',
+  errBusy: '別のプログラムが使用中です',
+  errPerm: '権限が不足しています (管理者として実行してみてください)',
+  errNotFound: 'すでに存在しません',
+  errOther: 'エラー: {error}',
+  errGeneric: '操作を完了できませんでした: {error}',
+  copied: 'パスをクリップボードにコピーしました',
+  copyFailed: 'パスをコピーできませんでした',
+  openFailed: 'その場所を開けませんでした',
+  dismiss: '閉じる'
+}
