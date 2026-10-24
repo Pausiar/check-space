@@ -54,13 +54,14 @@ npm version patch --no-git-tag-version   # o edita package.json a mano
 git add -A && git commit -m "Release 1.2.1"
 git push
 
-# 2. Etiqueta: el push de la etiqueta dispara el workflow de release
-git tag v1.2.1
-git push origin v1.2.1
+# 2. Dispara el workflow: etiqueta o rama release/<versión>
+git tag v1.2.1 && git push origin v1.2.1
+git push origin HEAD:release/v1.2.1
 ```
 
-También se puede lanzar a mano desde **Actions → Release → Run workflow**: en
-ese caso la etiqueta se crea a partir de la versión de `package.json`.
+Las tres formas (etiqueta, rama `release/<versión>` o **Actions → Release →
+Run workflow**) crean la misma release: la etiqueta se resuelve de esta última
+si no viene de un push de etiqueta.
 
 Lee el log del paso **Check update feed**: imprime el `latest.yml` generado. Si
 el workflow falla ahí, la release no debe publicarse.

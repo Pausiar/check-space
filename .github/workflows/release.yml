@@ -4,6 +4,10 @@ on:
   push:
     tags:
       - 'v*'
+    # A release/<version> branch publishes too. The tag is created by the
+    # release step, so this works from environments that cannot push tags.
+    branches:
+      - 'release/**'
   workflow_dispatch:
 
 permissions:
