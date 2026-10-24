@@ -197,6 +197,13 @@ a:hover { color: var(--clr-primary-h); }
 }
 .navbar__logo:hover { color: var(--clr-text); }
 
+.navbar__logo-icon {
+  display: block;
+  flex: none;
+  width: 28px;
+  height: 28px;
+}
+
 .navbar__links {
   display: flex;
   align-items: center;
