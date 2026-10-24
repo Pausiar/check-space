@@ -30,9 +30,12 @@ win:
   # Multi-resolution ICO (16-256 px). Embedding it and the version metadata into
   # the exe (rcedit) is what SmartScreen and Defender look at first.
   icon: resources/icon.ico
-  publisherName: Pausiar
-  # Signing itself is driven by the environment: set CSC_LINK (a .pfx, base64 or
-  # URL) and CSC_KEY_PASSWORD, and every build is signed. See docs/SIGNING.md.
+  # Do not set publisherName while the builds are unsigned: electron-builder
+  # copies it into app-update.yml and electron-updater then rejects every update
+  # whose installer is not signed by that publisher. Once CSC_LINK is
+  # configured, electron-builder reads the name from the certificate itself.
+  # Signing is driven by the environment: set CSC_LINK (a .pfx, base64 or URL)
+  # and CSC_KEY_PASSWORD, and every build is signed. See docs/SIGNING.md.
   signtoolOptions:
     signingHashAlgorithms:
       - sha256

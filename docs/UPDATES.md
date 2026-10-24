@@ -30,6 +30,14 @@ Estados que puede mostrar la interfaz: comprobando, disponible, descargando
 - La firma de código es independiente del updater, pero conviene tenerla: una
   actualización firmada por un editor desconocido también dispara SmartScreen.
 
+### Firma y `publisherName`
+
+Si `app-update.yml` lleva `publisherName`, `electron-updater` exige que el
+instalador esté firmado por ese editor y **rechaza cualquier build sin firma**.
+Por eso `win.publisherName` debe quedarse sin definir mientras las releases sean
+sin firmar. Al configurar `CSC_LINK`, electron-builder lee el nombre del
+certificado y lo escribe él solo; no hay que añadirlo a mano.
+
 ## Qué debe contener cada release
 
 `electron-builder.yml` declara el proveedor (`publish: github`) y el workflow
@@ -61,7 +69,9 @@ git push origin HEAD:release/v1.2.1
 
 Las tres formas (etiqueta, rama `release/<versión>` o **Actions → Release →
 Run workflow**) crean la misma release: la etiqueta se resuelve de esta última
-si no viene de un push de etiqueta.
+si no viene de un push de etiqueta. Al usar una rama, el paso *Point tag at this
+commit* mueve la etiqueta al commit construido para que release y binarios
+coincidan.
 
 Lee el log del paso **Check update feed**: imprime el `latest.yml` generado. Si
 el workflow falla ahí, la release no debe publicarse.

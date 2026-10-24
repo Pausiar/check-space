@@ -111,6 +111,18 @@ jobs:
             echo "tag=v$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
           fi
 
+      # A release/<version> branch is the source of truth: move the tag to this
+      # commit so the published tag matches the binaries it produced. Pushes
+      # made with GITHUB_TOKEN do not trigger another workflow run.
+      - name: Point tag at this commit
+        if: startsWith(github.ref, 'refs/heads/release/')
+        shell: bash
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          git tag -f "$TAG" "$GITHUB_SHA"
+          git push --force origin "refs/tags/$TAG"
+
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
