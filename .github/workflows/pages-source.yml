@@ -1,0 +1,46 @@
+name: Configure Pages source
+
+# La web del proyecto vive en docs/. El origen de GitHub Pages (rama y carpeta)
+# es un ajuste del repositorio que también se puede fijar con el token de Actions,
+# así que este trabajo lo deja reproducible en lugar de depender de que alguien
+# lo cambie a mano en Settings → Pages. Se ejecuta solo al cambiar este archivo
+# o a mano; es idempotente.
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/pages-source.yml'
+
+permissions:
+  contents: read
+  pages: write
+
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Serve docs/ from GitHub Pages
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          body=$(mktemp)
+          code=$(curl -sS -o "$body" -w '%{http_code}' \
+            --request PUT \
+            --header "Authorization: Bearer $TOKEN" \
+            --header "Accept: application/vnd.github+json" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            --header "Content-Type: application/json" \
+            --data '{"build_type":"legacy","source":{"branch":"main","path":"/docs"}}' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages")
+          echo "GitHub Pages API respondió HTTP $code"
+          if [ -s "$body" ]; then
+            sed -e 's/^/  /' "$body"
+          fi
+          if [ "$code" -ge 300 ]; then
+            echo "::error::No se pudo apuntar GitHub Pages a docs/ (HTTP $code). Cámbialo a mano en Settings → Pages: rama main, carpeta /docs."
+            exit 1
+          fi
