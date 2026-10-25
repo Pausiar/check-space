@@ -619,7 +619,12 @@ description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 
 <script>
 (function () {
   fetch('https://api.github.com/repos/Pausiar/check-space/releases/latest')
-    .then(function (r) { return r.json(); })
+    .then(function (r) {
+      /* Un 403 por límite de peticiones también llega aquí: si se parsea tal cual,
+         tag_name es undefined y la insignia pierde la versión estática. */
+      if (!r.ok) throw new Error('GitHub API ' + r.status);
+      return r.json();
+    })
     .then(function (data) {
       var tag = data.tag_name;
       var assets = data.assets || [];
