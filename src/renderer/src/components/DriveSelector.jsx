@@ -6,9 +6,9 @@ import './DriveSelector.css'
 
 const DANGER_RATIO = 0.9
 
-/** Windows letters are shown as "C:"; the POSIX root is shown as "/". */
+/** Windows letters are shown as "C:"; Linux mount points keep their path. */
 function driveName(letter) {
-  return letter === '/' ? '/' : `${letter}:`
+  return String(letter).startsWith('/') ? String(letter) : `${letter}:`
 }
 
 function DriveCard({ drive, onOpen }) {

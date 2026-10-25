@@ -17,6 +17,14 @@ function env(name) {
 }
 
 function candidates() {
+  if (process.platform === 'linux') {
+    // /tmp is shared between all users and often holds sockets for running
+    // programs; it is not a safe "clear everything" target. ~/.cache is the
+    // per-user equivalent and regenerates on demand.
+    return [
+      { id: 'userCache', kind: 'userCache', path: path.join(os.homedir(), '.cache'), action: 'clearContents', risk: 'caution' }
+    ]
+  }
   if (process.platform !== 'win32') {
     return [
       { id: 'tmp', kind: 'temp', path: os.tmpdir(), action: 'clearContents', risk: 'safe' },
@@ -44,8 +52,55 @@ function candidates() {
   return list
 }
 
+// Browser profile caches on Linux live under the XDG config/cache directories.
+function linuxBrowserCaches(root) {
+  const home = os.homedir()
+  const config = env('XDG_CONFIG_HOME') || path.join(home, '.config')
+  const cache = env('XDG_CACHE_HOME') || path.join(home, '.cache')
+  // Chromium keeps its profile settings in ~/.config but the cache itself in
+  // ~/.cache (XDG_CACHE_HOME), so both roots have to be inspected.
+  const chromium = [
+    ['Google Chrome', 'google-chrome'],
+    ['Chromium', 'chromium'],
+    ['Microsoft Edge', 'microsoft-edge'],
+    ['Brave', path.join('BraveSoftware', 'Brave-Browser')],
+    ['Opera', 'opera']
+  ]
+  const out = []
+  const seen = new Set()
+  for (const [label, relative] of chromium) {
+    for (const dataDir of [path.join(config, relative), path.join(cache, relative)]) {
+      const found = lookup(root, dataDir)
+      if (!found || found.file) continue
+      const profiles = [found.dir, ...found.dir.children]
+      for (const profile of profiles) {
+        for (const cacheName of ['Cache', 'Code Cache', 'GPUCache']) {
+          const c = profile.children.find((d) => d.name === cacheName)
+          if (c && c.size > 0 && !seen.has(c.path)) {
+            seen.add(c.path)
+            out.push({ id: `browser:${c.path}`, kind: 'browserCache', label, path: c.path, action: 'clearContents', risk: 'safe' })
+          }
+        }
+      }
+    }
+  }
+  for (const rootDir of [path.join(home, '.mozilla', 'firefox'), path.join(cache, 'mozilla', 'firefox')]) {
+    const ff = lookup(root, rootDir)
+    if (!ff || ff.file) continue
+    for (const profile of ff.dir.children) {
+      const c = profile.children.find((d) => d.name === 'cache2')
+      if (c && c.size > 0 && !seen.has(c.path)) {
+        seen.add(c.path)
+        out.push({ id: `browser:${c.path}`, kind: 'browserCache', label: 'Firefox', path: c.path, action: 'clearContents', risk: 'safe' })
+      }
+    }
+  }
+  return out
+}
+
 // Browser profile caches: <User Data>\<profile>\{Cache, Code Cache, GPUCache}
 function browserCaches(root) {
+  if (process.platform === 'linux') return linuxBrowserCaches(root)
   const local = env('LOCALAPPDATA')
   if (!local) return []
   const browsers = [
@@ -110,7 +165,8 @@ export function getSuggestions(root) {
   for (const c of all) {
     const found = lookup(root, c.path)
     if (!found || found.file) continue
-    const key = found.dir.path.toLowerCase()
+    // Windows paths are case-insensitive; Linux paths are not.
+    const key = process.platform === 'win32' ? found.dir.path.toLowerCase() : found.dir.path
     if (seen.has(key)) continue
     seen.add(key)
     if (found.dir.size <= 0) continue
@@ -122,7 +178,13 @@ export function getSuggestions(root) {
       files: found.dir.fileCount
     })
   }
-  return out.sort((a, b) => b.size - a.size)
+  // Avoid offering a folder and a folder inside it: clearing ~/.cache already
+  // removes the browser caches below it, and listing both would double count
+  // the same bytes in the "recoverable" total.
+  const top = out.filter(
+    (s) => !out.some((other) => other !== s && s.path.startsWith(other.path + path.sep))
+  )
+  return top.sort((a, b) => b.size - a.size)
 }
 
 export function findSuggestion(root, id) {

@@ -4,7 +4,7 @@ export default {
   intro: 'Locais que costumam acumular arquivos dispensáveis. Revise cada um antes de limpar.',
   loading: 'Procurando itens que podem ser limpos…',
   emptyTitle: 'Nenhum item para limpar foi encontrado',
-  emptyHint: 'As sugestões cobrem apenas locais dentro da pasta ou unidade verificada. Verifique a unidade do sistema (normalmente C:) para ver mais.',
+  emptyHint: 'As sugestões cobrem apenas locais dentro da pasta ou unidade verificada. Verifique a unidade do sistema para ver mais.',
 
   // Cartões
   sizeOnDisk: '{size} em disco',
@@ -65,7 +65,8 @@ export default {
   failed: 'Não foi possível limpar: {reason}',
   errNotFound: 'o local não está mais na verificação; verifique novamente',
   errNoScan: 'não há uma verificação ativa',
+  errProtected: 'local crítico do sistema, está protegido',
   errBusy: 'está em uso por outro programa',
-  errPerm: 'sem permissões suficientes (tente executar como administrador)',
+  errPerm: 'sem permissões suficientes (tente executar com permissões elevadas)',
   errOther: 'erro {error}'
 }

@@ -17,7 +17,7 @@ export default {
   ofFolder: '{percent} desta pasta',
   clickToOpen: 'Clique para abrir',
   clickToGoUp: 'Clique para subir um nível',
-  dblClickToReveal: 'Clique duas vezes para mostrar no Explorador',
+  dblClickToReveal: 'Clique duas vezes para mostrar no gerenciador de arquivos',
   scanningWait: 'Verificando… o mapa aparecerá assim que houver dados',
   liveBadge: 'Ao vivo',
   contentsTitle: 'Conteúdo desta pasta'

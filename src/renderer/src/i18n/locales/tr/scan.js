@@ -6,7 +6,7 @@ export default {
   scannedAt: '{date} tarihinde tarandı',
   metric: 'Ölçü',
   metricSizeHint: 'Dosyaların gerçek boyutu',
-  metricAllocHint: 'Diskte gerçekten kapladıkları alan (kümeler, sıkıştırma, yalnızca bulutta olan OneDrive dosyaları)',
+  metricAllocHint: 'Diskte gerçekten kapladıkları alan (kümeler, sıkıştırma, yalnızca buluttaki dosyalar)',
   cancel: 'İptal',
   rescan: 'Yeniden tara',
   refresh: 'Yenile',

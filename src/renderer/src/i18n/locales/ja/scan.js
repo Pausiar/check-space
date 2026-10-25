@@ -6,7 +6,7 @@ export default {
   scannedAt: '{date} にスキャン',
   metric: '測定方法',
   metricSizeHint: 'ファイルの実際のサイズ',
-  metricAllocHint: 'ディスク上で実際に占有している領域 (クラスター、圧縮、OneDrive のクラウドのみのファイル)',
+  metricAllocHint: 'ディスク上で実際に占有している領域 (クラスター、圧縮、クラウドのみのファイル)',
   cancel: 'キャンセル',
   rescan: '再スキャン',
   refresh: '更新',

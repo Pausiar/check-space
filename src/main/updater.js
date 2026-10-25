@@ -2,11 +2,14 @@
 //
 // electron-updater reads app-update.yml (written at build time from the
 // "publish" block in electron-builder.yml), asks the GitHub release feed for
-// latest.yml, downloads the NSIS installer with its .blockmap and runs it in
-// place. The user never visits GitHub: the app only offers "restart".
+// latest.yml (Windows) or latest-linux.yml (AppImage), downloads the new build
+// and installs it in place. The user never visits GitHub: the app only offers
+// "restart".
 //
-// The installer must be used (the portable .exe cannot replace itself) and the
-// build has to be packaged; otherwise the UI explains why instead of failing.
+// Windows uses the NSIS installer (the portable .exe cannot replace itself).
+// On Linux only the AppImage can replace itself; the .deb is updated through
+// the distribution or by downloading a new release. The build has to be
+// packaged; otherwise the UI explains why instead of failing.
 
 import { app } from 'electron'
 import { autoUpdater } from 'electron-updater'
@@ -17,6 +20,7 @@ const FIRST_CHECK_DELAY_MS = 20 * 1000
 const CHECK_INTERVAL_MS = 6 * 60 * 60 * 1000
 
 const isPortable = Boolean(process.env.PORTABLE_EXECUTABLE_FILE || process.env.PORTABLE_EXECUTABLE_DIR)
+const isAppImage = process.platform === 'linux' && Boolean(process.env.APPIMAGE)
 
 const state = {
   status: 'idle', // idle | checking | available | downloading | downloaded | up-to-date | error | unsupported
@@ -62,7 +66,7 @@ export function initUpdater(send) {
   }
   initialized = true
 
-  if (process.platform !== 'win32') {
+  if (process.platform !== 'win32' && process.platform !== 'linux') {
     setState({ status: 'unsupported', reason: 'platform' })
     return getUpdateState()
   }
@@ -73,6 +77,11 @@ export function initUpdater(send) {
   if (!app.isPackaged || !autoUpdater) {
     // Development builds cannot install an update over themselves
     setState({ status: 'unsupported', reason: 'development' })
+    return getUpdateState()
+  }
+  if (process.platform === 'linux' && !isAppImage) {
+    // .deb/rpm installs are owned by the package manager, not the app.
+    setState({ status: 'unsupported', reason: 'package' })
     return getUpdateState()
   }
 
@@ -179,7 +188,7 @@ export async function downloadUpdate() {
 
 export function installUpdate() {
   if (!supported || state.status !== 'downloaded') return false
-  // The window closes immediately; the installer runs and reopens the app.
+  // The window closes immediately; the installer (or the new AppImage) takes over.
   setImmediate(() => {
     try {
       autoUpdater.quitAndInstall(false, true)

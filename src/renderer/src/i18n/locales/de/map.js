@@ -17,7 +17,7 @@ export default {
   ofFolder: '{percent} dieses Ordners',
   clickToOpen: 'Zum Öffnen klicken',
   clickToGoUp: 'Klicken, um eine Ebene nach oben zu gehen',
-  dblClickToReveal: 'Doppelklick zum Anzeigen im Explorer',
+  dblClickToReveal: 'Doppelklick zum Anzeigen im Dateimanager',
   scanningWait: 'Scan läuft… die Karte erscheint, sobald Daten vorliegen',
   liveBadge: 'Live',
   contentsTitle: 'Inhalt dieses Ordners'

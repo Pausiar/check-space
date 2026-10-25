@@ -21,7 +21,11 @@ export function initCache(userDataPath) {
 }
 
 function cacheFile(rootPath) {
-  const key = crypto.createHash('sha1').update(path.resolve(rootPath).toLowerCase()).digest('hex')
+  // Windows paths are case-insensitive; Linux paths are not. Lowercasing on
+  // Linux would make /home/Ana and /home/ana share one cache entry.
+  const resolved = path.resolve(rootPath)
+  const keyPath = process.platform === 'win32' ? resolved.toLowerCase() : resolved
+  const key = crypto.createHash('sha1').update(keyPath).digest('hex')
   return path.join(cacheDir, `${key}.json.gz`)
 }
 

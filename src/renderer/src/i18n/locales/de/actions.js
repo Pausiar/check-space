@@ -46,7 +46,7 @@ export default {
   errProtected: 'kritischer Systemort, er ist geschützt',
   errNotInScan: 'ist nicht mehr im Scan enthalten; bitte neu scannen',
   errBusy: 'wird von einem anderen Programm verwendet',
-  errPerm: 'keine ausreichenden Berechtigungen (als Administrator versuchen)',
+  errPerm: 'keine ausreichenden Berechtigungen (mit erhöhten Rechten versuchen)',
   errNotFound: 'existiert nicht mehr',
   errOther: 'Fehler: {error}',
   errGeneric: 'Vorgang konnte nicht abgeschlossen werden: {error}',

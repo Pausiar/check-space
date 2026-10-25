@@ -28,6 +28,7 @@ export class Scanner {
     this.cancelled = false
     this.root = new DirNode(rootName || path.basename(rootPath) || rootPath, null, rootPath)
     this.seenInodes = new Set()
+    this.rootDev = null
     this.locked = []
     this.links = 0
     this.currentFolder = rootPath
@@ -51,6 +52,16 @@ export class Scanner {
   }
 
   async run() {
+    // `du -x` semantics on Linux: never cross into another mounted filesystem.
+    // Otherwise scanning / would walk /proc, /sys, /dev and every USB stick,
+    // reporting pseudo files as real data and double-counting other mounts.
+    if (process.platform === 'linux') {
+      try {
+        this.rootDev = (await fs.promises.stat(this.rootPath)).dev
+      } catch {
+        this.rootDev = null
+      }
+    }
     const stack = [this.root]
     let active = 0
     await new Promise((resolve) => {
@@ -94,17 +105,46 @@ export class Scanner {
     }
 
     const toStat = []
-    let newDirs = 0
+    const dirEntries = []
     for (const entry of entries) {
-      if (entry.isDirectory()) {
+      if (entry.isDirectory()) dirEntries.push(entry)
+      // Regular files plus anything Windows reports as a reparse point
+      // (OneDrive files, dedup files, symlinks...). lstat sorts them out.
+      else toStat.push(entry.name)
+    }
+
+    let newDirs = 0
+    // On Linux a directory entry can be a mount point of another filesystem.
+    // lstat it before adding it to the tree; skipping it keeps the scan inside
+    // the selected volume and avoids both double counting and pseudo files.
+    if (process.platform === 'linux' && this.rootDev != null) {
+      for (let i = 0; i < dirEntries.length; i += STAT_BATCH) {
+        const batch = dirEntries.slice(i, i + STAT_BATCH)
+        const checks = await Promise.all(
+          batch.map(async (entry) => {
+            try {
+              const stat = await fs.promises.lstat(path.join(node.path, entry.name))
+              return stat.dev === this.rootDev ? entry : null
+            } catch {
+              // Let the directory scan report permission/IO errors normally.
+              return entry
+            }
+          })
+        )
+        for (const entry of checks) {
+          if (!entry) continue
+          const child = new DirNode(entry.name, node, path.join(node.path, entry.name))
+          node.children.push(child)
+          stack.push(child)
+          newDirs++
+        }
+      }
+    } else {
+      for (const entry of dirEntries) {
         const child = new DirNode(entry.name, node, path.join(node.path, entry.name))
         node.children.push(child)
         stack.push(child)
         newDirs++
-      } else {
-        // Regular files plus anything Windows reports as a reparse point
-        // (OneDrive files, dedup files, symlinks...). lstat sorts them out.
-        toStat.push(entry.name)
       }
     }
     if (newDirs) addTotals(node, 0, 0, 0, newDirs)

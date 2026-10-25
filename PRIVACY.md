@@ -21,19 +21,21 @@ La aplicación guarda únicamente datos locales, necesarios para recordar su est
 
 | Dato | Ubicación | Finalidad |
 |---|---|---|
-| Caché del último análisis de cada unidad o carpeta (nombres, rutas y tamaños) | `%APPDATA%\Check Space` | Mostrar los resultados sin volver a escanear |
+| Caché del último análisis de cada unidad o carpeta (nombres, rutas y tamaños) | `%APPDATA%\disk-scanner` en Windows; `~/.config/disk-scanner` en Linux | Mostrar los resultados sin volver a escanear |
 | Idioma y tema elegidos | Almacenamiento local de la ventana (Chromium) | Recordar tus preferencias |
 
-Puedes borrar esos datos en cualquier momento cerrando la aplicación y eliminando la
-carpeta `%APPDATA%\Check Space`, o desinstalándola con el desinstalador de Windows.
+Puedes borrar esos datos en cualquier momento cerrando la aplicación y eliminando esa
+carpeta de datos. Desinstalar la aplicación también elimina el programa, pero la carpeta
+de datos puede quedarse: bórrala a mano si quieres eliminar también el historial de análisis.
 
 ## Acceso al sistema
 
 Para medir el espacio, la aplicación necesita leer metadatos de archivos (nombre, ruta,
-tamaño, fechas) y usar la Papelera de reciclaje de Windows cuando tú lo pides. En Windows
+tamaño, fechas) y usar la papelera del sistema cuando tú lo pides: la Papelera de
+reciclaje en Windows y la papelera del escritorio (freedesktop) en Linux. En Windows
 invoca `powershell.exe` localmente para enumerar unidades y, si lo solicitas, para
-reiniciarse con permisos de administrador. **Ninguna de esas llamadas envía datos fuera
-del equipo.**
+reiniciarse con permisos de administrador; en Linux lee los montajes con `lsblk` o
+`/proc/mounts`. **Ninguna de esas llamadas envía datos fuera del equipo.**
 
 Los archivos solo se eliminan cuando tú seleccionas elementos y confirmas la acción. La
 aplicación nunca borra, mueve ni sube archivos por su cuenta.
@@ -44,12 +46,13 @@ La aplicación no integra SDK de terceros, publicidad ni rastreo. Las descargas 
 distribuyen a través de GitHub Releases.
 
 Actualizaciones: al arrancar, y cada seis horas mientras la app está abierta, se consulta
-el feed público de releases (`latest.yml`) para saber si hay una versión nueva. Esa
-petición la hace la aplicación, no tu navegador, y GitHub ve la IP y la versión que
-envía cualquier cliente HTTP; no incluye nombres de archivo, rutas ni tamaños. Si
-aceptas la actualización, el instalador se descarga desde el mismo GitHub y se ejecuta
-al reiniciar. Puedes usar la aplicación sin conexión: solo se pierde esa comprobación.
-La versión portable no se actualiza sola y no consulta el feed.
+el feed público de releases (`latest.yml` en Windows y `latest-linux.yml` en la AppImage)
+para saber si hay una versión nueva. Esa petición la hace la aplicación, no tu navegador,
+y GitHub ve la IP y la versión que envía cualquier cliente HTTP; no incluye nombres de
+archivo, rutas ni tamaños. Si aceptas la actualización, el paquete se descarga desde el
+mismo GitHub y se aplica al reiniciar. Puedes usar la aplicación sin conexión: solo se
+pierde esa comprobación. La versión portable de Windows y el paquete `.deb` de Linux no
+se actualizan solos y no consultan el feed.
 
 En ambos casos se aplica la política de privacidad de GitHub.
 
@@ -86,19 +89,25 @@ website notice is at <https://pausiar.github.io/check-space/politica-privacidad/
   disk. Without a connection, scanning works exactly the same.
 
 The only data stored is local: a per-drive scan cache (file names, paths and sizes) in
-`%APPDATA%\Check Space`, plus your language and theme preferences in the window's local
-storage. Delete that folder, or uninstall the app, to remove it.
+`%APPDATA%\disk-scanner` on Windows or `~/.config/disk-scanner` on Linux, plus your
+language and theme preferences in the window's local storage. Close the app and delete
+that data folder, and uninstall the program, to remove it. Uninstalling removes the
+program but may leave the data folder behind; delete it by hand if you also want to
+remove the scan history.
 
-The app reads file metadata and uses the Windows Recycle Bin when you ask it to. It calls
-`powershell.exe` locally to list drives and, on request, to relaunch elevated. None of
-those calls send data anywhere. Files are only deleted after you select them and confirm;
-the app never deletes, moves or uploads anything on its own.
+The app reads file metadata and uses the system trash when you ask it to: the Recycle
+Bin on Windows and the freedesktop trash on Linux. On Windows it calls `powershell.exe`
+locally to list drives and, on request, to relaunch elevated; on Linux it reads mounts
+with `lsblk` or `/proc/mounts`. None of those calls send data anywhere. Files are only
+deleted after you select them and confirm; the app never deletes, moves or uploads
+anything on its own.
 
 Downloads are served by GitHub Releases. At startup, and every six hours while the app
-is open, the app reads the public release feed (`latest.yml`) to see whether a newer
-version exists; GitHub sees the IP and version sent by any HTTP client, never file
-names, paths or sizes. If you accept the update, the installer is downloaded from the
-same place and runs on restart. The portable build does not update itself and never
-queries the feed. Both cases follow GitHub's privacy policy.
+is open, the app reads the public release feed (`latest.yml` on Windows and
+`latest-linux.yml` for the AppImage) to see whether a newer version exists; GitHub sees
+the IP and version sent by any HTTP client, never file names, paths or sizes. If you
+accept the update, the package is downloaded from the same place and applied on restart.
+The Windows portable build and the Linux `.deb` do not update themselves and never query
+the feed. Both cases follow GitHub's privacy policy.
 
 Questions: <https://github.com/Pausiar/check-space/issues>.

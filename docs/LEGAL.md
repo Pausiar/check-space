@@ -32,7 +32,7 @@ Los cambios legales están en las páginas, `_config.yml` y la portada. Resumen:
 | Google Fonts | **Eliminado**: Inter se sirve desde el propio dominio (OFL en `assets/fonts/OFL.txt`) |
 | Analítica | No hay |
 | Afirmaciones comerciales | Retiradas las cifras no verificables (12 GB, 3× más lento, «< 10 s») |
-| Contenido engañoso | Corregido: la app sí borra (con confirmación); macOS/Linux no están disponibles; SmartScreen se explica por la falta de firma |
+| Contenido engañoso | Corregido: la app sí borra (con confirmación); Windows y Linux están disponibles y macOS no; SmartScreen se explica por la falta de firma |
 | Enlaces de descarga | Apuntan a la última release, no a una versión congelada |
 | Imagen social | PNG 1200×630 generado (las redes no renderizan SVG) |
 
@@ -56,8 +56,9 @@ Los cambios legales están en las páginas, `_config.yml` y la portada. Resumen:
 
 - Actualizar `version` en `package.json` **y** `app.version` en `_config.yml`.
 - Crear `.github/release-notes/v<versión>.md`: el workflow lo usa como cuerpo de la release.
-- Comprobar que la release incluye `latest.yml` y los `.blockmap` además de los `.exe`;
-  sin ellos la app instalada no puede actualizarse ([UPDATES.md](UPDATES.md)).
+- Comprobar que la release incluye los instaladores de Windows y Linux, `latest.yml`,
+  los `.blockmap` de Windows y `latest-linux.yml`; sin ellos la app no puede
+  actualizarse ([UPDATES.md](UPDATES.md)).
 - Regenerar el icono si cambia el diseño (`node scripts/make-icon.mjs`).
 - Revisar que `PRIVACY.md` siga siendo cierto: cualquier función nueva que trate datos
   (analítica, informes de errores) exige actualizarlo **antes** de activarla.

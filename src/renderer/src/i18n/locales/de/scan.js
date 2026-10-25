@@ -6,7 +6,7 @@ export default {
   scannedAt: 'Gescannt am {date}',
   metric: 'Maß',
   metricSizeHint: 'Tatsächliche Dateigröße',
-  metricAllocHint: 'Tatsächlich auf dem Datenträger belegter Platz (Cluster, Komprimierung, reine OneDrive-Clouddateien)',
+  metricAllocHint: 'Tatsächlich auf dem Datenträger belegter Platz (Cluster, Komprimierung, reine Clouddateien)',
   cancel: 'Abbrechen',
   rescan: 'Erneut scannen',
   refresh: 'Aktualisieren',

@@ -76,6 +76,8 @@ export default function Cleanup({ dataVersion }) {
         return t('cleanup.errNotFound')
       case 'NO_SCAN':
         return t('cleanup.errNoScan')
+      case 'PROTECTED':
+        return t('cleanup.errProtected')
       case 'EBUSY':
         return t('cleanup.errBusy')
       case 'EPERM':

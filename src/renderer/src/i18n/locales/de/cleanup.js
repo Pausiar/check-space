@@ -4,7 +4,7 @@ export default {
   intro: 'Orte, an denen sich oft entbehrliche Dateien sammeln. Prüfe jeden, bevor du bereinigst.',
   loading: 'Es wird nach bereinigbaren Elementen gesucht…',
   emptyTitle: 'Keine bereinigbaren Elemente gefunden',
-  emptyHint: 'Die Vorschläge betreffen nur Orte innerhalb des gescannten Ordners oder Laufwerks. Scanne das Systemlaufwerk (normalerweise C:), um mehr zu sehen.',
+  emptyHint: 'Die Vorschläge betreffen nur Orte innerhalb des gescannten Ordners oder Laufwerks. Scanne das Systemlaufwerk, um mehr zu sehen.',
 
   // Karten
   sizeOnDisk: '{size} auf dem Datenträger',
@@ -65,7 +65,8 @@ export default {
   failed: 'Bereinigung fehlgeschlagen: {reason}',
   errNotFound: 'der Ort ist nicht mehr im Scan enthalten; bitte neu scannen',
   errNoScan: 'es ist kein Scan aktiv',
+  errProtected: 'kritischer Systemort, er ist geschützt',
   errBusy: 'wird von einem anderen Programm verwendet',
-  errPerm: 'keine ausreichenden Berechtigungen (als Administrator versuchen)',
+  errPerm: 'keine ausreichenden Berechtigungen (mit erhöhten Rechten versuchen)',
   errOther: 'Fehler {error}'
 }

@@ -17,7 +17,7 @@ export default {
   ofFolder: '{percent} de ce dossier',
   clickToOpen: 'Cliquez pour ouvrir',
   clickToGoUp: "Cliquez pour remonter d'un niveau",
-  dblClickToReveal: "Double-cliquez pour afficher dans l'Explorateur",
+  dblClickToReveal: 'Double-cliquez pour afficher dans le gestionnaire de fichiers',
   scanningWait: "Analyse en cours… la carte apparaîtra dès qu'il y aura des données",
   liveBadge: 'En direct',
   contentsTitle: 'Contenu de ce dossier'

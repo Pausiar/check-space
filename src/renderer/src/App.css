@@ -110,6 +110,17 @@ body {
   color: var(--accent);
 }
 
+/* Linux keeps the native title bar, so the inner bar is only a settings
+   toolbar: no duplicated app name and no space reserved for overlay buttons. */
+[data-platform="linux"] .titlebar {
+  justify-content: flex-end;
+  padding-right: 16px;
+}
+
+[data-platform="linux"] .titlebar-brand {
+  display: none;
+}
+
 .titlebar-controls {
   display: flex;
   align-items: center;

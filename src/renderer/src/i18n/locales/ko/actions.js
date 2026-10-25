@@ -46,7 +46,7 @@ export default {
   errProtected: '중요 시스템 위치라 보호됩니다',
   errNotInScan: '더 이상 스캔 결과에 없습니다. 다시 스캔하세요',
   errBusy: '다른 프로그램에서 사용 중입니다',
-  errPerm: '권한이 부족합니다(관리자로 실행해 보세요)',
+  errPerm: '권한이 부족합니다(높은 권한으로 실행해 보세요)',
   errNotFound: '더 이상 존재하지 않습니다',
   errOther: '오류: {error}',
   errGeneric: '작업을 완료할 수 없습니다: {error}',

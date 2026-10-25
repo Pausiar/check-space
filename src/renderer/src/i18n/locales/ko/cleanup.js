@@ -4,7 +4,7 @@ export default {
   intro: '불필요한 파일이 쌓이기 쉬운 위치입니다. 정리하기 전에 하나씩 확인하세요.',
   loading: '정리할 항목을 찾는 중…',
   emptyTitle: '정리할 항목을 찾지 못했습니다',
-  emptyHint: '제안은 스캔한 폴더나 디스크 안의 위치만 다룹니다. 더 보려면 시스템 드라이브(보통 C:)를 스캔하세요.',
+  emptyHint: '제안은 스캔한 폴더나 디스크 안의 위치만 다룹니다. 더 보려면 시스템 드라이브를 스캔하세요.',
 
   // Cards
   sizeOnDisk: '디스크에서 {size}',
@@ -65,7 +65,8 @@ export default {
   failed: '정리를 완료할 수 없습니다: {reason}',
   errNotFound: '위치가 더 이상 스캔 결과에 없습니다. 다시 스캔하세요',
   errNoScan: '진행 중인 스캔이 없습니다',
+  errProtected: '중요 시스템 위치라 보호됩니다',
   errBusy: '다른 프로그램에서 사용 중입니다',
-  errPerm: '권한이 부족합니다(관리자로 실행해 보세요)',
+  errPerm: '권한이 부족합니다(높은 권한으로 실행해 보세요)',
   errOther: '오류 {error}'
 }

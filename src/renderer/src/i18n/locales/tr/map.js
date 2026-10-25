@@ -17,7 +17,7 @@ export default {
   ofFolder: 'bu klasörün {percent} kadarı',
   clickToOpen: 'Açmak için tıklayın',
   clickToGoUp: 'Bir üst seviyeye çıkmak için tıklayın',
-  dblClickToReveal: 'Gezgin’de göstermek için çift tıklayın',
+  dblClickToReveal: 'Dosya yöneticisinde göstermek için çift tıklayın',
   scanningWait: 'Taranıyor… veri olduğu anda harita görünecek',
   liveBadge: 'Canlı',
   contentsTitle: 'Bu klasörün içeriği'

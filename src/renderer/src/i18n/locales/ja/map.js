@@ -17,7 +17,7 @@ export default {
   ofFolder: 'このフォルダーの {percent}',
   clickToOpen: 'クリックして開く',
   clickToGoUp: 'クリックして 1 つ上へ',
-  dblClickToReveal: 'ダブルクリックでエクスプローラーに表示',
+  dblClickToReveal: 'ダブルクリックでファイルマネージャーに表示',
   scanningWait: 'スキャン中…データが揃い次第マップを表示します',
   liveBadge: 'ライブ',
   contentsTitle: 'このフォルダーの内容'

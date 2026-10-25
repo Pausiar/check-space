@@ -6,7 +6,7 @@ export default {
   scannedAt: 'Analysé le {date}',
   metric: 'Mesure',
   metricSizeHint: 'Taille réelle des fichiers',
-  metricAllocHint: 'Espace réellement occupé sur le disque (clusters, compression, fichiers OneDrive uniquement dans le cloud)',
+  metricAllocHint: 'Espace réellement occupé sur le disque (clusters, compression, fichiers uniquement dans le cloud)',
   cancel: 'Annuler',
   rescan: "Relancer l'analyse",
   refresh: 'Actualiser',

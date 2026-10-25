@@ -153,7 +153,8 @@ export default function ScanView() {
   const progressPercent = live?.progress != null ? Math.round(live.progress * 100) : null
   const drive = meta?.drive || target?.drive
   const errorCount = summary?.errorCount || 0
-  const showAdminHint = hasResults && errorCount > 0 && appInfo?.platform === 'win32' && !appInfo?.isAdmin
+  const showInaccessible = hasResults && errorCount > 0
+  const canRelaunchAdmin = appInfo?.platform === 'win32' && !appInfo?.isAdmin
 
   return (
     <div className="scan-view">
@@ -233,13 +234,15 @@ export default function ScanView() {
         </div>
       )}
 
-      {showAdminHint && (
+      {showInaccessible && (
         <div className="banner banner-info">
           <ShieldAlert size={16} />
           <span>{t('scan.inaccessible', { count: errorCount })}</span>
-          <button className="btn-link" onClick={() => window.api.relaunchAsAdmin()}>
-            {t('scan.relaunchAdmin')}
-          </button>
+          {canRelaunchAdmin && (
+            <button className="btn-link" onClick={() => window.api.relaunchAsAdmin()}>
+              {t('scan.relaunchAdmin')}
+            </button>
+          )}
         </div>
       )}
 

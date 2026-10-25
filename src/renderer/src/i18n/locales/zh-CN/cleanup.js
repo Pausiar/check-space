@@ -4,7 +4,7 @@ export default {
   intro: '这些位置容易堆积可丢弃的文件。清理前请逐个查看。',
   loading: '正在查找可清理的内容…',
   emptyTitle: '没有找到可清理的内容',
-  emptyHint: '建议只覆盖所扫描文件夹或磁盘内的位置。扫描系统盘（通常是 C:）可以看到更多。',
+  emptyHint: '建议只覆盖所扫描文件夹或磁盘内的位置。扫描系统盘可以看到更多。',
 
   // Cards
   sizeOnDisk: '磁盘占用 {size}',
@@ -65,7 +65,8 @@ export default {
   failed: '无法完成清理：{reason}',
   errNotFound: '该位置已不在扫描结果中，请重新扫描',
   errNoScan: '没有正在进行的扫描',
+  errProtected: '关键系统位置，已被保护',
   errBusy: '正被其他程序使用',
-  errPerm: '权限不足（请尝试以管理员身份运行）',
+  errPerm: '权限不足（请尝试以更高权限运行）',
   errOther: '错误 {error}'
 }

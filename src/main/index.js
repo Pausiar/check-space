@@ -5,6 +5,7 @@ import { app, BrowserWindow, ipcMain, shell, dialog, nativeTheme, Menu } from 'e
 import { join } from 'path'
 import path from 'path'
 import fs from 'fs'
+import os from 'os'
 import { Scanner } from './scanner'
 import { buildView, lookup, removeDir, removeFile, replaceContents, summarize, search } from './tree'
 import { getDrives, diskUsage, isDriveRoot, isAdmin, relaunchAsAdmin, emptyRecycleBin } from './platform'
@@ -218,6 +219,35 @@ function isProtectedPath(p) {
     const name = path.basename(low)
     if (['pagefile.sys', 'hiberfil.sys', 'swapfile.sys', 'bootmgr', '$recycle.bin', 'system volume information'].includes(name)) return true
   }
+  if (process.platform === 'linux') {
+    const protectedDirs = [
+      '/bin',
+      '/boot',
+      '/dev',
+      '/etc',
+      '/lib',
+      '/lib32',
+      '/lib64',
+      '/libx32',
+      '/opt',
+      '/proc',
+      '/root',
+      '/run',
+      '/sbin',
+      '/snap',
+      '/sys',
+      '/usr',
+      '/var'
+    ]
+    // Protect the directories and everything below them, not only the exact
+    // entry: deleting /etc/hosts is just as destructive as deleting /etc.
+    for (const dir of protectedDirs) {
+      if (resolved === dir || resolved.startsWith(dir + '/')) return true
+    }
+    // These top-level folders must survive, but their contents are normal user
+    // files: /home/alice/Downloads has to remain deletable.
+    if (['/home', '/media', '/mnt', '/srv', '/tmp', path.resolve(os.homedir())].includes(resolved)) return true
+  }
   return false
 }
 
@@ -263,6 +293,11 @@ async function runCleanup(id) {
   const found = lookup(state.root, s.path)
   if (!found || found.file) return { ok: false, error: 'NOT_FOUND' }
   const node = found.dir
+  // Linux cleanup suggestions are built from the scanned tree (node_modules
+  // can live under /opt): never let them bypass the deletion guard.
+  if (process.platform === 'linux' && s.action !== 'emptyRecycleBin' && isProtectedPath(node.path)) {
+    return { ok: false, error: 'PROTECTED' }
+  }
   const before = node.size
   let failed = 0
 
@@ -330,27 +365,35 @@ const TITLEBAR_HEIGHT = 40
 
 function createWindow() {
   const dark = nativeTheme.shouldUseDarkColors
-  mainWindow = new BrowserWindow({
+  const windowOptions = {
     width: 1100,
     height: 800,
     minWidth: 820,
     minHeight: 600,
     title: 'Check Space',
     backgroundColor: dark ? '#181818' : '#F9F9F8',
-    titleBarStyle: 'hidden',
-    titleBarOverlay: {
-      color: dark ? '#181818' : '#F9F9F8',
-      symbolColor: dark ? '#E4E4E4' : '#1A1A1A',
-      height: TITLEBAR_HEIGHT
-    },
-    icon: join(__dirname, '../../resources/icon.png'),
+    icon: app.isPackaged ? join(process.resourcesPath, 'icon.png') : join(__dirname, '../../resources/icon.png'),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: true,
       contextIsolation: true,
       nodeIntegration: false
     }
-  })
+  }
+  if (process.platform === 'win32') {
+    // Windows uses the native caption buttons over a hidden frame.
+    windowOptions.titleBarStyle = 'hidden'
+    windowOptions.titleBarOverlay = {
+      color: dark ? '#181818' : '#F9F9F8',
+      symbolColor: dark ? '#E4E4E4' : '#1A1A1A',
+      height: TITLEBAR_HEIGHT
+    }
+  } else if (process.platform === 'linux') {
+    // Linux keeps the desktop's own title bar: window controls, snapping and
+    // accessibility come from the window manager instead of a web imitation.
+    windowOptions.autoHideMenuBar = true
+  }
+  mainWindow = new BrowserWindow(windowOptions)
 
   // Never navigate away from the app or open new windows
   mainWindow.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))
@@ -392,10 +435,12 @@ function on(channel, fn) {
 on('theme:set', (isDark) => {
   if (!mainWindow) return
   try {
-    mainWindow.setTitleBarOverlay({
-      color: isDark ? '#181818' : '#F9F9F8',
-      symbolColor: isDark ? '#E4E4E4' : '#1A1A1A'
-    })
+    if (process.platform === 'win32') {
+      mainWindow.setTitleBarOverlay({
+        color: isDark ? '#181818' : '#F9F9F8',
+        symbolColor: isDark ? '#E4E4E4' : '#1A1A1A'
+      })
+    }
     mainWindow.setBackgroundColor(isDark ? '#181818' : '#F9F9F8')
   } catch {
     // setTitleBarOverlay is not available on every platform

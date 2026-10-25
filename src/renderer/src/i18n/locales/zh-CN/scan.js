@@ -6,7 +6,7 @@ export default {
   scannedAt: '扫描于 {date}',
   metric: '计量方式',
   metricSizeHint: '文件的实际大小',
-  metricAllocHint: '它们在磁盘上真正占用的空间（簇、压缩、仅云端的 OneDrive 文件）',
+  metricAllocHint: '它们在磁盘上真正占用的空间（簇、压缩、仅云端的文件）',
   cancel: '取消',
   rescan: '重新扫描',
   refresh: '刷新',

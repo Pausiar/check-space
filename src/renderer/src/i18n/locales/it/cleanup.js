@@ -4,7 +4,7 @@ export default {
   intro: 'Posizioni che tendono ad accumulare file superflui. Controlla ciascuna prima di pulire.',
   loading: 'Ricerca degli elementi da pulire…',
   emptyTitle: 'Nessun elemento da pulire trovato',
-  emptyHint: "I suggerimenti coprono solo le posizioni all'interno della cartella o dell'unità analizzata. Analizza l'unità di sistema (di solito C:) per vederne di più.",
+  emptyHint: 'I suggerimenti coprono solo le posizioni all\'interno della cartella o dell\'unità analizzata. Analizza l\'unità di sistema per vederne di più.',
 
   // Schede
   sizeOnDisk: '{size} su disco',
@@ -65,7 +65,8 @@ export default {
   failed: 'Impossibile pulire: {reason}',
   errNotFound: "la posizione non è più nell'analisi; esegui di nuovo l'analisi",
   errNoScan: "non c'è un'analisi attiva",
+  errProtected: 'posizione critica del sistema, è protetta',
   errBusy: 'è in uso da un altro programma',
-  errPerm: 'permessi insufficienti (prova come amministratore)',
+  errPerm: 'permessi insufficienti (prova con permessi elevati)',
   errOther: 'errore {error}'
 }

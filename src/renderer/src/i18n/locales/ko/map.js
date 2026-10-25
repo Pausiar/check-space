@@ -17,7 +17,7 @@ export default {
   ofFolder: '이 폴더의 {percent}',
   clickToOpen: '클릭하여 열기',
   clickToGoUp: '클릭하여 한 단계 위로',
-  dblClickToReveal: '두 번 클릭하여 탐색기에서 보기',
+  dblClickToReveal: '두 번 클릭하여 파일 관리자에서 보기',
   scanningWait: '스캔하는 중… 데이터가 생기면 지도가 표시됩니다',
   liveBadge: '실시간',
   contentsTitle: '이 폴더의 내용'

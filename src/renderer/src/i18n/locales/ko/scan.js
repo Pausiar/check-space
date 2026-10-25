@@ -6,7 +6,7 @@ export default {
   scannedAt: '{date}에 스캔',
   metric: '측정 기준',
   metricSizeHint: '파일의 실제 크기',
-  metricAllocHint: '디스크에서 실제로 차지하는 공간(클러스터, 압축, 클라우드에만 있는 OneDrive 파일)',
+  metricAllocHint: '디스크에서 실제로 차지하는 공간(클러스터, 압축, 클라우드에만 있는 파일)',
   cancel: '취소',
   rescan: '다시 스캔',
   refresh: '새로 고침',

@@ -46,7 +46,7 @@ export default {
   errProtected: 'kritik sistem konumu, korunuyor',
   errNotInScan: 'artık tarama sonuçlarında yok; yeniden tarayın',
   errBusy: 'başka bir program tarafından kullanılıyor',
-  errPerm: 'yeterli izin yok (yönetici olarak çalıştırmayı deneyin)',
+  errPerm: 'yeterli izin yok (yükseltilmiş izinlerle çalıştırmayı deneyin)',
   errNotFound: 'artık mevcut değil',
   errOther: 'hata: {error}',
   errGeneric: 'İşlem tamamlanamadı: {error}',

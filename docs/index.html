@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Descubre qué llena tu disco con Check Space"
-description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 y 11. Limpia tu PC rápido con un visualizador claro, gratis y sin registro."
+description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10/11 y Linux. Limpia tu equipo rápido con un visualizador claro, gratis y sin registro."
 ---
 
 <!-- ===== NAVBAR ===== -->
@@ -38,7 +38,7 @@ description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 
   <section class="hero" aria-labelledby="hero-title">
     <div class="container hero__inner">
       <div class="hero__content">
-        <span class="badge" id="hero-version-badge">v{{ site.app.version }} disponible — Windows</span>
+        <span class="badge" id="hero-version-badge">v{{ site.app.version }} disponible — Windows y Linux</span>
         <h1 id="hero-title">Descubre qué llena tu disco con <span class="gradient-text">Check Space</span></h1>
         <p class="hero__desc">
           Un <strong>analizador de espacio de disco gratuito</strong> para ver en segundos qué carpetas,
@@ -46,20 +46,20 @@ description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 
         </p>
         <div class="hero__actions">
           <a id="hero-installer-btn"
-             href="https://github.com/Pausiar/check-space/releases/latest"
+             href="#download"
              class="btn btn--primary btn--lg">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M13 2v10.586l3.293-3.293 1.414 1.414L12 16.414l-5.707-5.707 1.414-1.414L11 12.586V2h2zm-9 18v-6H2v8h20v-8h-2v6H4z"/>
             </svg>
-            Descargar para Windows
+            Descargar gratis
           </a>
           <a id="hero-portable-btn"
              href="https://github.com/Pausiar/check-space/releases/latest"
              class="btn btn--ghost btn--lg">
-            Versión portable
+            Versión portable (Windows)
           </a>
         </div>
-        <p class="hero__meta">App gratis · Sin registro · Sin anuncios · Sin telemetría · Windows 10/11</p>
+        <p class="hero__meta">App gratis · Sin registro · Sin anuncios · Sin telemetría · Windows 10/11 y Linux x64</p>
       </div>
       <div class="hero__visual">
         <div class="disk-viz">
@@ -163,11 +163,11 @@ description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 
               <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9h-4v4h-2v-4H9V9h4V5h2v4h4v2z"/>
             </svg>
           </div>
-          <h3>Windows 10, 11 y trece idiomas</h3>
+          <h3>Windows, Linux y trece idiomas</h3>
           <p>
-            Diseñado para <strong>Windows 10 y Windows 11</strong>, con interfaz en español, inglés,
-            portugués, francés, alemán, italiano, ruso, japonés, chino simplificado, polaco, turco, coreano y neerlandés. Mac y Linux
-            están en el roadmap.
+            Diseñado para <strong>Windows 10 y 11 y Linux x64</strong>, con interfaz en español, inglés,
+            portugués, francés, alemán, italiano, ruso, japonés, chino simplificado, polaco, turco, coreano y neerlandés. Mac
+            está en el roadmap.
           </p>
         </article>
         <article class="feature-card">
@@ -190,9 +190,9 @@ description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 
           </div>
           <h3>Se actualiza desde la propia app</h3>
           <p>
-            La versión instalada comprueba si hay novedades, las descarga en segundo plano y se
-            reinicia para aplicarlas, sin volver a buscar el instalador en GitHub. La versión portable
-            sigue descargándose a mano.
+            La versión instalada de Windows y la AppImage de Linux comprueban si hay novedades, las
+            descargan en segundo plano y se reinician para aplicarlas. El .deb se actualiza con el gestor
+            de paquetes y la versión portable de Windows se descarga a mano.
           </p>
         </article>
         <article class="feature-card">
@@ -227,7 +227,7 @@ description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 
           </div>
           <h3>Limpieza con confirmación</h3>
           <p>
-            Sugerencias de temporales, papelera, cachés de navegadores y Windows Update, con el riesgo
+            Sugerencias de temporales, papelera, cachés de navegadores y restos de actualizaciones, con el riesgo
             de cada una indicado. Siempre decides tú qué se elimina.
           </p>
         </article>
@@ -248,8 +248,9 @@ description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 
           <div class="step__content">
             <h3>Descarga e instala</h3>
             <p>
-              Descarga el instalador para Windows. La instalación tarda menos de 30 segundos y, a partir
-              de ahí, la app se actualiza sola. También disponible en versión portable, sin instalación.
+              Descarga el instalador para Windows o el paquete para Linux. La instalación tarda menos de
+              30 segundos y, a partir de ahí, la app se actualiza sola. También hay versiones portables,
+              sin instalación.
             </p>
           </div>
         </li>
@@ -283,13 +284,13 @@ description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 
       <div class="seo-content__block" style="max-width:760px; margin:0 auto;">
         <h2 id="what-is-title">¿Qué es Check Space?</h2>
         <p>
-          Check Space es una <strong>aplicación gratuita de análisis de espacio en disco para Windows</strong>.
+          Check Space es una <strong>aplicación gratuita de análisis de espacio en disco para Windows y Linux</strong>.
           Escanea tu disco y muestra un mapa visual de qué archivos y carpetas ocupan más almacenamiento,
           para que puedas identificar y eliminar lo que no necesitas en segundos.
-          Funciona en Windows 10 y Windows 11, es de código abierto (licencia MIT) y no envía ningún dato sobre tus archivos a servidores externos.
+          Funciona en Windows 10/11 y Linux x64, es de código abierto (licencia MIT) y no envía ningún dato sobre tus archivos a servidores externos.
         </p>
         <p>
-          No requiere registro ni cuenta. Disponible como instalador y como versión portable (sin instalación).
+          No requiere registro ni cuenta. Disponible como instalador y versión portable para Windows, y como paquete <code>.deb</code> o AppImage para Linux.
           Además del mapa del disco, detecta <strong>duplicados verificados byte a byte</strong>, sugiere limpiezas
           seguras, exporta informes en CSV y JSON, se actualiza desde la propia aplicación y funciona
           en trece idiomas.
@@ -312,7 +313,7 @@ description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 
             que nadie nunca limpia porque nadie sabe que existen.
           </p>
           <p>
-            Check Space actúa como un <strong>software para liberar espacio en Windows</strong> que,
+            Check Space actúa como un <strong>software para liberar espacio en Windows y Linux</strong> que,
             en lugar de borrar ciegamente, primero te <em>muestra</em> el problema. Con su
             visualizador de archivos grandes puedes ver exactamente qué está ocupando tu disco y tomar
             decisiones informadas.
@@ -431,7 +432,7 @@ description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 
   <section class="download" id="download" aria-labelledby="download-title">
     <div class="container download__inner">
       <h2 id="download-title">Descarga Check Space Gratis</h2>
-      <p>Disponible para Windows 10 y Windows 11. Sin registro. Sin coste.</p>
+      <p>Disponible para Windows 10/11 y Linux x64. Sin registro. Sin coste.</p>
       <div class="download__grid">
         <div class="download-card download-card--featured">
           <div class="download-card__icon">
@@ -456,6 +457,26 @@ description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 
             Versión portable (.exe)
           </a>
         </div>
+        <div class="download-card" id="linux">
+          <div class="download-card__icon">
+            <svg width="40" height="40" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true">
+              <path d="M257.2 162.7c-48.7 1.8-169.5 15.5-169.5 117.5 0 37.3 26.4 62.9 64.4 62.9 23.6 0 41.2-9.1 49.3-19.4 5.4-6.9 3.1-3.8 7.3-11.4 2.5-4.6 2.5-4.6 5.7-7.8 2.8-2.8 2.8-2.8 5.5-5.5 7.3-7.4 7.5-7.5 12.9-15.3 5.1-7.4 4.7-6.3 7.9-15.8 3.9-11.6 3.1-19.4 2.6-33.9-.8-17.6-3.8-25.9-6.6-41.1zm-95.8 176.7c-14.4 0-26.1-14.2-26.1-31.7 0-17.5 11.7-31.7 26.1-31.7 14.4 0 26.1 14.2 26.1 31.7 0 17.4-11.7 31.7-26.1 31.7zm286.8-14.5c-1.7-7.9-6.9-12.7-13.7-15.3-9.8-3.7-19.4-3.7-29.2-.2-15.9 5.6-26.4 16.3-34.7 30.2-7.3 12.1-13.9 24.8-21.1 37-8.7 14.5-20.5 25.8-35.8 33.1-3.7 1.8-7.4 3.5-11.6 5.5.7-1.9 1.2-3.2 1.7-4.5 5.3-13.1 10.1-26.4 11.4-40.7 1-10.5.1-20.8-4.5-30.4-6.2-12.8-17.2-19.4-31-20.1-11.1-.6-21.9 1.8-31.8 6.7-13.9 6.9-25.3 17-35.6 28.4-16.8 18.6-31.5 38.6-47.1 58-4.1 5.1-8.2 10.1-12.4 15.2-.8.9-1.6 1.8-2.9 3.2-.1-2.8-.3-4.7-.3-6.5-.1-13.5-.1-27-.1-40.5 0-20.6.3-41.2-.1-61.8-.2-11.7-1.4-23.3-2.6-34.8-.8-8-5.8-12.4-13.8-12.7-7.6-.3-13.3 3.5-15.8 10.6-1.8 5.2-3.3 10.5-4.4 15.9-2.7 13.3-2.9 26.9-2.8 40.4.1 13.9 0 27.8 0 41.7h.2c0 13.2-.2 26.4.1 39.6.2 9.6.8 19.2 1.8 28.7.8 7.5 5.2 11.9 12.5 13.1 7.3 1.2 13.1-1.3 17.4-7.4 2.5-3.5 4.9-7 7.1-10.7 15.6-25.5 31.7-50.8 51.8-73.2 10.1-11.2 20.6-21.9 33.8-29.6 8.9-5.2 18.3-8.8 28.8-9.8 5.8-.6 10.9.9 14.3 5.9 3.5 5.1 2.8 10.6.3 15.8-1.7 3.4-3.8 6.6-6 9.7-8.1 11.6-18.6 20.7-31 27.4-7.9 4.3-16.3 7.7-24.6 11.1-4.9 2-7.7 5.4-8.4 10.6-1.1 8.5 3.8 15.6 12.7 17.1 6.5 1.1 13.2 1.8 19.8 1.4 21.8-1.3 40.5-10.2 56.3-25 15.9-14.9 26-33.3 37.4-50.8 5.6-8.5 11.3-17 17.3-25.2 2.9-4 6.6-7.5 10.4-10.6 5.8-4.7 12.4-5.3 19.1-2 4.9 2.4 9.7 5 14.8 6.9 8.3 3.1 16.8 2.9 24.8-1.2 8.6-4.4 12.3-14 9.8-23.4zM151.1 157.3c-11.9 0-21.5-10.5-21.5-23.4 0-12.9 9.6-23.4 21.5-23.4 11.9 0 21.5 10.5 21.5 23.4 0 12.9-9.6 23.4-21.5 23.4zm118.6 0c-11.9 0-21.5-10.5-21.5-23.4 0-12.9 9.6-23.4 21.5-23.4 11.9 0 21.5 10.5 21.5 23.4 0 12.9-9.6 23.4-21.5 23.4z"/>
+            </svg>
+          </div>
+          <h3>Linux</h3>
+          <span class="version-badge" id="download-linux-version-badge">v{{ site.app.version }}</span>
+          <p>Para Debian, Ubuntu y derivadas (.deb) o AppImage portable para cualquier distribución x64.</p>
+          <a id="download-deb-btn"
+             href="https://github.com/Pausiar/check-space/releases/latest"
+             class="btn btn--primary btn--block">
+            Descargar .deb (amd64)
+          </a>
+          <a id="download-appimage-btn"
+             href="https://github.com/Pausiar/check-space/releases/latest"
+             class="btn btn--ghost btn--block">
+            Descargar AppImage
+          </a>
+        </div>
         <div class="download-card download-card--soon">
           <div class="download-card__icon">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -465,19 +486,6 @@ description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 
           <h3>macOS</h3>
           <span class="version-badge version-badge--soon">Próximamente</span>
           <p>Soporte para Mac M1, M2 y procesadores Intel. En desarrollo.</p>
-          <button class="btn btn--disabled btn--block" disabled>
-            Próximamente
-          </button>
-        </div>
-        <div class="download-card download-card--soon">
-          <div class="download-card__icon">
-            <svg width="40" height="40" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true">
-              <path d="M257.2 162.7c-48.7 1.8-169.5 15.5-169.5 117.5 0 37.3 26.4 62.9 64.4 62.9 23.6 0 41.2-9.1 49.3-19.4 5.4-6.9 3.1-3.8 7.3-11.4 2.5-4.6 2.5-4.6 5.7-7.8 2.8-2.8 2.8-2.8 5.5-5.5 7.3-7.4 7.5-7.5 12.9-15.3 5.1-7.4 4.7-6.3 7.9-15.8 3.9-11.6 3.1-19.4 2.6-33.9-.8-17.6-3.8-25.9-6.6-41.1zm-95.8 176.7c-14.4 0-26.1-14.2-26.1-31.7 0-17.5 11.7-31.7 26.1-31.7 14.4 0 26.1 14.2 26.1 31.7 0 17.4-11.7 31.7-26.1 31.7zm286.8-14.5c-1.7-7.9-6.9-12.7-13.7-15.3-9.8-3.7-19.4-3.7-29.2-.2-15.9 5.6-26.4 16.3-34.7 30.2-7.3 12.1-13.9 24.8-21.1 37-8.7 14.5-20.5 25.8-35.8 33.1-3.7 1.8-7.4 3.5-11.6 5.5.7-1.9 1.2-3.2 1.7-4.5 5.3-13.1 10.1-26.4 11.4-40.7 1-10.5.1-20.8-4.5-30.4-6.2-12.8-17.2-19.4-31-20.1-11.1-.6-21.9 1.8-31.8 6.7-13.9 6.9-25.3 17-35.6 28.4-16.8 18.6-31.5 38.6-47.1 58-4.1 5.1-8.2 10.1-12.4 15.2-.8.9-1.6 1.8-2.9 3.2-.1-2.8-.3-4.7-.3-6.5-.1-13.5-.1-27-.1-40.5 0-20.6.3-41.2-.1-61.8-.2-11.7-1.4-23.3-2.6-34.8-.8-8-5.8-12.4-13.8-12.7-7.6-.3-13.3 3.5-15.8 10.6-1.8 5.2-3.3 10.5-4.4 15.9-2.7 13.3-2.9 26.9-2.8 40.4.1 13.9 0 27.8 0 41.7h.2c0 13.2-.2 26.4.1 39.6.2 9.6.8 19.2 1.8 28.7.8 7.5 5.2 11.9 12.5 13.1 7.3 1.2 13.1-1.3 17.4-7.4 2.5-3.5 4.9-7 7.1-10.7 15.6-25.5 31.7-50.8 51.8-73.2 10.1-11.2 20.6-21.9 33.8-29.6 8.9-5.2 18.3-8.8 28.8-9.8 5.8-.6 10.9.9 14.3 5.9 3.5 5.1 2.8 10.6.3 15.8-1.7 3.4-3.8 6.6-6 9.7-8.1 11.6-18.6 20.7-31 27.4-7.9 4.3-16.3 7.7-24.6 11.1-4.9 2-7.7 5.4-8.4 10.6-1.1 8.5 3.8 15.6 12.7 17.1 6.5 1.1 13.2 1.8 19.8 1.4 21.8-1.3 40.5-10.2 56.3-25 15.9-14.9 26-33.3 37.4-50.8 5.6-8.5 11.3-17 17.3-25.2 2.9-4 6.6-7.5 10.4-10.6 5.8-4.7 12.4-5.3 19.1-2 4.9 2.4 9.7 5 14.8 6.9 8.3 3.1 16.8 2.9 24.8-1.2 8.6-4.4 12.3-14 9.8-23.4zM151.1 157.3c-11.9 0-21.5-10.5-21.5-23.4 0-12.9 9.6-23.4 21.5-23.4 11.9 0 21.5 10.5 21.5 23.4 0 12.9-9.6 23.4-21.5 23.4zm118.6 0c-11.9 0-21.5-10.5-21.5-23.4 0-12.9 9.6-23.4 21.5-23.4 11.9 0 21.5 10.5 21.5 23.4 0 12.9-9.6 23.4-21.5 23.4z"/>
-            </svg>
-          </div>
-          <h3>Linux</h3>
-          <span class="version-badge version-badge--soon">Próximamente</span>
-          <p>Soporte para distribuciones principales: Ubuntu, Debian, Fedora. En desarrollo.</p>
           <button class="btn btn--disabled btn--block" disabled>
             Próximamente
           </button>
@@ -554,10 +562,10 @@ description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "Check Space",
-  "description": "Free disk space analyzer for Windows that visualizes which files and folders are using the most storage on your PC. No registration required, 100% local, open source.",
+  "description": "Free disk space analyzer for Windows and Linux that visualizes which files and folders are using the most storage on your PC. No registration required, 100% local, open source.",
   "url": "{{ '/' | absolute_url }}",
   "applicationCategory": "UtilitiesApplication",
-  "operatingSystem": "Windows 10, Windows 11",
+  "operatingSystem": "Windows 10, Windows 11, Linux",
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -571,8 +579,9 @@ description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 
     "Cleanup suggestions with explicit confirmation",
     "CSV and JSON export",
     "Portable version (no installation required)",
+    "Linux .deb and AppImage packages",
     "External drive and USB support",
-    "Six interface languages",
+    "Thirteen interface languages",
     "No telemetry, no registration, 100% local"
   ],
   "downloadUrl": "https://github.com/Pausiar/check-space/releases/latest",
@@ -591,13 +600,13 @@ description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 
   "@context": "https://schema.org",
   "@type": "HowTo",
   "name": "Cómo analizar el espacio en disco con Check Space",
-  "description": "Analiza tu disco duro en 3 pasos con Check Space, el analizador de espacio gratuito para Windows.",
+  "description": "Analiza tu disco duro en 3 pasos con Check Space, el analizador de espacio gratuito para Windows y Linux.",
   "step": [
     {
       "@type": "HowToStep",
       "position": 1,
       "name": "Descarga e instala",
-      "text": "Descarga el instalador para Windows desde la página principal. La instalación tarda menos de 30 segundos. También disponible en versión portable sin necesidad de instalación."
+      "text": "Descarga el instalador para Windows o el paquete .deb para Linux desde la página principal; también hay una AppImage portable. La instalación tarda menos de 30 segundos."
     },
     {
       "@type": "HowToStep",
@@ -648,34 +657,50 @@ description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 
       var tag = data.tag_name;
       var assets = data.assets || [];
 
-      var installerAsset = assets.find(function (a) {
-        return /Check\.Space\.Setup.*\.exe$/i.test(a.name);
+      var installers = assets.find(function (a) {
+        return /CheckSpace-Setup.*\.exe$/i.test(a.name);
       });
       var portableAsset = assets.find(function (a) {
         return /CheckSpace-Portable\.exe$/i.test(a.name);
       });
+      var debAsset = assets.find(function (a) {
+        return /CheckSpace-.*-amd64\.deb$/i.test(a.name);
+      });
+      var appImageAsset = assets.find(function (a) {
+        return /CheckSpace-.*-x86_64\.AppImage$/i.test(a.name);
+      });
 
-      var installerUrl = installerAsset
-        ? installerAsset.browser_download_url
-        : 'https://github.com/Pausiar/check-space/releases/latest';
-      var portableUrl = portableAsset
-        ? portableAsset.browser_download_url
-        : 'https://github.com/Pausiar/check-space/releases/latest';
+      var releasesUrl = 'https://github.com/Pausiar/check-space/releases/latest';
+      var installerUrl = installers ? installers.browser_download_url : releasesUrl;
+      var portableUrl = portableAsset ? portableAsset.browser_download_url : releasesUrl;
+      var debUrl = debAsset ? debAsset.browser_download_url : releasesUrl;
+      var appImageUrl = appImageAsset ? appImageAsset.browser_download_url : releasesUrl;
 
       var heroBadge = document.getElementById('hero-version-badge');
-      if (heroBadge) heroBadge.textContent = tag + ' disponible — Windows';
+      if (heroBadge) heroBadge.textContent = tag + ' disponible — Windows y Linux';
 
       var downloadBadge = document.getElementById('download-version-badge');
       if (downloadBadge) downloadBadge.textContent = tag;
 
-      ['hero-installer-btn', 'download-installer-btn'].forEach(function (id) {
-        var el = document.getElementById(id);
-        if (el) el.href = installerUrl;
-      });
+      var linuxBadge = document.getElementById('download-linux-version-badge');
+      if (linuxBadge) linuxBadge.textContent = tag;
+
+      var downloadInstaller = document.getElementById('download-installer-btn');
+      if (downloadInstaller) downloadInstaller.href = installerUrl;
 
       ['hero-portable-btn', 'download-portable-btn'].forEach(function (id) {
         var el = document.getElementById(id);
         if (el) el.href = portableUrl;
+      });
+
+      ['download-deb-btn'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.href = debUrl;
+      });
+
+      ['download-appimage-btn'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.href = appImageUrl;
       });
     })
     .catch(function () {

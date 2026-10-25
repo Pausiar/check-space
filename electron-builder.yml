@@ -5,9 +5,15 @@ directories:
   buildResources: resources
   output: build
 
-# Where the update feed lives. electron-builder writes latest.yml (the manifest
-# electron-updater polls) and app-update.yml (read by the installed app) from
-# this block, so releases must keep those files next to the .exe. See
+# Only the compiled app and its production dependencies belong in app.asar.
+# Without this, docs, sources and local agent/skill files are shipped too.
+files:
+  - out/**/*
+  - package.json
+
+# Where the update feed lives. electron-builder writes latest.yml (Windows),
+# latest-linux.yml (AppImage) and app-update.yml (read by the installed app)
+# from this block, so releases must keep those files next to the packages. See
 # docs/UPDATES.md before changing it.
 publish:
   provider: github
@@ -22,6 +28,9 @@ extraResources:
     to: LICENSE.txt
   - from: PRIVACY.md
     to: PRIVACY.txt
+  # Runtime window icon (the .desktop file also gets one from linux.icon).
+  - from: resources/icon.png
+    to: icon.png
 
 win:
   target:
@@ -57,3 +66,35 @@ nsis:
 
 portable:
   artifactName: "CheckSpace-Portable.exe"
+
+# Linux x64. The .deb is owned by the package manager; the AppImage updates
+# itself through electron-updater (it needs latest-linux.yml next to the file).
+linux:
+  target:
+    - deb
+    - AppImage
+  icon: resources/icon.png
+  packageCategory: utils
+  category: Utility
+  synopsis: Free disk space analyzer for Windows and Linux
+  description: >-
+    Visualise what is using space on your disk, find large and duplicate files
+    and free up storage without sending any data to a server.
+  maintainer: Pausiar
+  executableName: check-space
+  desktop:
+    Name: Check Space
+    Comment: Analyze disk usage and free up space
+    Categories: Utility;System;
+    Keywords: disk;space;storage;cleanup;
+    # Must match the WM_CLASS Electron reports for this app, not the product
+    # name, or the taskbar groups it with a generic Electron icon.
+    StartupWMClass: disk-scanner
+
+appImage:
+  artifactName: "CheckSpace-${version}-${arch}.AppImage"
+
+deb:
+  artifactName: "CheckSpace-${version}-${arch}.deb"
+  # Keep the Debian package named after the executable, not the repository.
+  packageName: check-space

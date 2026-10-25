@@ -4,7 +4,7 @@ export default {
   intro: 'Locations that tend to pile up disposable files. Review each one before cleaning.',
   loading: 'Looking for things you can clean up…',
   emptyTitle: 'Nothing to clean up was found',
-  emptyHint: 'Suggestions only cover locations inside the scanned folder or drive. Scan the system drive (usually C:) to see more.',
+  emptyHint: 'Suggestions only cover locations inside the scanned folder or drive. Scan the system drive to see more.',
 
   // Cards
   sizeOnDisk: '{size} on disk',
@@ -15,7 +15,7 @@ export default {
   open: 'Open',
   actionClearContents: 'Clear',
   actionEmptyRecycleBin: 'Empty Recycle Bin',
-  actionTrash: 'Move to Recycle Bin',
+  actionTrash: 'Move to trash',
   working: 'Cleaning…',
 
   // Kinds
@@ -46,26 +46,27 @@ export default {
   // Confirmation
   confirmClear: 'Clear {name}',
   confirmEmptyBin: 'Empty the Recycle Bin',
-  confirmTrash: 'Move {name} to the Recycle Bin',
+  confirmTrash: 'Move {name} to the trash',
   confirmTarget: 'Location',
   confirmSize: '{size} · {files}',
   explainClear: 'Everything inside this folder will be deleted permanently (the folder itself is kept). Files in use will be skipped. This cannot be undone.',
   explainEmptyBin: 'Everything in the Recycle Bin will be deleted permanently. This cannot be undone.',
-  explainTrash: 'The folder will be moved to the Recycle Bin, so you will be able to restore it. Space is not freed until you empty the Recycle Bin.',
+  explainTrash: 'The folder will be moved to the trash, so you will be able to restore it. Space is not freed until you empty the trash.',
   confirmClearButton: 'Clear',
   confirmEmptyBinButton: 'Empty Recycle Bin',
-  confirmTrashButton: 'Move to Recycle Bin',
+  confirmTrashButton: 'Move to trash',
 
   // Toasts
   doneClear: 'Cleanup finished: {size} freed',
   doneEmptyBin: 'Recycle Bin emptied: {size} freed',
-  doneTrash: 'Folder moved to the Recycle Bin ({size}). Space is freed once you empty it.',
+  doneTrash: 'Folder moved to the trash ({size}). Space is freed once you empty it.',
   skipped_one: '{count} item in use or without permission was skipped',
   skipped_other: '{count} items in use or without permission were skipped',
   failed: 'The cleanup could not be completed: {reason}',
   errNotFound: 'the location is no longer in the scan; scan again',
   errNoScan: 'there is no active scan',
+  errProtected: 'critical system location, it is protected',
   errBusy: 'in use by another program',
-  errPerm: 'not enough permissions (try running as administrator)',
+  errPerm: 'not enough permissions (try running with elevated permissions)',
   errOther: 'error {error}'
 }

@@ -8,6 +8,9 @@ import { FileActionsProvider } from './context/FileActions'
 import { UpdateProvider } from './context/UpdateContext'
 import './App.css'
 
+// Lets CSS adapt native window chrome (Linux keeps the desktop title bar).
+document.documentElement.dataset.platform = window.api?.platform || 'web'
+
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props)

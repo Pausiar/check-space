@@ -17,7 +17,7 @@ export default {
   ofFolder: '{percent} of this folder',
   clickToOpen: 'Click to open',
   clickToGoUp: 'Click to go up one level',
-  dblClickToReveal: 'Double-click to show in Explorer',
+  dblClickToReveal: 'Double-click to show in file manager',
   scanningWait: 'Scanning… the map will appear as soon as there is data',
   liveBadge: 'Live',
   contentsTitle: 'Contents of this folder'

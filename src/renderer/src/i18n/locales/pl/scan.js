@@ -6,7 +6,7 @@ export default {
   scannedAt: 'Zeskanowano {date}',
   metric: 'Miara',
   metricSizeHint: 'Rzeczywisty rozmiar plików',
-  metricAllocHint: 'Miejsce, które naprawdę zajmują na dysku (klastry, kompresja, pliki OneDrive tylko w chmurze)',
+  metricAllocHint: 'Miejsce, które naprawdę zajmują na dysku (klastry, kompresja, pliki tylko w chmurze)',
   cancel: 'Anuluj',
   rescan: 'Skanuj ponownie',
   refresh: 'Odśwież',

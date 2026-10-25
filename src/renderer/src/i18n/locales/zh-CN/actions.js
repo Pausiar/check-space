@@ -46,7 +46,7 @@ export default {
   errProtected: '关键系统位置，已被保护',
   errNotInScan: '已不在扫描结果中，请重新扫描',
   errBusy: '正被其他程序使用',
-  errPerm: '权限不足（请尝试以管理员身份运行）',
+  errPerm: '权限不足（请尝试以更高权限运行）',
   errNotFound: '已不存在',
   errOther: '错误：{error}',
   errGeneric: '无法完成操作：{error}',

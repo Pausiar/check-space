@@ -17,7 +17,7 @@ export default {
   ofFolder: '占此文件夹的 {percent}',
   clickToOpen: '点击打开',
   clickToGoUp: '点击返回上一级',
-  dblClickToReveal: '双击在资源管理器中显示',
+  dblClickToReveal: '双击在文件管理器中显示',
   scanningWait: '正在扫描…有数据后立即显示图表',
   liveBadge: '实时',
   contentsTitle: '此文件夹的内容'

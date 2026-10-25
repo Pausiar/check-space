@@ -46,7 +46,7 @@ export default {
   errProtected: 'kritieke systeemlocatie, deze is beveiligd',
   errNotInScan: 'niet meer in de scan; scan opnieuw',
   errBusy: 'in gebruik door een ander programma',
-  errPerm: 'onvoldoende rechten (probeer als administrator te draaien)',
+  errPerm: 'onvoldoende rechten (probeer met verhoogde rechten te draaien)',
   errNotFound: 'bestaat niet meer',
   errOther: 'fout: {error}',
   errGeneric: 'De bewerking kon niet worden voltooid: {error}',

@@ -4,7 +4,7 @@ export default {
   intro: 'Miejsca, w których zwykle gromadzą się zbędne pliki. Sprawdź każde z nich przed czyszczeniem.',
   loading: 'Szukanie tego, co można wyczyścić…',
   emptyTitle: 'Nie znaleziono nic do wyczyszczenia',
-  emptyHint: 'Sugestie obejmują tylko miejsca w zeskanowanym folderze lub na dysku. Zeskanuj dysk systemowy (zwykle C:), aby zobaczyć więcej.',
+  emptyHint: 'Sugestie obejmują tylko miejsca w zeskanowanym folderze lub na dysku. Zeskanuj dysk systemowy, aby zobaczyć więcej.',
 
   // Cards
   sizeOnDisk: '{size} na dysku',
@@ -66,7 +66,8 @@ export default {
   failed: 'Nie udało się dokończyć czyszczenia: {reason}',
   errNotFound: 'lokalizacji nie ma już w wynikach; zeskanuj ponownie',
   errNoScan: 'brak aktywnego skanowania',
+  errProtected: 'krytyczna lokalizacja systemowa, jest chroniona',
   errBusy: 'używane przez inny program',
-  errPerm: 'za mało uprawnień (spróbuj uruchomić jako administrator)',
+  errPerm: 'za mało uprawnień (spróbuj uruchomić z podwyższonymi uprawnieniami)',
   errOther: 'błąd {error}'
 }

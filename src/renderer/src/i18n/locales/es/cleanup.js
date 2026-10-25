@@ -4,7 +4,7 @@ export default {
   intro: 'Ubicaciones que suelen acumular archivos prescindibles. Revisa cada una antes de limpiar.',
   loading: 'Buscando elementos que se pueden limpiar…',
   emptyTitle: 'No se han encontrado elementos que limpiar',
-  emptyHint: 'Las sugerencias solo cubren ubicaciones que están dentro de la carpeta o la unidad analizada. Analiza la unidad del sistema (normalmente C:) para ver más.',
+  emptyHint: 'Las sugerencias solo cubren ubicaciones que están dentro de la carpeta o la unidad analizada. Analiza la unidad del sistema para ver más.',
 
   // Tarjetas
   sizeOnDisk: '{size} en disco',
@@ -65,7 +65,8 @@ export default {
   failed: 'No se ha podido limpiar: {reason}',
   errNotFound: 'la ubicación ya no está en el análisis; vuelve a analizar',
   errNoScan: 'no hay un análisis activo',
+  errProtected: 'ubicación crítica del sistema, está protegida',
   errBusy: 'está en uso por otro programa',
-  errPerm: 'sin permisos suficientes (prueba a ejecutar como administrador)',
+  errPerm: 'sin permisos suficientes (prueba a ejecutar con permisos elevados)',
   errOther: 'error {error}'
 }

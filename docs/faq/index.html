@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "FAQ — Preguntas frecuentes sobre Check Space"
-description: "Respuestas a las preguntas más frecuentes sobre Check Space, el analizador de espacio en disco gratuito para Windows."
+description: "Respuestas a las preguntas más frecuentes sobre Check Space, el analizador de espacio en disco gratuito para Windows y Linux."
 ---
 
 <header class="navbar">
@@ -33,8 +33,8 @@ description: "Respuestas a las preguntas más frecuentes sobre Check Space, el a
         <article class="faq-card">
           <h3>¿Qué es Check Space?</h3>
           <p>
-            Check Space es un <strong>analizador de espacio en disco gratuito</strong> para Windows que te
-            permite visualizar qué archivos y carpetas ocupan más espacio en tu equipo, de forma rápida y
+            Check Space es un <strong>analizador de espacio en disco gratuito</strong> para Windows y Linux que
+            te permite visualizar qué archivos y carpetas ocupan más espacio en tu equipo, de forma rápida y
             sin registro.
           </p>
         </article>
@@ -48,23 +48,24 @@ description: "Respuestas a las preguntas más frecuentes sobre Check Space, el a
         <article class="faq-card">
           <h3>¿En qué sistemas operativos funciona?</h3>
           <p>
-            Actualmente está disponible para <strong>Windows 10 y Windows 11</strong>. Las versiones para
-            macOS y Linux están en desarrollo.
+            Actualmente está disponible para <strong>Windows 10 y 11</strong> y para <strong>Linux x64</strong>
+            (paquete <code>.deb</code> para Debian/Ubuntu y AppImage portable). La versión para macOS sigue
+            en desarrollo.
           </p>
         </article>
         <article class="faq-card">
           <h3>¿Qué tecnología usa Check Space?</h3>
           <p>
             Check Space está construido con <strong>Electron</strong> y React: una aplicación de escritorio
-            con interfaz clara y moderna. Por ahora se distribuye solo para Windows 10 y 11; las versiones
-            para macOS y Linux están en el roadmap, no disponibles todavía.
+            con interfaz clara y moderna. Se distribuye para Windows 10/11 y Linux x64; la versión para
+            macOS está en el roadmap, todavía no disponible.
           </p>
         </article>
         <article class="faq-card">
           <h3>¿En qué idiomas está disponible?</h3>
           <p>
             En <strong>español, inglés, portugués (Brasil), francés, alemán, italiano, ruso, japonés,
-            chino simplificado, polaco, turco, coreano y neerlandés</strong>. La aplicación detecta el idioma de Windows al abrirse y
+            chino simplificado, polaco, turco, coreano y neerlandés</strong>. La aplicación detecta el idioma del sistema al abrirse y
             puedes cambiarlo en cualquier momento desde la barra de título.
           </p>
         </article>
@@ -76,16 +77,19 @@ description: "Respuestas a las preguntas más frecuentes sobre Check Space, el a
         <article class="faq-card">
           <h3>¿Cómo instalo Check Space?</h3>
           <p>
-            Descarga el instalador <code>.exe</code> desde la página principal o desde
-            <a href="https://github.com/Pausiar/check-space/releases" target="_blank" rel="noopener noreferrer">GitHub Releases</a>.
-            Ejecuta el instalador y sigue los pasos; la instalación es rápida y no requiere configuración.
+            En <strong>Windows</strong>, descarga el instalador <code>.exe</code> desde la página principal o
+            desde <a href="https://github.com/Pausiar/check-space/releases" target="_blank" rel="noopener noreferrer">GitHub Releases</a>.
+            En <strong>Linux</strong>, instala el <code>.deb</code> con
+            <code>sudo apt install ./CheckSpace-&lt;versión&gt;-amd64.deb</code>, o da permiso de ejecución
+            a la AppImage (<code>chmod +x</code>) y ábrela. La instalación es rápida y no requiere configuración.
           </p>
         </article>
         <article class="faq-card">
           <h3>¿Existe versión portable?</h3>
           <p>
-            Sí. Puedes descargar <strong>CheckSpace-Portable.exe</strong> y ejecutarlo directamente sin
-            instalar nada. Ideal para usarlo en equipos donde no tienes permisos de administrador.
+            Sí. En Windows, <strong>CheckSpace-Portable.exe</strong> se ejecuta sin instalar nada; en Linux,
+            la <strong>AppImage</strong> funciona igual. Ideal para equipos donde no tienes permisos de
+            administrador.
           </p>
         </article>
         <article class="faq-card">
@@ -101,10 +105,11 @@ description: "Respuestas a las preguntas más frecuentes sobre Check Space, el a
         <article class="faq-card">
           <h3>¿Cómo actualizo a una nueva versión?</h3>
           <p>
-            La versión instalada <strong>se actualiza sola</strong>: al arrancar comprueba si hay una versión
-            nueva, la descarga y te ofrece reiniciar para instalarla. No hace falta volver a GitHub ni
-            desinstalar nada. La versión portable no puede sustituirse a sí misma, así que en ese caso
-            descarga el <code>.exe</code> nuevo desde
+            En Windows, la versión instalada <strong>se actualiza sola</strong>: al arrancar comprueba si hay
+            una versión nueva, la descarga y te ofrece reiniciar para instalarla. La portable no puede
+            sustituirse a sí misma, así que descarga el <code>.exe</code> nuevo. En Linux, la
+            <strong>AppImage</strong> también se actualiza desde la app; el <strong>.deb</strong> se actualiza
+            con el gestor de paquetes instalando el paquete nuevo. Todo está en
             <a href="https://github.com/Pausiar/check-space/releases" target="_blank" rel="noopener noreferrer">Releases</a>.
           </p>
         </article>
@@ -168,8 +173,8 @@ description: "Respuestas a las preguntas más frecuentes sobre Check Space, el a
         <article class="faq-card">
           <h3>¿Funciona con discos externos?</h3>
           <p>
-            Sí. Puedes analizar cualquier unidad montada en Windows: discos externos, pendrives, NAS
-            accesibles como unidad de red, etc.
+            Sí. Puedes analizar cualquier unidad o punto de montaje: discos externos, pendrives y carpetas
+            accesibles, tanto en Windows como en Linux.
           </p>
         </article>
         <article class="faq-card">
@@ -220,7 +225,7 @@ description: "Respuestas a las preguntas más frecuentes sobre Check Space, el a
       "name": "¿Qué es Check Space?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Check Space es un analizador de espacio en disco gratuito para Windows que permite visualizar qué archivos y carpetas ocupan más espacio en tu equipo, de forma rápida y sin registro."
+        "text": "Check Space es un analizador de espacio en disco gratuito para Windows y Linux que permite visualizar qué archivos y carpetas ocupan más espacio en tu equipo, de forma rápida y sin registro."
       }
     },
     {
@@ -236,7 +241,7 @@ description: "Respuestas a las preguntas más frecuentes sobre Check Space, el a
       "name": "¿En qué sistemas operativos funciona Check Space?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Actualmente está disponible para Windows 10 y Windows 11. Las versiones para macOS y Linux están en desarrollo."
+        "text": "Actualmente está disponible para Windows 10 y 11 y para Linux x64, con paquete .deb para Debian/Ubuntu y AppImage portable. La versión para macOS sigue en desarrollo."
       }
     },
     {
@@ -244,7 +249,7 @@ description: "Respuestas a las preguntas más frecuentes sobre Check Space, el a
       "name": "¿Qué tecnología usa Check Space?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Check Space está construido con Electron y React: una aplicación de escritorio con interfaz clara y moderna. Por ahora se distribuye solo para Windows 10 y 11; las versiones para macOS y Linux están en el roadmap."
+        "text": "Check Space está construido con Electron y React: una aplicación de escritorio con interfaz clara y moderna. Se distribuye para Windows 10/11 y Linux x64; la versión para macOS está en el roadmap."
       }
     },
     {
@@ -252,7 +257,7 @@ description: "Respuestas a las preguntas más frecuentes sobre Check Space, el a
       "name": "¿En qué idiomas está disponible Check Space?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "En español, inglés, portugués (Brasil), francés, alemán, italiano, ruso, japonés, chino simplificado, polaco, turco, coreano y neerlandés. La aplicación detecta el idioma de Windows al abrirse y permite cambiarlo desde la barra de título."
+        "text": "En español, inglés, portugués (Brasil), francés, alemán, italiano, ruso, japonés, chino simplificado, polaco, turco, coreano y neerlandés. La aplicación detecta el idioma del sistema al abrirse y permite cambiarlo desde la barra de título."
       }
     },
     {
@@ -260,7 +265,7 @@ description: "Respuestas a las preguntas más frecuentes sobre Check Space, el a
       "name": "¿Cómo instalo Check Space?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Descarga el instalador .exe desde la página principal o desde GitHub Releases. Ejecuta el instalador y sigue los pasos; la instalación es rápida y no requiere configuración."
+        "text": "En Windows, descarga el instalador .exe desde la página principal o desde GitHub Releases. En Linux, instala el .deb con sudo apt install ./CheckSpace-<versión>-amd64.deb o da permiso de ejecución a la AppImage con chmod +x. La instalación es rápida y no requiere configuración."
       }
     },
     {
@@ -268,7 +273,7 @@ description: "Respuestas a las preguntas más frecuentes sobre Check Space, el a
       "name": "¿Existe versión portable de Check Space?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sí. Puedes descargar CheckSpace-Portable.exe y ejecutarlo directamente sin instalar nada. Ideal para usarlo en equipos donde no tienes permisos de administrador."
+        "text": "Sí. En Windows, CheckSpace-Portable.exe se ejecuta sin instalar nada; en Linux, la AppImage funciona igual. Ideal para equipos donde no tienes permisos de administrador."
       }
     },
     {
@@ -284,7 +289,7 @@ description: "Respuestas a las preguntas más frecuentes sobre Check Space, el a
       "name": "¿Cómo actualizo Check Space a una nueva versión?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "La versión instalada se actualiza sola: al arrancar comprueba si hay una versión nueva, la descarga y ofrece reiniciar para instalarla. No hace falta volver a GitHub. La versión portable no puede sustituirse a sí misma, así que hay que descargar el .exe nuevo desde GitHub Releases."
+        "text": "En Windows, la versión instalada se actualiza sola: al arrancar comprueba si hay una versión nueva, la descarga y ofrece reiniciar para instalarla. La portable no puede sustituirse a sí misma, así que hay que descargar el .exe nuevo. En Linux, la AppImage también se actualiza desde la app; el .deb se actualiza con el gestor de paquetes instalando el paquete nuevo."
       }
     },
     {
@@ -340,7 +345,7 @@ description: "Respuestas a las preguntas más frecuentes sobre Check Space, el a
       "name": "¿Check Space funciona con discos externos?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sí. Puedes analizar cualquier unidad montada en Windows: discos externos, pendrives, NAS accesibles como unidad de red, etc."
+        "text": "Sí. Puedes analizar cualquier unidad o punto de montaje: discos externos, pendrives y carpetas accesibles, tanto en Windows como en Linux."
       }
     },
     {

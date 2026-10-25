@@ -46,7 +46,7 @@ export default {
   errProtected: 'posizione critica del sistema, è protetta',
   errNotInScan: "non è più nell'analisi; esegui di nuovo l'analisi",
   errBusy: 'è in uso da un altro programma',
-  errPerm: 'permessi insufficienti (prova come amministratore)',
+  errPerm: 'permessi insufficienti (prova con permessi elevati)',
   errNotFound: 'non esiste più',
   errOther: 'errore: {error}',
   errGeneric: "Impossibile completare l'operazione: {error}",

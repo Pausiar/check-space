@@ -4,7 +4,7 @@ export default {
   intro: 'Emplacements qui accumulent souvent des fichiers inutiles. Vérifiez chacun avant de nettoyer.',
   loading: 'Recherche des éléments à nettoyer…',
   emptyTitle: 'Aucun élément à nettoyer trouvé',
-  emptyHint: "Les suggestions ne couvrent que les emplacements situés dans le dossier ou le disque analysé. Analysez le disque système (généralement C:) pour en voir davantage.",
+  emptyHint: 'Les suggestions ne couvrent que les emplacements situés dans le dossier ou le disque analysé. Analysez le disque système pour en voir davantage.',
 
   // Cartes
   sizeOnDisk: '{size} sur le disque',
@@ -65,7 +65,8 @@ export default {
   failed: 'Impossible de nettoyer : {reason}',
   errNotFound: "l'emplacement ne figure plus dans l'analyse ; relancez l'analyse",
   errNoScan: "aucune analyse n'est active",
+  errProtected: 'emplacement critique du système, il est protégé',
   errBusy: 'est utilisé par un autre programme',
-  errPerm: "permissions insuffisantes (essayez en tant qu'administrateur)",
+  errPerm: 'permissions insuffisantes (essayez avec des permissions élevées)',
   errOther: 'erreur {error}'
 }

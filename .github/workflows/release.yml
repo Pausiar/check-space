@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   windows:
@@ -94,11 +94,107 @@ jobs:
           echo "Update feed: build/latest.yml"
           cat build/latest.yml
 
-      - name: SHA-256 checksums
+      - name: SHA-256 checksums (log)
         shell: bash
         run: |
           cd build
-          sha256sum *.exe | tee SHA256SUMS.txt
+          sha256sum *.exe
+
+      # Both platform jobs build independently; the release job publishes once.
+      - name: Upload Windows artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-dist
+          if-no-files-found: error
+          path: |
+            build/*.exe
+            build/latest.yml
+            build/*.blockmap
+
+  linux:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # deb for the package manager and AppImage for a self-contained app that
+      # electron-updater can replace in place.
+      - name: Package (.deb + AppImage)
+        run: npx electron-builder --linux --x64 --publish never
+
+      - name: Check packages and update feed
+        shell: bash
+        run: |
+          set -euo pipefail
+          ls -lh build
+          deb=$(find build -maxdepth 1 -name '*.deb' -print -quit)
+          appimage=$(find build -maxdepth 1 -name '*.AppImage' -print -quit)
+          test -n "$deb" || { echo "::error::No .deb was generated."; exit 1; }
+          test -n "$appimage" || { echo "::error::No AppImage was generated."; exit 1; }
+          test -f build/latest-linux.yml || { echo "::error::latest-linux.yml was not generated."; exit 1; }
+
+          echo "Package: $(dpkg-deb -f "$deb" Package)"
+          echo "Version: $(dpkg-deb -f "$deb" Version)"
+          echo "Architecture: $(dpkg-deb -f "$deb" Architecture)"
+          # Do not pipe into `grep -q`: it closes the pipe after the first match,
+          # and with `pipefail` that SIGPIPE would fail the whole job.
+          desktop=$(dpkg-deb --fsys-tarfile "$deb" | tar -xO ./usr/share/applications/check-space.desktop)
+          grep -q '^Exec=' <<<"$desktop"
+          contents=$(dpkg-deb -c "$deb")
+          grep -q 'usr/share/icons/.*/check-space.png' <<<"$contents"
+
+          # An AppImage is only useful if its runtime and desktop entry are
+          # complete; extracting it checks both without needing FUSE or a display.
+          chmod +x "$appimage"
+          rm -rf squashfs-root
+          "$appimage" --appimage-extract >/dev/null
+          test -x squashfs-root/AppRun
+          test -f squashfs-root/check-space.desktop
+          rm -rf squashfs-root
+
+          grep -q 'url:.*\.AppImage' build/latest-linux.yml
+          echo "Update feed: build/latest-linux.yml"
+          cat build/latest-linux.yml
+
+      - name: SHA-256 checksums (log)
+        shell: bash
+        run: |
+          cd build
+          sha256sum *.deb *.AppImage
+
+      - name: Upload Linux artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-dist
+          if-no-files-found: error
+          path: |
+            build/*.deb
+            build/*.AppImage
+            build/latest-linux.yml
+
+  release:
+    needs: [windows, linux]
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all installers
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*-dist'
+          path: release-assets
+          merge-multiple: true
 
       # Tag push -> that tag. Manual run -> "v<package.json version>" (created by the release step).
       - name: Resolve version
@@ -123,6 +219,13 @@ jobs:
           git tag -f "$TAG" "$GITHUB_SHA"
           git push --force origin "refs/tags/$TAG"
 
+      - name: SHA-256 checksums
+        shell: bash
+        run: |
+          cd release-assets
+          sha256sum *.exe *.AppImage *.deb *.yml > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -130,8 +233,4 @@ jobs:
           target_commitish: ${{ github.sha }}
           name: Check Space ${{ steps.version.outputs.tag }}
           body_path: .github/release-notes/${{ steps.version.outputs.tag }}.md
-          files: |
-            build/*.exe
-            build/latest.yml
-            build/*.blockmap
-            build/SHA256SUMS.txt
+          files: release-assets/*

@@ -6,7 +6,7 @@ export default {
   scannedAt: 'Gescand op {date}',
   metric: 'Maat',
   metricSizeHint: 'Werkelijke grootte van de bestanden',
-  metricAllocHint: 'Ruimte die ze echt op schijf innemen (clusters, compressie, alleen-in-de-cloud OneDrive-bestanden)',
+  metricAllocHint: 'Ruimte die ze echt op schijf innemen (clusters, compressie, alleen-in-de-cloud bestanden)',
   cancel: 'Annuleren',
   rescan: 'Opnieuw scannen',
   refresh: 'Vernieuwen',

@@ -46,7 +46,7 @@ export default {
   errProtected: 'local crítico do sistema, está protegido',
   errNotInScan: 'não está mais na verificação; verifique novamente',
   errBusy: 'está em uso por outro programa',
-  errPerm: 'sem permissões suficientes (tente executar como administrador)',
+  errPerm: 'sem permissões suficientes (tente executar com permissões elevadas)',
   errNotFound: 'não existe mais',
   errOther: 'erro: {error}',
   errGeneric: 'Não foi possível concluir a operação: {error}',

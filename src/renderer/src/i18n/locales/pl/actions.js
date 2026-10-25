@@ -55,7 +55,7 @@ export default {
   errProtected: 'krytyczna lokalizacja systemowa, jest chroniona',
   errNotInScan: 'nie ma już w wynikach skanowania; zeskanuj ponownie',
   errBusy: 'używany przez inny program',
-  errPerm: 'za mało uprawnień (spróbuj uruchomić jako administrator)',
+  errPerm: 'za mało uprawnień (spróbuj uruchomić z podwyższonymi uprawnieniami)',
   errNotFound: 'już nie istnieje',
   errOther: 'błąd: {error}',
   errGeneric: 'Nie udało się wykonać operacji: {error}',

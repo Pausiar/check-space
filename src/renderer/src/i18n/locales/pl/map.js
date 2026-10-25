@@ -17,7 +17,7 @@ export default {
   ofFolder: '{percent} tego folderu',
   clickToOpen: 'Kliknij, aby otworzyć',
   clickToGoUp: 'Kliknij, aby przejść poziom wyżej',
-  dblClickToReveal: 'Kliknij dwukrotnie, aby pokazać w Eksploratorze',
+  dblClickToReveal: 'Kliknij dwukrotnie, aby pokazać w menedżerze plików',
   scanningWait: 'Skanowanie… mapa pojawi się, gdy tylko będą dane',
   liveBadge: 'Na żywo',
   contentsTitle: 'Zawartość tego folderu'

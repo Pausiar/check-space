@@ -1,4 +1,7 @@
-const SEP = window.api?.platform === 'win32' ? '\\' : '/'
+const IS_WINDOWS = window.api?.platform === 'win32'
+const SEP = IS_WINDOWS ? '\\' : '/'
+// Windows paths are case-insensitive; Linux paths are not.
+const fold = (p) => (IS_WINDOWS ? p.toLowerCase() : p)
 
 export const pathSep = SEP
 
@@ -20,7 +23,7 @@ export function baseName(p) {
 export function parentPath(p, root) {
   const t = trimSep(p)
   const r = trimSep(root)
-  if (t.toLowerCase() === r.toLowerCase()) return null
+  if (fold(t) === fold(r)) return null
   const i = t.lastIndexOf(SEP)
   if (i < 0) return null
   const parent = t.slice(0, i) || SEP
@@ -34,7 +37,7 @@ export function crumbs(root, rootName, current) {
   const list = [{ name: rootName, path: root }]
   if (!current) return list
   const c = trimSep(current)
-  if (c.toLowerCase() === r.toLowerCase()) return list
+  if (fold(c) === fold(r)) return list
   const rel = c.slice(r.length).split(SEP).filter(Boolean)
   let acc = root
   for (const part of rel) {
@@ -45,7 +48,7 @@ export function crumbs(root, rootName, current) {
 }
 
 export function isInside(p, root) {
-  const a = trimSep(p).toLowerCase()
-  const r = trimSep(root).toLowerCase()
+  const a = fold(trimSep(p))
+  const r = fold(trimSep(root))
   return a === r || a.startsWith(r.endsWith(SEP) ? r : r + SEP)
 }

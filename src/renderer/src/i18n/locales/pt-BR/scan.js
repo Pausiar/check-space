@@ -6,7 +6,7 @@ export default {
   scannedAt: 'Verificado em {date}',
   metric: 'Medida',
   metricSizeHint: 'Tamanho real dos arquivos',
-  metricAllocHint: 'Espaço que realmente ocupam no disco (clusters, compactação, arquivos do OneDrive somente na nuvem)',
+  metricAllocHint: 'Espaço que realmente ocupam no disco (clusters, compactação, arquivos somente na nuvem)',
   cancel: 'Cancelar',
   rescan: 'Verificar novamente',
   refresh: 'Atualizar',

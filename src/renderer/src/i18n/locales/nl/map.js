@@ -17,7 +17,7 @@ export default {
   ofFolder: '{percent} van deze map',
   clickToOpen: 'Klik om te openen',
   clickToGoUp: 'Klik om een niveau omhoog te gaan',
-  dblClickToReveal: 'Dubbelklik om in Verkenner te tonen',
+  dblClickToReveal: 'Dubbelklik om in bestandsbeheer te tonen',
   scanningWait: 'Scannen… de kaart verschijnt zodra er gegevens zijn',
   liveBadge: 'Live',
   contentsTitle: 'Inhoud van deze map'

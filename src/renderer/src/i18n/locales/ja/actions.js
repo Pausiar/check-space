@@ -46,7 +46,7 @@ export default {
   errProtected: '重要なシステム領域のため保護されています',
   errNotInScan: 'スキャン結果に存在しません。再スキャンしてください',
   errBusy: '別のプログラムが使用中です',
-  errPerm: '権限が不足しています (管理者として実行してみてください)',
+  errPerm: '権限が不足しています (管理者権限で実行してみてください)',
   errNotFound: 'すでに存在しません',
   errOther: 'エラー: {error}',
   errGeneric: '操作を完了できませんでした: {error}',

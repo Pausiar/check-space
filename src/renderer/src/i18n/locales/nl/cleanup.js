@@ -4,7 +4,7 @@ export default {
   intro: 'Plekken waar zich vaak wegwerpmateriaal ophoopt. Bekijk elke plek voordat je opruimt.',
   loading: 'Zoeken naar wat je kunt opruimen…',
   emptyTitle: 'Niets gevonden om op te ruimen',
-  emptyHint: 'Suggesties gaan alleen over locaties binnen de gescande map of schijf. Scan de systeemschijf (meestal C:) om meer te zien.',
+  emptyHint: 'Suggesties gaan alleen over locaties binnen de gescande map of schijf. Scan de systeemschijf om meer te zien.',
 
   // Cards
   sizeOnDisk: '{size} op schijf',
@@ -65,7 +65,8 @@ export default {
   failed: 'Het opschonen kon niet worden voltooid: {reason}',
   errNotFound: 'de locatie zit niet meer in de scan; scan opnieuw',
   errNoScan: 'er is geen actieve scan',
+  errProtected: 'kritieke systeemlocatie, deze is beveiligd',
   errBusy: 'in gebruik door een ander programma',
-  errPerm: 'onvoldoende rechten (probeer als administrator te draaien)',
+  errPerm: 'onvoldoende rechten (probeer met verhoogde rechten te draaien)',
   errOther: 'fout {error}'
 }

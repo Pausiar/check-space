@@ -4,7 +4,7 @@ export default {
   intro: 'Gereksiz dosyaların biriktiği yerler. Temizlemeden önce her birini gözden geçirin.',
   loading: 'Temizlenebilecek şeyler aranıyor…',
   emptyTitle: 'Temizlenecek bir şey bulunamadı',
-  emptyHint: 'Öneriler yalnızca taranan klasör veya diskin içindeki konumları kapsar. Daha fazlasını görmek için sistem diskini (genellikle C:) tarayın.',
+  emptyHint: 'Öneriler yalnızca taranan klasör veya diskin içindeki konumları kapsar. Daha fazlasını görmek için sistem diskini tarayın.',
 
   // Cards
   sizeOnDisk: 'diskte {size}',
@@ -65,7 +65,8 @@ export default {
   failed: 'Temizlik tamamlanamadı: {reason}',
   errNotFound: 'konum artık tarama sonuçlarında yok; yeniden tarayın',
   errNoScan: 'etkin bir tarama yok',
+  errProtected: 'kritik sistem konumu, korunuyor',
   errBusy: 'başka bir program tarafından kullanılıyor',
-  errPerm: 'yeterli izin yok (yönetici olarak çalıştırmayı deneyin)',
+  errPerm: 'yeterli izin yok (yükseltilmiş izinlerle çalıştırmayı deneyin)',
   errOther: 'hata {error}'
 }

@@ -1,21 +1,32 @@
 # Check Space
 
-Analizador de espacio en disco para Windows (Electron + React).
+Analizador de espacio en disco para Windows y Linux (Electron + React).
 
 ## Funciones
 
-- Escaneo en paralelo de unidades (fijas y USB) o de cualquier carpeta.
+- Escaneo en paralelo de unidades (fijas y USB) o de cualquier carpeta. En Linux detecta los puntos de montaje locales y no cruza a otros sistemas de archivos.
 - Mide también archivos de OneDrive, archivos deduplicados y archivos del sistema en uso (`pagefile.sys`, `hiberfil.sys`…); los hard links se cuentan una sola vez y los enlaces simbólicos/junctions no se siguen.
-- Muestra el espacio "de sistema / no contabilizado" y las carpetas sin permiso, con opción de reiniciar como administrador.
+- Muestra el espacio "de sistema / no contabilizado" y las carpetas sin permiso; en Windows ofrece reiniciar como administrador.
 - Mapa anidado (treemap) y gráfico de anillo, vista de lista con columnas ordenables, búsqueda con comodines y filtros.
 - Archivos grandes, tipos de archivo por categoría, archivos antiguos.
 - Duplicados verificados byte a byte (tamaño → huella de inicio/fin → SHA‑1 completo).
-- Sugerencias de limpieza (temporales, papelera, cachés de navegadores, Windows Update, `node_modules`…).
+- Sugerencias de limpieza (temporales, papelera, cachés de navegadores, restos de actualizaciones, `node_modules`…).
 - Borrado con confirmación (papelera o permanente), selección múltiple y actualización inmediata de los datos.
 - Exportación a CSV (Excel) y JSON. Caché de resultados con fecha del último análisis.
-- **Actualizaciones desde la propia app**: comprueba GitHub Releases, descarga la versión nueva y la instala al reiniciar, sin volver a descargar el instalador. Solo la versión instalada; la portable se sustituye a mano.
+- **Actualizaciones desde la propia app**: comprueba GitHub Releases, descarga la versión nueva y la instala al reiniciar, sin volver a descargar el instalador. En Windows solo la versión instalada (la portable se sustituye a mano); en Linux solo la AppImage (el `.deb` se actualiza con el gestor de paquetes).
 - Tema claro / oscuro / del sistema.
 - Disponible en **español, inglés, portugués (Brasil), francés, alemán, italiano, ruso, japonés, chino simplificado, polaco, turco, coreano y neerlandés**; el idioma se detecta del sistema y se puede cambiar desde la barra de título.
+
+## Descargas
+
+En [GitHub Releases](https://github.com/Pausiar/check-space/releases/latest):
+
+- **Windows 10/11:** `CheckSpace-Setup-<versión>.exe` (instalador, se actualiza solo) o
+  `CheckSpace-Portable.exe` (sin instalación).
+- **Linux x64:** `CheckSpace-<versión>-amd64.deb` para Debian/Ubuntu
+  (`sudo apt install ./CheckSpace-<versión>-amd64.deb`) o
+  `CheckSpace-<versión>-x86_64.AppImage` (dale permiso de ejecución con `chmod +x`).
+  La AppImage se actualiza desde la app; el `.deb` se actualiza con el gestor de paquetes.
 
 ## Licencia y privacidad
 
@@ -40,12 +51,13 @@ web se hacen en el mismo repositorio que la aplicación.
 ## Actualizaciones
 
 La versión instalada se actualiza sola con `electron-updater`: al arrancar consulta el feed
-de GitHub (`latest.yml` de la última release), descarga el instalador NSIS con su
-`.blockmap` —solo los bloques que cambiaron— y lo aplica al reiniciar. El panel de
-actualizaciones de la barra de título permite comprobar a mano, ver el progreso y
-reiniciar. La versión portable no puede reemplazarse a sí misma y lo indica en su
-interfaz. Detalles del pipeline y de los archivos que debe subir cada release en
-[docs/UPDATES.md](docs/UPDATES.md).
+de GitHub (`latest.yml` en Windows y `latest-linux.yml` en Linux), descarga el paquete
+—solo los bloques que cambiaron en Windows y en la AppImage— y lo aplica al reiniciar.
+El panel de actualizaciones de la barra de título permite comprobar a mano, ver el
+progreso y reiniciar. La versión portable de Windows no puede reemplazarse a sí misma y
+lo indica en su interfaz. En Linux solo la AppImage se actualiza desde la app; el `.deb`
+se actualiza con el gestor de paquetes. Detalles del pipeline y de los archivos que debe
+subir cada release en [docs/UPDATES.md](docs/UPDATES.md).
 
 ## Firma de código
 
@@ -69,9 +81,11 @@ falsos positivos de Defender en [docs/SIGNING.md](docs/SIGNING.md).
 
 ```bash
 npm install
-npm run dev       # modo desarrollo
-npm run package   # instalador y ejecutable portable para Windows (carpeta build/)
-                  # requiere Windows o Wine: se incrustan icono, versión y editor en el .exe
+npm run dev            # modo desarrollo
+npm run package        # instalador y ejecutable portable para Windows (carpeta build/)
+                       # requiere Windows o Wine: se incrustan icono, versión y editor en el .exe
+npm run package:linux  # .deb y AppImage para Linux x64 (carpeta build/)
+                       # requiere Linux: usa dpkg-deb y AppImage tool
 node scripts/make-icon.mjs   # regenera resources/icon.png (1024 px) y resources/icon.ico (16–256 px)
 ```
 

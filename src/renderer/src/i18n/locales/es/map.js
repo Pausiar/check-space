@@ -17,7 +17,7 @@ export default {
   ofFolder: '{percent} de esta carpeta',
   clickToOpen: 'Haz clic para abrir',
   clickToGoUp: 'Haz clic para subir un nivel',
-  dblClickToReveal: 'Doble clic para mostrarlo en el Explorador',
+  dblClickToReveal: 'Doble clic para mostrarlo en el administrador de archivos',
   scanningWait: 'Analizando… el mapa aparecerá en cuanto haya datos',
   liveBadge: 'En directo',
   contentsTitle: 'Contenido de esta carpeta'
