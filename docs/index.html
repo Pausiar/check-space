@@ -14,13 +14,27 @@ description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 
     <nav class="navbar__links" aria-label="Navegación principal">
       <a href="#features">Características</a>
       <a href="#how-it-works">Cómo funciona</a>
-      <a href="#download" class="btn btn--sm btn--primary">Descargar gratis</a>
+      <a href="{{ '/faq/' | relative_url }}">Preguntas frecuentes</a>
+      <details class="nav-menu">
+        <summary class="nav-menu__toggle">Menú
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="nav-menu__panel">
+          <a href="#features">Características</a>
+          <a href="#how-it-works">Cómo funciona</a>
+          <a href="{{ '/faq/' | relative_url }}">Preguntas frecuentes</a>
+          <a href="#download" class="btn btn--sm btn--primary">Descargar gratis</a>
+        </div>
+      </details>
+      <a href="#download" class="btn btn--sm btn--primary navbar__cta">Descargar gratis</a>
     </nav>
   </div>
 </header>
 
 <!-- ===== HERO ===== -->
-<main>
+<main id="main">
   <section class="hero" aria-labelledby="hero-title">
     <div class="container hero__inner">
       <div class="hero__content">
@@ -42,27 +56,32 @@ description: "Analiza archivos y carpetas que ocupan más espacio en Windows 10 
           <a id="hero-portable-btn"
              href="https://github.com/Pausiar/check-space/releases/latest"
              class="btn btn--ghost btn--lg">
-            Versión Portable
+            Versión portable
           </a>
         </div>
         <p class="hero__meta">App gratis · Sin registro · Sin anuncios · Sin telemetría · Windows 10/11</p>
       </div>
-      <div class="hero__visual" aria-hidden="true">
+      <div class="hero__visual">
         <div class="disk-viz">
           <div class="disk-viz__header">
-            <span class="disk-viz__title">Disco C: — 476 GB</span>
-            <span class="disk-viz__used">189 GB usados</span>
+            <span class="disk-viz__title">Disco C: · 476 GB</span>
+            <span class="disk-viz__used">40% usado</span>
           </div>
-          <div class="disk-viz__bar">
-            <div class="disk-viz__bar-fill" style="width: 40%"></div>
+          <div class="disk-viz__body">
+            <div class="donut" aria-hidden="true">
+              <div class="donut__center">
+                <strong>189</strong>
+                <span>GB usados</span>
+              </div>
+            </div>
+            <ul class="disk-viz__list" aria-label="Uso por categoría">
+              <li><span class="dot dot--1"></span><span class="name">Windows</span><span class="size">32,4 GB</span></li>
+              <li><span class="dot dot--2"></span><span class="name">Archivos de usuario</span><span class="size">89,1 GB</span></li>
+              <li><span class="dot dot--3"></span><span class="name">Programas</span><span class="size">41,7 GB</span></li>
+              <li><span class="dot dot--4"></span><span class="name">Archivos temporales</span><span class="size">12,3 GB</span></li>
+              <li><span class="dot dot--5"></span><span class="name">Otros</span><span class="size">13,5 GB</span></li>
+            </ul>
           </div>
-          <ul class="disk-viz__list">
-            <li><span class="dot dot--1"></span><span class="name">Windows</span><span class="size">32,4 GB</span></li>
-            <li><span class="dot dot--2"></span><span class="name">Archivos de usuario</span><span class="size">89,1 GB</span></li>
-            <li><span class="dot dot--3"></span><span class="name">Programas</span><span class="size">41,7 GB</span></li>
-            <li><span class="dot dot--4"></span><span class="name">Archivos temporales</span><span class="size">12,3 GB</span></li>
-            <li><span class="dot dot--5"></span><span class="name">Otros</span><span class="size">13,5 GB</span></li>
-          </ul>
         </div>
       </div>
     </div>
