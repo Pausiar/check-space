@@ -1,41 +1,45 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">Check Space - Analiza y libera espacio en disco</title>
-  <desc id="desc">Imagen social de Check Space con fondo azul, grafico de disco y texto de descarga gratis para Windows.</desc>
+  <desc id="desc">Imagen social de Check Space con fondo claro, grafico de disco y texto de descarga gratis para Windows.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#07122b"/>
-      <stop offset="100%" stop-color="#182a57"/>
+      <stop offset="0%" stop-color="#F9F9F8"/>
+      <stop offset="100%" stop-color="#F5F4EF"/>
     </linearGradient>
     <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#22d3ee"/>
-      <stop offset="100%" stop-color="#6366f1"/>
+      <stop offset="0%" stop-color="#C96442"/>
+      <stop offset="100%" stop-color="#A84B2C"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#C96442"/>
+      <stop offset="100%" stop-color="#D9922B"/>
     </linearGradient>
   </defs>
 
   <rect width="1200" height="630" fill="url(#bg)"/>
-  <circle cx="965" cy="140" r="220" fill="#1c2f63" opacity="0.45"/>
-  <circle cx="180" cy="560" r="200" fill="#111f45" opacity="0.55"/>
+  <circle cx="965" cy="140" r="220" fill="#E8DDD5" opacity="0.6"/>
+  <circle cx="180" cy="560" r="200" fill="#EFE6DE" opacity="0.8"/>
 
   <g transform="translate(90 90)">
-    <text x="0" y="90" fill="#f8fafc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="78" font-weight="800">Check Space</text>
-    <text x="0" y="165" fill="#cbd5e1" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="32" font-weight="500">Analiza y libera espacio en Windows</text>
+    <text x="0" y="90" fill="#1A1A1A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="78" font-weight="800">Check Space</text>
+    <text x="0" y="165" fill="#6B6B6B" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="32" font-weight="500">Analiza y libera espacio en Windows</text>
 
     <rect x="0" y="230" width="390" height="68" rx="14" fill="url(#accent)"/>
-    <text x="36" y="274" fill="#041126" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="33" font-weight="800">Descargar gratis</text>
+    <text x="36" y="274" fill="#FFFFFF" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="33" font-weight="800">Descargar gratis</text>
 
     <g transform="translate(585 110)">
-      <rect x="0" y="0" width="420" height="280" rx="22" fill="#0d1835" stroke="#334a8d"/>
-      <text x="28" y="48" fill="#cbd5e1" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24" font-weight="600">Disco C: 476 GB</text>
-      <rect x="28" y="72" width="364" height="16" rx="8" fill="#243865"/>
-      <rect x="28" y="72" width="178" height="16" rx="8" fill="url(#accent)"/>
-      <text x="28" y="118" fill="#9fb4df" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20">Windows</text>
-      <text x="330" y="118" fill="#f8fafc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" text-anchor="end">32.4 GB</text>
-      <text x="28" y="156" fill="#9fb4df" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20">Archivos de usuario</text>
-      <text x="330" y="156" fill="#f8fafc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" text-anchor="end">89.1 GB</text>
-      <text x="28" y="194" fill="#9fb4df" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20">Programas</text>
-      <text x="330" y="194" fill="#f8fafc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" text-anchor="end">41.7 GB</text>
-      <text x="28" y="232" fill="#9fb4df" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20">Temporales</text>
-      <text x="330" y="232" fill="#f8fafc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" text-anchor="end">12.3 GB</text>
+      <rect x="0" y="0" width="420" height="280" rx="22" fill="#FFFFFF" stroke="#E5E4DF"/>
+      <text x="28" y="48" fill="#6B6B6B" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24" font-weight="600">Disco C: 476 GB</text>
+      <rect x="28" y="72" width="364" height="16" rx="8" fill="#EEEDE8"/>
+      <rect x="28" y="72" width="178" height="16" rx="8" fill="url(#bar)"/>
+      <text x="28" y="118" fill="#6B6B6B" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20">Windows</text>
+      <text x="330" y="118" fill="#1A1A1A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" text-anchor="end">32.4 GB</text>
+      <text x="28" y="156" fill="#6B6B6B" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20">Archivos de usuario</text>
+      <text x="330" y="156" fill="#1A1A1A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" text-anchor="end">89.1 GB</text>
+      <text x="28" y="194" fill="#6B6B6B" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20">Programas</text>
+      <text x="330" y="194" fill="#1A1A1A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" text-anchor="end">41.7 GB</text>
+      <text x="28" y="232" fill="#6B6B6B" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20">Temporales</text>
+      <text x="330" y="232" fill="#1A1A1A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" text-anchor="end">12.3 GB</text>
     </g>
   </g>
 </svg>
