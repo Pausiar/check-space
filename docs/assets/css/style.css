@@ -36,6 +36,7 @@
   --clr-accent:    #C96442;
   --clr-gold:      #D9922B;
   --clr-gold-deep: #8A5A00;
+  --clr-gold-warm: #B9770E;
   --clr-text:      #1A1A1A;
   --clr-muted:     #6B6B6B;
   --clr-muted-2:   #9A9A9A;
@@ -72,7 +73,7 @@ a:hover { color: var(--clr-primary-h); }
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--clr-primary) 0%, var(--clr-gold-deep) 100%);
+  background: linear-gradient(135deg, var(--clr-accent) 0%, var(--clr-gold-warm) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -373,7 +374,7 @@ a:hover { color: var(--clr-primary-h); }
 .stat-card strong {
   font-size: 1.8rem;
   font-weight: 800;
-  background: linear-gradient(135deg, var(--clr-primary), var(--clr-gold-deep));
+  background: linear-gradient(135deg, var(--clr-accent), var(--clr-gold-warm));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -455,7 +456,7 @@ a:hover { color: var(--clr-primary-h); }
 .step__number {
   font-size: 3rem;
   font-weight: 800;
-  background: linear-gradient(135deg, var(--clr-primary), var(--clr-gold-deep));
+  background: linear-gradient(135deg, var(--clr-accent), var(--clr-gold-warm));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
